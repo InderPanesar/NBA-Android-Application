@@ -8,7 +8,6 @@ import retrofit2.Retrofit;
 
 public class ExampleRepositoryImpl implements ExampleRepository {
 
-
     Retrofit retrofit;
 
     public ExampleRepositoryImpl(Retrofit _retrofit) {
