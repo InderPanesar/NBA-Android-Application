@@ -30,8 +30,6 @@ public class ExampleViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<ExampleModel>> call, Response<List<ExampleModel>> response) {
               if(!response.isSuccessful()) {
-                  Log.d("1", "HIT");
-                  //textViewResult.setText("Code: " + response.code());
                   data.postValue("Code: " + response.code());
                   return;
               }
@@ -49,7 +47,6 @@ public class ExampleViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<ExampleModel>> call, Throwable t) {
-                Log.d("3", "HIT");
                 data.postValue("Error:" + t.getMessage());
 
             }

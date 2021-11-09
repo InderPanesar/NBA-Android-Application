@@ -2,10 +2,8 @@ package com.aston.basicarchitecture.engine.comms.api;
 
 import com.aston.basicarchitecture.engine.repository.ExampleRepository;
 import com.aston.basicarchitecture.engine.repository.ExampleRepositoryImpl;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;

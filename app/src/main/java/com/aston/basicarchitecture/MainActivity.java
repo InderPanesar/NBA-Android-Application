@@ -3,9 +3,7 @@ package com.aston.basicarchitecture;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import androidx.lifecycle.Observer;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,6 +29,5 @@ public class MainActivity extends AppCompatActivity {
         };
 
         exampleViewModel.getList().observe(this, nameObserver);
-        
     }
 }
