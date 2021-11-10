@@ -64,7 +64,7 @@ public class landingPage extends Fragment {
             }
         });
 
-        //Get Activities.
+        //Get Activities and set Back Button - NOTE: NEEDS TO BE DONE FOR EACH FRAGMENT!
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
