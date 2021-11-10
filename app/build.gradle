@@ -43,6 +43,9 @@ dependencies {
 
     //Hilt
     implementation 'com.google.dagger:hilt-android:2.40'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.40'
 
 
