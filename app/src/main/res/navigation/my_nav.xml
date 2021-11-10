@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/landingPage">
+
+    <fragment
+        android:id="@+id/landingPage"
+        android:name="com.aston.basicarchitecture.landingPage"
+        android:label="fragment_landing_page"
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landingPage_to_mainpage2"
+            app:destination="@id/mainpage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/landingPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainpage"
+        android:name="com.aston.basicarchitecture.mainpage"
+        android:label="fragment_mainpage"
+        tools:layout="@layout/fragment_mainpage" />
+</navigation>
