@@ -15,7 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class ExampleAPIModule {
 
-    private final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+    private final String BASE_URL = "https://api-nba-v1.p.rapidapi.com";
+
 
     @Singleton
     @Provides
@@ -35,3 +36,5 @@ public class ExampleAPIModule {
         return new ExampleRepositoryImpl(provideRetrofit());
     }
 }
+
+

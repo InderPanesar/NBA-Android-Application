@@ -15,8 +15,8 @@ public class ExampleRepositoryImpl implements ExampleRepository {
     }
 
     @Override
-    public Call<List<ExampleModel>> getPosts() {
+    public Call<ExampleModel> getSeason() {
         ExampleAPI api = retrofit.create(ExampleAPI.class);
-        return api.getPosts();
+        return api.getSeasons();
     }
 }
