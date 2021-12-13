@@ -1,4 +1,4 @@
-package com.aston.basicarchitecture;
+package com.aston.basicarchitecture.pages.home.main;
 
 import android.util.Log;
 import androidx.lifecycle.LiveData;
@@ -24,6 +24,11 @@ public class ExampleViewModel extends ViewModel {
     }
 
     LiveData<String> getList() {
+        MutableLiveData<String> data = new MutableLiveData<>();
+        data.postValue("Disabled! Check ViewModel!");
+        return data;
+
+        /*
         MutableLiveData<String> data = new MutableLiveData<>();
         Log.d("HIT", "GOT LIST");
         repository.getSeason().enqueue(new Callback<ExampleModel>() {
@@ -52,7 +57,7 @@ public class ExampleViewModel extends ViewModel {
 
             }
         });
-        return data;
+         */
 
     }
 }

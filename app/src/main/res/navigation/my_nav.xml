@@ -7,19 +7,37 @@
 
     <fragment
         android:id="@+id/landingPage"
-        android:name="com.aston.basicarchitecture.landingPage"
-        android:label="fragment_landing_page"
-        tools:layout="@layout/fragment_landing_page" >
+        android:name="com.aston.basicarchitecture.pages.home.main.landingPage"
+        android:label="Home"
+        tools:layout="@layout/fragment_landing_page" />
+    <fragment
+        android:id="@+id/teams"
+        android:name="com.aston.basicarchitecture.pages.home.teams.TeamsBaseFragment"
+        android:label="Teams"
+        tools:layout="@layout/fragment_teams" >
         <action
-            android:id="@+id/action_landingPage_to_mainpage2"
-            app:destination="@id/mainpage"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/landingPage" />
+            android:id="@+id/action_teams_to_teamDialogFragment"
+            app:destination="@id/teamDialogFragment"
+            app:popUpTo="@id/teams" />
     </fragment>
     <fragment
-        android:id="@+id/mainpage"
-        android:name="com.aston.basicarchitecture.mainpage"
-        android:label="fragment_mainpage"
-        tools:layout="@layout/fragment_mainpage" />
+        android:id="@+id/schedule"
+        android:name="com.aston.basicarchitecture.pages.home.schedule.ScheduleBaseFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" />
+    <fragment
+        android:id="@+id/players"
+        android:name="com.aston.basicarchitecture.pages.home.players.PlayersBaseFragment"
+        android:label="Players"
+        tools:layout="@layout/fragment_players" />
+    <fragment
+        android:id="@+id/stadiums"
+        android:name="com.aston.basicarchitecture.pages.home.stadiums.StadiumsBaseFragment"
+        android:label="Stadiums"
+        tools:layout="@layout/fragment_stadiums" />
+    <fragment
+        android:id="@+id/teamDialogFragment"
+        android:name="com.aston.basicarchitecture.TeamDialogFragment"
+        android:label="fragment_team_dialog"
+        tools:layout="@layout/fragment_team_dialog" />
 </navigation>
