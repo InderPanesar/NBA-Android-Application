@@ -1,24 +1,22 @@
-package com.aston.basicarchitecture;
+package com.aston.basicarchitecture.pages.home.main;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.aston.basicarchitecture.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link landingPage#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class landingPage extends Fragment {
 
@@ -27,25 +25,8 @@ public class landingPage extends Fragment {
 
     public landingPage() { }
 
-    public static landingPage newInstance(String param1, String param2) {
-        landingPage fragment = new landingPage();
-        Bundle args = new Bundle();
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            return false;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,13 +41,9 @@ public class landingPage extends Fragment {
         textViewResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_landingPage_to_mainpage2);
+                //Navigation.findNavController(view).navigate(R.id.action_landingPage_to_mainpage2);
             }
         });
-
-        //Get Activities and set Back Button - NOTE: NEEDS TO BE DONE FOR EACH FRAGMENT!
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         //Set the ViewModel
         exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);

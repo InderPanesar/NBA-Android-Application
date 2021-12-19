@@ -2,6 +2,11 @@ package com.aston.basicarchitecture.engine.comms.api;
 
 import com.aston.basicarchitecture.engine.repository.ExampleRepository;
 import com.aston.basicarchitecture.engine.repository.ExampleRepositoryImpl;
+import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
+import com.aston.basicarchitecture.engine.repository.players.PlayersRepositoryImpl;
+import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
+import com.aston.basicarchitecture.engine.repository.teams.TeamsRepositoryImpl;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import dagger.Module;
@@ -15,7 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class ExampleAPIModule {
 
-    private final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+    private final String BASE_URL = "https://api-nba-v1.p.rapidapi.com";
+
 
     @Singleton
     @Provides
@@ -34,4 +40,20 @@ public class ExampleAPIModule {
     ExampleRepository provideExampleRepository() {
         return new ExampleRepositoryImpl(provideRetrofit());
     }
+
+    @Singleton
+    @Provides
+    @Named("TeamsRepository")
+    TeamsRepository provideTeamsRepository() {
+        return new TeamsRepositoryImpl(provideRetrofit());
+    }
+
+    @Singleton
+    @Provides
+    @Named("PlayersRepository")
+    PlayersRepository providePlayersRepository() {
+        return new PlayersRepositoryImpl(provideRetrofit());
+    }
 }
+
+

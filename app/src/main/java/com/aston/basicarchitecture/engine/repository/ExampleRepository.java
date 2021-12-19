@@ -5,6 +5,6 @@ import java.util.List;
 import retrofit2.Call;
 
 public interface ExampleRepository {
-    Call<List<ExampleModel>> getPosts();
+    Call<ExampleModel> getSeason();
 }
 

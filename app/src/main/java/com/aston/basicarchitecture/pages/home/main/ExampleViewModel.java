@@ -1,4 +1,4 @@
-package com.aston.basicarchitecture;
+package com.aston.basicarchitecture.pages.home.main;
 
 import android.util.Log;
 import androidx.lifecycle.LiveData;
@@ -25,33 +25,39 @@ public class ExampleViewModel extends ViewModel {
 
     LiveData<String> getList() {
         MutableLiveData<String> data = new MutableLiveData<>();
+        data.postValue("Disabled! Check ViewModel!");
+        return data;
+
+        /*
+        MutableLiveData<String> data = new MutableLiveData<>();
         Log.d("HIT", "GOT LIST");
-        repository.getPosts().enqueue(new Callback<List<ExampleModel>>() {
+        repository.getSeason().enqueue(new Callback<ExampleModel>() {
             @Override
-            public void onResponse(Call<List<ExampleModel>> call, Response<List<ExampleModel>> response) {
+            public void onResponse(Call<ExampleModel> call, Response<ExampleModel> response) {
               if(!response.isSuccessful()) {
                   data.postValue("Code: " + response.code());
                   return;
               }
-              List<ExampleModel> models = response.body();
-                String content = "";
-                for(ExampleModel model : models) {
-                    content += "ID: " + model.getId() + "\n";
-                    content += "User ID: " + model.getUserId() + "\n";
-                    content += "Title: " + model.getTitle() + "\n";
-                    content += "Text: " + model.getText() + "\n\n";
+              ExampleModel model = response.body();
+              String content = "";
+              content += "Status: " + model.getApi().getStatus() + "\n";
+              content += "Message: " + model.getApi().getMessage() + "\n";
+              content += "Results: " + model.getApi().getResults() + "\n\n";
+              content += "Seasons: " + "\n";
+              for(String season : model.getApi().getSeasons()) {
+                  content += season + "\n";
               }
-                data.postValue(content);
+              data.postValue(content);
 
             }
 
             @Override
-            public void onFailure(Call<List<ExampleModel>> call, Throwable t) {
+            public void onFailure(Call<ExampleModel> call, Throwable t) {
                 data.postValue("Error:" + t.getMessage());
 
             }
         });
-        return data;
+         */
 
     }
 }

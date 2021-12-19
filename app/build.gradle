@@ -14,7 +14,8 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        vectorDrawables.useSupportLibrary = true
+        generatedDensities = []
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,6 +28,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
     }
 }
 
@@ -46,7 +54,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.1'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.40'
+
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 
     // Hilt - For local unit tests

@@ -2,24 +2,15 @@ package com.aston.basicarchitecture.engine.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class ExampleModel {
 
-    private int userId;
-    private int id;
-    private String title;
-    @SerializedName("body")
-    private String text;
+    ExampleModelApi api;
 
-    public int getUserId() {
-        return userId;
-    }
-    public int getId() {
-        return id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public String getText() {
-        return text;
+    public ExampleModelApi getApi() {
+        return api;
     }
 }
+
+
