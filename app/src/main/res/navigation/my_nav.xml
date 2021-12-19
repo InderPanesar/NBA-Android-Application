@@ -37,7 +37,7 @@
         tools:layout="@layout/fragment_stadiums" />
     <fragment
         android:id="@+id/teamDialogFragment"
-        android:name="com.aston.basicarchitecture.TeamDialogFragment"
+        android:name="com.aston.basicarchitecture.pages.home.teams.dialog.TeamDialogFragment"
         android:label="fragment_team_dialog"
         tools:layout="@layout/fragment_team_dialog" />
 </navigation>

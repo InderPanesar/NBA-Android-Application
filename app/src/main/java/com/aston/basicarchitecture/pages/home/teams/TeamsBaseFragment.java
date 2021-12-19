@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,9 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
     ArrayList<IndividualTeamsModel> teams = new ArrayList<IndividualTeamsModel>();
     private TeamsBaseViewModel teamsBaseViewModel;
+
+    private static final String TeamName = "";
+    private static final String TeamID = "";
 
     public TeamsBaseFragment() {
         // Required empty public constructor
@@ -82,9 +86,6 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         teamsBaseViewModel = new ViewModelProvider(this.getActivity()).get(TeamsBaseViewModel.class);
 
 
-
-
-
         //Observer
         Observer<ArrayList<IndividualTeamsModel>> nameObserver = new Observer<ArrayList<IndividualTeamsModel>>() {
             @Override
@@ -107,7 +108,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 bar.setVisibility(View.VISIBLE);
-                teamsBaseViewModel.getTeams("east").observe(getViewLifecycleOwner(), nameObserver);;
+                teamsBaseViewModel.getTeams("east").observe(getViewLifecycleOwner(), nameObserver);
             }
         });
 
@@ -117,7 +118,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 bar.setVisibility(View.VISIBLE);
-                teamsBaseViewModel.getTeams("west").observe(getViewLifecycleOwner(), nameObserver);;
+                teamsBaseViewModel.getTeams("west").observe(getViewLifecycleOwner(), nameObserver);
             }
         });
 
@@ -128,6 +129,9 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
     @Override
     public void cardClicked(View v, IndividualTeamsModel teamsModel) {
-        Log.d("CLICKED CARD", teamsModel.getFullName());
+        Bundle bundle = new Bundle();
+        bundle.putString("teamId", teamsModel.getTeamId());
+        bundle.putString("teamName", teamsModel.getFullName());
+        Navigation.findNavController(v).navigate(R.id.action_teams_to_teamDialogFragment, bundle);
     }
 }

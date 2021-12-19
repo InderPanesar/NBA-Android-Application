@@ -1,21 +1,31 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 
 import com.aston.basicarchitecture.R;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ScheduleBaseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ScheduleBaseFragment extends Fragment {
+public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+
+    MaterialButton scheduleButton;
+    DatePickerDialog datePickerDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +71,36 @@ public class ScheduleBaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        View v = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        scheduleButton = v.findViewById(R.id.ScheduleDatePickerButton);
+
+        scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
+
+
+
+
+        datePickerDialog = new DatePickerDialog(
+                getContext(), this, mYear, mMonth, mDay);
+
+        scheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.show();
+            }
+        });
+
+        return v;
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month).append("/").append(year).toString());
     }
 }

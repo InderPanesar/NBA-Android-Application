@@ -2,6 +2,8 @@ package com.aston.basicarchitecture.engine.comms.api;
 
 import com.aston.basicarchitecture.engine.repository.ExampleRepository;
 import com.aston.basicarchitecture.engine.repository.ExampleRepositoryImpl;
+import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
+import com.aston.basicarchitecture.engine.repository.players.PlayersRepositoryImpl;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepositoryImpl;
 
@@ -44,6 +46,13 @@ public class ExampleAPIModule {
     @Named("TeamsRepository")
     TeamsRepository provideTeamsRepository() {
         return new TeamsRepositoryImpl(provideRetrofit());
+    }
+
+    @Singleton
+    @Provides
+    @Named("PlayersRepository")
+    PlayersRepository providePlayersRepository() {
+        return new PlayersRepositoryImpl(provideRetrofit());
     }
 }
 

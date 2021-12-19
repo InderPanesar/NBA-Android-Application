@@ -78,7 +78,6 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
             itemListener.cardClicked(v, teams.get(getLayoutPosition()));
-            Navigation.findNavController(v).navigate(R.id.action_teams_to_teamDialogFragment);
         }
     }
 }

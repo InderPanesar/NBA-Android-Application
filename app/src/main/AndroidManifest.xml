@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BasicArchitecture"
         android:networkSecurityConfig="@xml/network_security_config">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB7Jza3FTy7rcTQntYPnrHrAdXLLDck74Y"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
