@@ -19,5 +19,11 @@
         <item
             android:id="@+id/stadiums"
             android:title="Stadiums" />
+
+        <item
+            android:id="@+id/settings"
+            android:title="Settings" />
     </group>
+
+
 </menu>

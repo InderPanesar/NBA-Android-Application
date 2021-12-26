@@ -2,16 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:gravity="bottom"
+    android:paddingTop="40dp"
+    android:paddingBottom="20dp"
+    android:background="@null"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat">
 
+    <ImageButton
+        android:id="@+id/drawer_close_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        android:background="@null"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_close" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/userFavouriteTeamCard"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:clickable="true"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="60dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="100dp"
+            android:layout_margin="5dp"
+            android:elevation="10dp">
+            <ImageView
+                android:src="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
+        android:id="@+id/playerTeamName"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="0dp"
-        android:text="Hello"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="25dp"
+        app:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="24sp"
+        android:autoSizeStepGranularity="2sp"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:text="Atlanta Hawks"/>
+
+
 
 </LinearLayout>
