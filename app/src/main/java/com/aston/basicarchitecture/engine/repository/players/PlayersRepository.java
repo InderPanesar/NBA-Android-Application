@@ -7,5 +7,7 @@ import retrofit2.Call;
 public interface PlayersRepository {
     Call<PlayerModel> getPlayers(String teamId);
     Call<PlayerModel> getPlayer(String playerId);
+    Call<PlayerModel> getAllPlayers();
+
 
 }

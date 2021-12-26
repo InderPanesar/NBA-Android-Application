@@ -30,8 +30,10 @@
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/ic_rocketsmarker.xml" value="0.3651041666666667" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/ic_warriorsmarker.xml" value="0.3770833333333333" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/ic_washingtonwizardsmarker.xml" value="0.2791666666666667" />
+        <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/playerteam_background_gradient.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/rounded_textview.xml" value="0.3651041666666667" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/drawable/teams_icon_item_styler.xml" value="0.2046875" />
+        <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout-v26/playerteam_icon_item.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/abb_bar_main.xml" value="0.32518115942028986" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/app_bar_main.xml" value="0.32518115942028986" />
@@ -40,6 +42,7 @@
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_landing_page.xml" value="0.34010416666666665" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_mainpage.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_players.xml" value="0.5" />
+        <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_players_detail.xml" value="0.18" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_schedule.xml" value="0.317481884057971" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_stadiums.xml" value="0.33" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_team_details_modal.xml" value="0.25" />
@@ -47,6 +50,7 @@
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/fragment_teams.xml" value="0.317481884057971" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/nav_header.xml" value="0.32518115942028986" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/players_icon_item.xml" value="0.25" />
+        <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/playerteam_icon_item.xml" value="0.18" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/schedule_icon_item.xml" value="0.25" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/layout/teams_icon_item.xml" value="0.5650793650793651" />
         <entry key="..\:/Users/Inder/Documents/GitHub/AndroidArchitectureSetup/app/src/main/res/menu/drawer_menu.xml" value="0.12760416666666666" />
