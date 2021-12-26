@@ -10,17 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.R;
+import com.aston.basicarchitecture.pages.home.teams.TeamsCardClicked;
+
 import java.util.ArrayList;
 
 public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.MyViewHolder> {
+    private static PlayersCardClicked itemListener;
+
     ArrayList<IndividualPlayerModel> players;
     Context context;
 
 
 
-    public PlayersBaseAdapter(Context ct, ArrayList<IndividualPlayerModel> _players) {
+    public PlayersBaseAdapter(Context ct, ArrayList<IndividualPlayerModel> _players, PlayersCardClicked _itemListener) {
         context = ct;
         players = _players;
+        itemListener = _itemListener;
     }
 
     @NonNull
@@ -57,7 +62,7 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //ToDo: Implement Team Logos.
 
         TextView playerJersey, playerName, playerDescriptors, playerPosition;
@@ -69,7 +74,13 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
             playerName = itemView.findViewById(R.id.cardPlayersName);
             playerDescriptors = itemView.findViewById(R.id.cardPlayersHeightAndWeight);
             playerPosition = itemView.findViewById(R.id.cardPlayersPosition);
+            itemView.setOnClickListener(this);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemListener.cardClicked(v, players.get(getLayoutPosition()));
         }
     }
 }

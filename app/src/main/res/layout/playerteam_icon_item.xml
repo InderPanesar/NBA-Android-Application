@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:cardCornerRadius="0dp"
+    app:backgroundTint="@null"
+    app:strokeColor="@color/black">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/playerteam_background_gradient"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="20dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            app:cardCornerRadius="60dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/playerTeamImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="100dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp">
+                <ImageView
+                    android:src="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:scaleType="centerCrop"
+                    />
+            </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:layout_margin="10dp"
+            android:layout_weight="120">
+            <TextView
+                android:id="@+id/playerTeamName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="24sp"
+                android:autoSizeStepGranularity="2sp"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Atlanta Hawks"/>
+            <TextView
+                android:id="@+id/playerTeamJersey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="26sp"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="#1">
+            </TextView>
+            <TextView
+                android:id="@+id/playerTeamPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:text="Position: Guard">
+            </TextView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playerTeamStatusCard"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/teal_200"
+                app:cardCornerRadius="60dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black">
+
+                <TextView
+                    android:id="@+id/playerTeamStatusTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="Active">
+                </TextView>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

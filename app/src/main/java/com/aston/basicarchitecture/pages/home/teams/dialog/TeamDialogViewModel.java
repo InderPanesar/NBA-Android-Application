@@ -50,7 +50,9 @@ public class TeamDialogViewModel extends ViewModel {
                         if(player.getLeagues() != null) {
                             if(player.getLeagues().getNBADetails() != null) {
                                 if(player.getLeagues().getNBADetails().getActive().equals("1")) {
-                                    filteredPlayers.add(player);
+                                    if(!player.getHeightInMetres().equals("") || !player.getWeightInKilometers().equals("")) {
+                                        filteredPlayers.add(player);
+                                    }
                                 }
                             }
                         }

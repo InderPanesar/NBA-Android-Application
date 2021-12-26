@@ -27,5 +27,11 @@ public class PlayersRepositoryImpl implements PlayersRepository{
         return api.getPlayer(playerId);
     }
 
+    @Override
+    public Call<PlayerModel> getAllPlayers() {
+        PlayersAPI api = retrofit.create(PlayersAPI.class);
+        return api.getAllPlayer();
+    }
+
 
 }
