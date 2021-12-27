@@ -41,6 +41,8 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     ScheduleBaseAdapter scheduleBaseAdapter;
 
     ArrayList<GamesModel> games = new ArrayList<>();
+    Observer<ArrayList<GamesModel>> nameObserver;
+
 
     public ScheduleBaseFragment() {
         // Required empty public constructor
@@ -81,7 +83,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
         scheduleButton = v.findViewById(R.id.ScheduleDatePickerButton);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
-        datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth, mDay);
+        datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth - 1, mDay);
         scheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +103,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
 
         //Observer
-        Observer<ArrayList<GamesModel>> nameObserver = new Observer<ArrayList<GamesModel>>() {
+        nameObserver = new Observer<ArrayList<GamesModel>>() {
             @Override
             public void onChanged(ArrayList<GamesModel> games) {
                 for(GamesModel model : games) {
@@ -120,6 +122,8 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month).append("/").append(year).toString());
+        scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month + 1).append("/").append(year).toString());
+        scheduleBaseViewModel.getGamesOnDate(year + "-" + (month+1) + "-" + dayOfMonth).observe(getViewLifecycleOwner(), nameObserver);
+
     }
 }

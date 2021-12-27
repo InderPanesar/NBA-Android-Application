@@ -53,5 +53,22 @@
         android:id="@+id/settings"
         android:name="com.aston.basicarchitecture.pages.home.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings_to_settingsCustomisationSettingsMenu"
+            app:destination="@id/settingsCustomisationSettingsMenu" />
+        <action
+            android:id="@+id/action_settings_to_fragmentFavouriteTeam"
+            app:destination="@id/fragmentFavouriteTeam" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsCustomisationSettingsMenu"
+        android:name="com.aston.basicarchitecture.pages.home.settings.customisationMenu.SettingsCustomisationSettingsMenu"
+        android:label="fragment_settings_customisation_settings_menu"
+        tools:layout="@layout/fragment_settings_customisation_settings_menu" />
+    <fragment
+        android:id="@+id/fragmentFavouriteTeam"
+        android:name="com.aston.basicarchitecture.pages.home.settings.favouriteTeam.fragmentFavouriteTeam"
+        android:label="fragment_favourite_team"
+        tools:layout="@layout/fragment_favourite_team" />
 </navigation>

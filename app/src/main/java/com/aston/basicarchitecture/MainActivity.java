@@ -3,6 +3,8 @@ package com.aston.basicarchitecture;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -68,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("String Help!", "String Help!");
+                //ToDo: Link to change teams.
             }
         });
 
 
-
+        setUpSharedPreferences();
     }
 
     @Override
@@ -80,6 +83,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
+    }
+
+    public void setUpSharedPreferences() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+
+        int numberOfGames = prefs.getInt("numberOfGames", -1);
+        if(numberOfGames == -1) {
+            editor.putInt("numberOfGames", 5);
+        }
+
+        int recentGamesPlayerProfileOne = prefs.getInt("recentGamesPlayerProfileOne",-1);
+        if(recentGamesPlayerProfileOne == -1) {
+            editor.putInt("recentGamesPlayerProfileOne", 1);
+            editor.putInt("recentGamesPlayerProfileTwo", 3);
+            editor.putInt("recentGamesPlayerProfileThree", 4);
+            editor.putInt("recentGamesPlayerProfileFour", 5);
+        }
     }
 
 
