@@ -52,10 +52,11 @@
                 android:text="Points Per Game">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/pointsPerGameSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -85,10 +86,11 @@
                 android:text="Assists Per Game">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/assistsPerGameSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -118,10 +120,11 @@
                 android:text="Rebounds Per Game">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/reboundsPerGameSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -151,10 +154,11 @@
                 android:text="Overall Field Goal Percentage">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/overallFieldGoalPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -184,10 +188,11 @@
                 android:text="3PFG%">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/threePointFieldGoalPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -217,10 +222,11 @@
                 android:text="2PFG%">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/twoPointFieldGoalPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -250,10 +256,11 @@
                 android:text="FT%">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/freeThrowPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -283,10 +290,11 @@
                 android:text="Free Throws Made">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/freeThrowsMadeSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -316,10 +324,11 @@
                 android:text="Plus Minus">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/plusMinusSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            </androidx.appcompat.widget.SwitchCompat>
+            </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
