@@ -104,7 +104,14 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[6]);
 
         textView = v.findViewById(R.id.playerTeamName);
-        textView.setText(teams.get(Integer.parseInt(playerAttributes[7])));
+
+        //If attribute 7 doesn't exist and is null
+        try {
+            textView.setText(teams.get(Integer.parseInt(playerAttributes[7])));
+        }
+        catch (NumberFormatException e) {
+            textView.setText("Infomation Not Available");
+        }
 
         textView = v.findViewById(R.id.playerTeamJersey);
         textView.setText(playerAttributes[8]);

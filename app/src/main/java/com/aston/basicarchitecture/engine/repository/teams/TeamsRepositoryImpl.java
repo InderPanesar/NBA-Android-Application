@@ -19,4 +19,10 @@ public class TeamsRepositoryImpl implements TeamsRepository {
         return api.getTeams(conference);
     }
 
+    @Override
+    public Call<TeamsModel> getTeam(String teamId) {
+        TeamsAPI api = retrofit.create(TeamsAPI.class);
+        return api.getTeam(teamId);
+    }
+
 }

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".pages.home.settings.customisationMenu.SettingsCustomisationSettingsMenu">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recent Games - Player Profile "
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Up To 4 Categories "
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        android:textSize="16sp">
+    </TextView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Points Per Game">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/pointsPerGameSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Assists Per Game">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/assistsPerGameSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Rebounds Per Game">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/reboundsPerGameSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Overall Field Goal Percentage">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/overallFieldGoalPercentageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="3PFG%">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/threePointFieldGoalPercentageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="2PFG%">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/twoPointFieldGoalPercentageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="FT%">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/freeThrowPercentageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Free Throws Made">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/freeThrowsMadeSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="16dp"
+        android:clipChildren="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sunglow"
+            android:paddingStart="20dp"
+            android:orientation="horizontal"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text="Plus Minus">
+            </TextView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/plusMinusSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.google.android.material.switchmaterial.SwitchMaterial>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>
