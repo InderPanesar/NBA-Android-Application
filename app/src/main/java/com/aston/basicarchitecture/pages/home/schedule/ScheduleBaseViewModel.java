@@ -1,6 +1,7 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +11,9 @@ import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
 import com.aston.basicarchitecture.engine.model.schedule.ScheduleModel;
+import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @HiltViewModel
-public class ScheduleBaseViewModel extends ViewModel {
+public class ScheduleBaseViewModel extends ViewModel  {
 
     ScheduleRepository repository;
     @Inject
@@ -32,6 +35,7 @@ public class ScheduleBaseViewModel extends ViewModel {
     }
 
     LiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
+        Log.d("UNSUCCESSFUL CALL", "" + date);
 
         MutableLiveData<ArrayList<GamesModel>> data = new MutableLiveData<>();
         repository.getGames(date).enqueue(new Callback<ScheduleModel>() {
@@ -42,6 +46,10 @@ public class ScheduleBaseViewModel extends ViewModel {
                 } else {
                     ScheduleModel model = response.body();
                     ArrayList<GamesModel> games = model.getApi().getGames();
+                    for(GamesModel _model : games)  {
+                        Log.d("SUCCESSFUL CALL", "" + _model.getGameId());
+                    }
+
                     data.postValue(games);
                 }
 
@@ -55,4 +63,8 @@ public class ScheduleBaseViewModel extends ViewModel {
         });
         return data;
     }
+
+
+
+
 }

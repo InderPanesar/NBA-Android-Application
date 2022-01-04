@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import com.aston.basicarchitecture.utils.AppConsts;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -48,6 +49,5 @@ public class SettingsTeamPreferenceViewModel extends ViewModel {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(AppConsts.TEAM_FAVOURITE_KEY, selectedValue).apply();
         Log.d("ADDED", "ID: " + String.valueOf(selectedValue));
-
     }
 }

@@ -201,6 +201,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/scheduleBoxScoreButton"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             app:cornerRadius="21dp"

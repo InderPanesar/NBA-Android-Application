@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,9 @@ import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
+import com.aston.basicarchitecture.pages.home.players.PlayersCardClicked;
 import com.aston.basicarchitecture.pages.home.teams.TeamsCardClicked;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
@@ -32,14 +35,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.MyViewHolder> {
+
+    private static ScheduleCardClicked itemListener;
+
     ArrayList<GamesModel> games;
     Context context;
 
 
 
-    public ScheduleBaseAdapter(Context ct, ArrayList<GamesModel> _games) {
+    public ScheduleBaseAdapter(Context ct, ArrayList<GamesModel> _games, ScheduleCardClicked _itemListener) {
         context = ct;
         games = _games;
+        itemListener = _itemListener;
     }
 
     @NonNull
@@ -54,6 +61,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ScheduleBaseAdapter.MyViewHolder holder, int position) {
+        GamesModel model = games.get(position);
         Picasso.get().load(games.get(position).gethTeam().getLogo()).into(holder.homeTeamLogo);
         holder.homeTeamScore.setText(games.get(position).gethTeam().getScore().getPoints());
         holder.homeTeamText.setText(games.get(position).gethTeam().getNickName());
@@ -84,6 +92,13 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
             LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
             holder.gameTimeStart.setText(outputFormatter.format(date));
         }
+
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemListener.scheduleCardClicked(holder.itemView, model);
+            }
+        });
     }
 
     @Override
@@ -96,7 +111,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
         ImageView homeTeamLogo;
         ImageView awayTeamLogo;
 
@@ -108,6 +123,8 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         TextView gameStatus;
         TextView gameTimeStart;
 
+        MaterialButton button;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             homeTeamLogo = itemView.findViewById(R.id.homeTeamImage);
@@ -118,8 +135,9 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
             awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
             gameStatus = itemView.findViewById(R.id.scheduleGameStatus);
             gameTimeStart = itemView.findViewById(R.id.scheduleGameTime);
-
+            button = itemView.findViewById(R.id.scheduleBoxScoreButton);
         }
+
 
     }
 }

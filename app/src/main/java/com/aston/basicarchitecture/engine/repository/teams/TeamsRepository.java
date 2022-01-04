@@ -5,4 +5,6 @@ import retrofit2.Call;
 
 public interface TeamsRepository {
     Call<TeamsModel> getTeams(String conference);
+    Call<TeamsModel> getTeam(String teamId);
+
 }

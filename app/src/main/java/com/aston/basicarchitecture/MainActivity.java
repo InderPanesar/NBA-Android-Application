@@ -21,6 +21,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.aston.basicarchitecture.utils.AppConsts;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -91,15 +92,15 @@ public class MainActivity extends AppCompatActivity {
 
         int numberOfGames = prefs.getInt("numberOfGames", -1);
         if(numberOfGames == -1) {
-            editor.putInt("numberOfGames", 5);
+            editor.putInt("numberOfGames", 5).apply();
         }
 
         int recentGamesPlayerProfileOne = prefs.getInt("recentGamesPlayerProfileOne",-1);
         if(recentGamesPlayerProfileOne == -1) {
-            editor.putInt("recentGamesPlayerProfileOne", 1);
-            editor.putInt("recentGamesPlayerProfileTwo", 3);
-            editor.putInt("recentGamesPlayerProfileThree", 4);
-            editor.putInt("recentGamesPlayerProfileFour", 5);
+            editor.putInt(AppConsts.RECENT_GAMES_ONE, 1);
+            editor.putInt(AppConsts.RECENT_GAMES_TWO, 3);
+            editor.putInt(AppConsts.RECENT_GAMES_THREE, 4);
+            editor.putInt(AppConsts.RECENT_GAMES_FOUR, 5).apply();
         }
     }
 

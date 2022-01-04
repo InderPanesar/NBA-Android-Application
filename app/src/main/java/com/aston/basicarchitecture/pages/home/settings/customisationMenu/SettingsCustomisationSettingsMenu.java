@@ -1,10 +1,12 @@
 package com.aston.basicarchitecture.pages.home.settings.customisationMenu;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,16 @@ import android.widget.Switch;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.SettingsTeamPreferenceViewModel;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.common.collect.HashBiMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,9 +34,9 @@ import java.util.List;
 public class SettingsCustomisationSettingsMenu extends Fragment {
 
 
-    SettingsTeamPreferenceViewModel viewModel;
-    List<SwitchMaterial> sliderList = new ArrayList<>();
-    List<SwitchMaterial> activeSwitches = new ArrayList<>();
+    SettingsCustomisationSettingsMenuViewModel viewModel;
+    HashBiMap<SwitchMaterial, Integer> sliderList = HashBiMap.create();
+    ArrayList<SwitchMaterial> activeSwitches = new ArrayList<> ();
 
     public SettingsCustomisationSettingsMenu() {
         // Required empty public constructor
@@ -57,51 +64,70 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment.
         View v = inflater.inflate(R.layout.fragment_settings_customisation_settings_menu, container, false);
-        viewModel = new ViewModelProvider(this.getActivity()).get(SettingsTeamPreferenceViewModel.class);
+        viewModel = new ViewModelProvider(this.getActivity()).get(SettingsCustomisationSettingsMenuViewModel.class);
 
         // Adds sliders to the view.
-        sliderList.add(v.findViewById(R.id.pointsPerGameSlider));
-        sliderList.add(v.findViewById(R.id.assistsPerGameSlider));
-        sliderList.add(v.findViewById(R.id.reboundsPerGameSlider));
-        sliderList.add(v.findViewById(R.id.overallFieldGoalPercentageSlider));
-        sliderList.add(v.findViewById(R.id.threePointFieldGoalPercentageSlider));
-        sliderList.add(v.findViewById(R.id.twoPointFieldGoalPercentageSlider));
-        sliderList.add(v.findViewById(R.id.freeThrowPercentageSlider));
-        sliderList.add(v.findViewById(R.id.freeThrowsMadeSlider));
-        sliderList.add(v.findViewById(R.id.plusMinusSlider));
+        sliderList.put(v.findViewById(R.id.pointsPerGameSlider), 1);
+        sliderList.put(v.findViewById(R.id.assistsPerGameSlider), 2);
+        sliderList.put(v.findViewById(R.id.reboundsPerGameSlider), 3);
+        sliderList.put(v.findViewById(R.id.overallFieldGoalPercentageSlider), 4);
+        sliderList.put(v.findViewById(R.id.threePointFieldGoalPercentageSlider), 5);
+        sliderList.put(v.findViewById(R.id.twoPointFieldGoalPercentageSlider), 6);
+        sliderList.put(v.findViewById(R.id.freeThrowPercentageSlider), 7);
+        sliderList.put(v.findViewById(R.id.freeThrowsMadeSlider), 8);
+        sliderList.put(v.findViewById(R.id.plusMinusSlider), 9);
 
-        for(SwitchMaterial _switch : sliderList) {
+
+        List<Integer> values = viewModel.getSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
+        for(int value : values) {
+            if(value != -1) {
+                Log.d("HIT ", String.valueOf(value));
+                SwitchMaterial _switch = sliderList.inverse().get(value);
+                _switch.setChecked(true);
+                activeSwitches.add(_switch);
+
+            }
+        }
+
+
+        for(SwitchMaterial _switch : sliderList.keySet()) {
             _switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked) { activeSwitches.add(_switch); }
                     else { activeSwitches.remove(_switch); }
-                    disableAllSwitches(activeSwitches.size());
+                    disableAllSwitches(activeSwitches.size(), false);
                 }
 
             });
         }
-
-
+        disableAllSwitches(activeSwitches.size(), true);
 
         return v;
     }
 
-    private void disableAllSwitches (int switchesActive) {
+    private void disableAllSwitches (int switchesActive, boolean initialRun) {
         if(switchesActive == 4) {
-            for(SwitchMaterial s : sliderList) {
+            for(SwitchMaterial s : sliderList.keySet()) {
                 if(!activeSwitches.contains(s)) {
                     s.setEnabled(false);
                 }
             }
         }
         else {
-            for(SwitchMaterial s : sliderList) {
+            for(SwitchMaterial s : sliderList.keySet()) {
                 if(!s.isEnabled()) {
                     s.setEnabled(true);
                 }
             }
+        }
+
+        if(!initialRun) {
+            List<Integer> values = new ArrayList<>();
+            for(SwitchMaterial _switch: activeSwitches) {
+                values.add(sliderList.get(_switch));
+            }
+            viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE), values);
         }
     }
 }

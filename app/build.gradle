@@ -61,7 +61,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-
+    //HashBiMaps
+    implementation "com.google.guava:guava:31.0.1-android"
+    api "com.google.guava:guava:31.0.1-android"
 
     // Hilt - For local unit tests
     testImplementation 'com.google.dagger:hilt-android-testing:2.40'

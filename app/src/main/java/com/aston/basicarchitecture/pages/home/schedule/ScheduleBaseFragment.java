@@ -21,8 +21,10 @@ import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.pages.home.players.PlayersBaseAdapter;
 import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,13 +34,15 @@ import java.util.Date;
  * Use the {@link ScheduleBaseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.OnDateSetListener, ScheduleCardClicked {
 
     MaterialButton scheduleButton;
     DatePickerDialog datePickerDialog;
     ScheduleBaseViewModel scheduleBaseViewModel;
     RecyclerView recyclerView;
     ScheduleBaseAdapter scheduleBaseAdapter;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar c;
 
     ArrayList<GamesModel> games = new ArrayList<>();
     Observer<ArrayList<GamesModel>> nameObserver;
@@ -76,7 +80,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH) + 1;
         int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -98,7 +102,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
-        scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games);
+        scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games, this);
         recyclerView.setAdapter(scheduleBaseAdapter);
 
 
@@ -115,15 +119,27 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
             }
         };
 
-        scheduleBaseViewModel.getGamesOnDate(mYear + "-" + mMonth + "-" + mDay).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
 
         return v;
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        c.set(year, month, dayOfMonth);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month + 1).append("/").append(year).toString());
-        scheduleBaseViewModel.getGamesOnDate(year + "-" + (month+1) + "-" + dayOfMonth).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
 
+    }
+
+    private void showBottomSheetDialog() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_modal_schedule);
+        bottomSheetDialog.show();
+    }
+
+    @Override
+    public void scheduleCardClicked(View v, GamesModel gamesModel) {
+        showBottomSheetDialog();
     }
 }
