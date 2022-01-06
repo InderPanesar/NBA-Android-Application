@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aston.basicarchitecture.MainActivity;
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.pages.home.teams.TeamsAdapter;
 import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
@@ -75,6 +76,7 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
             @Override
             public void onClick(View v) {
                 viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
+                ((MainActivity)getActivity()).updateNavBar();
                 fragmentFavouriteTeam.super.getActivity().onBackPressed();
             }
         });
@@ -85,7 +87,9 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
 
     @Override
     public void cardClicked(View v, TeamsRepo.LocalTeam team, Boolean isRemoved) {
-        if(!isRemoved) { viewModel.addTeamPreference(team.getId()); }
+        if(!isRemoved) {
+            viewModel.addTeamPreference(team.getId());
+        }
         else { viewModel.removeTeamPreference(); }
 
     }

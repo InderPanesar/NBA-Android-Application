@@ -8,7 +8,7 @@ public class TeamsRepo {
 
     ArrayList<LocalTeam> teamList = new ArrayList<>();
 
-    TeamsRepo() {
+    public TeamsRepo() {
         teamList.add(new LocalTeam(1, "Atlanta Hawks", "https://loodibee.com/wp-content/uploads/nba-atlanta-hawks-logo.png"));
         teamList.add(new LocalTeam(2, "Boston Celtics", "https://loodibee.com/wp-content/uploads/nba-boston-celtics-logo.png"));
         teamList.add(new LocalTeam(4, "Brooklyn Nets", "https://loodibee.com/wp-content/uploads/nba-brooklyn-nets-logo.png"));
@@ -68,8 +68,11 @@ public class TeamsRepo {
         }
     }
 
+    public ArrayList<LocalTeam> getTeamList() {
+        return teamList;
+    }
 
-    static class LocalTeam {
+    public static class LocalTeam {
         String name;
         int id;
         String logoURL;

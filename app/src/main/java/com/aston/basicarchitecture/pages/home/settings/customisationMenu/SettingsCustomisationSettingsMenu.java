@@ -71,8 +71,8 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
         sliderList.put(v.findViewById(R.id.assistsPerGameSlider), 2);
         sliderList.put(v.findViewById(R.id.reboundsPerGameSlider), 3);
         sliderList.put(v.findViewById(R.id.overallFieldGoalPercentageSlider), 4);
-        sliderList.put(v.findViewById(R.id.threePointFieldGoalPercentageSlider), 5);
-        sliderList.put(v.findViewById(R.id.twoPointFieldGoalPercentageSlider), 6);
+        sliderList.put(v.findViewById(R.id.stealsPercentageSlider), 5);
+        sliderList.put(v.findViewById(R.id.blocksPercentageSlider), 6);
         sliderList.put(v.findViewById(R.id.freeThrowPercentageSlider), 7);
         sliderList.put(v.findViewById(R.id.freeThrowsMadeSlider), 8);
         sliderList.put(v.findViewById(R.id.plusMinusSlider), 9);
