@@ -48,6 +48,7 @@ public class SettingsTeamPreferenceViewModel extends ViewModel {
     void setSharedPreferences(SharedPreferences pref) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(AppConsts.TEAM_FAVOURITE_KEY, selectedValue).apply();
+
         Log.d("ADDED", "ID: " + String.valueOf(selectedValue));
     }
 }

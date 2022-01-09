@@ -11,6 +11,7 @@ import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.engine.model.teams.TeamsModel;
 import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
 
@@ -31,15 +32,15 @@ public class TeamDialogViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
-    LiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
+    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
 
-        MutableLiveData<ArrayList<IndividualPlayerModel>> data = new MutableLiveData<>();
-        Log.d("HIT", "GOT PLAYER LIST");
+        StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
+        data.postLoading();
         repository.getPlayers(teamId).enqueue(new Callback<PlayerModel>() {
             @Override
             public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("UNSUCCESSFUL CALL", "" + response.code());
+                    data.postError(null);
                     return;
                 } else {
                     PlayerModel model = response.body();
@@ -57,15 +58,14 @@ public class TeamDialogViewModel extends ViewModel {
                             }
                         }
                     }
-                    data.postValue(filteredPlayers);
+                    data.postSuccess(filteredPlayers);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerModel> call, Throwable t) {
-                //Do Something here!
-                Log.d("UNSUCCESSFUL CALL", "" + t.getLocalizedMessage());
+                data.postError(t);
 
             }
 

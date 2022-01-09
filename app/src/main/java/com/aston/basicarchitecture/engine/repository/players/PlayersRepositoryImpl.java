@@ -3,6 +3,8 @@ package com.aston.basicarchitecture.engine.repository.players;
 import com.aston.basicarchitecture.engine.comms.api.players.PlayersAPI;
 import com.aston.basicarchitecture.engine.comms.api.teams.TeamsAPI;
 import com.aston.basicarchitecture.engine.model.player.PlayerModel;
+import com.aston.basicarchitecture.engine.model.player.stats.PlayerStatsModel;
+import com.aston.basicarchitecture.engine.model.player.stats.PlayerStatsModelApi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -31,6 +33,12 @@ public class PlayersRepositoryImpl implements PlayersRepository{
     public Call<PlayerModel> getAllPlayers() {
         PlayersAPI api = retrofit.create(PlayersAPI.class);
         return api.getAllPlayer();
+    }
+
+    @Override
+    public Call<PlayerStatsModel> getPlayerStats(String playerId) {
+        PlayersAPI api = retrofit.create(PlayersAPI.class);
+        return api.getPlayerStats(playerId);
     }
 
 

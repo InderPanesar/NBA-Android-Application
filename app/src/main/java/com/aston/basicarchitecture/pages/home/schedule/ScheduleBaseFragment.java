@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,8 @@ import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.pages.home.players.PlayersBaseAdapter;
 import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
@@ -45,7 +48,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     Calendar c;
 
     ArrayList<GamesModel> games = new ArrayList<>();
-    Observer<ArrayList<GamesModel>> nameObserver;
+    Observer<LiveDataStateData<ArrayList<GamesModel>>> nameObserver;
 
 
     public ScheduleBaseFragment() {
@@ -107,19 +110,38 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
 
         //Observer
-        nameObserver = new Observer<ArrayList<GamesModel>>() {
+        nameObserver = new Observer<LiveDataStateData<ArrayList<GamesModel>>>() {
             @Override
-            public void onChanged(ArrayList<GamesModel> games) {
-                for(GamesModel model : games) {
-                    Log.d("Player: ", model.getCity() + " " + model.getArena() + " " + model.getGameId());
+            public void onChanged(LiveDataStateData<ArrayList<GamesModel>> stateLiveData) {
+                switch (stateLiveData.getStatus()) {
+                    case SUCCESS:
+                        ArrayList<GamesModel> data = stateLiveData.getData();
+                        recyclerView.setVisibility(View.VISIBLE);
+                        scheduleBaseAdapter.setGames(data);
+                        UniversalErrorStateHandler.isSuccess(v);
+                        break;
+                    case ERROR:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
                 }
-                scheduleBaseAdapter.setGames(games);
-                recyclerView.setVisibility(View.VISIBLE);
-                //TODO: Loading State NOT VISIBLE
             }
+
+
         };
 
         scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
+
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
+            }
+        });
 
         return v;
     }
@@ -132,14 +154,14 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
     }
 
-    private void showBottomSheetDialog() {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_modal_schedule);
-        bottomSheetDialog.show();
+    private void showBottomSheetDialog(View v) {
+        Bundle b = new Bundle();
+        Navigation.findNavController(v).navigate(R.id.action_schedule_to_scheduleBottomSheetFragment, b);
+
     }
 
     @Override
     public void scheduleCardClicked(View v, GamesModel gamesModel) {
-        showBottomSheetDialog();
+        showBottomSheetDialog(getView());
     }
 }

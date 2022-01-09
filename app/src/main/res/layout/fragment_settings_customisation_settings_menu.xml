@@ -185,11 +185,11 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
-                android:text="3PFG%">
+                android:text="Steals">
             </TextView>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/threePointFieldGoalPercentageSlider"
+                android:id="@+id/stealsPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </com.google.android.material.switchmaterial.SwitchMaterial>
@@ -219,11 +219,11 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
-                android:text="2PFG%">
+                android:text="Blocks">
             </TextView>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/twoPointFieldGoalPercentageSlider"
+                android:id="@+id/blocksPercentageSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </com.google.android.material.switchmaterial.SwitchMaterial>

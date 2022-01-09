@@ -39,6 +39,7 @@
             android:layout_margin="5dp"
             android:elevation="10dp">
             <ImageView
+                android:id="@+id/playerTeamLogo"
                 android:src="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

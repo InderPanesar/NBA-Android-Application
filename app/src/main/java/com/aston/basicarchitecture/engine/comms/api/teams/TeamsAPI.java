@@ -14,6 +14,6 @@ public interface TeamsAPI {
     Call<TeamsModel> getTeams(@Path("conference") String conference);
 
     @Headers({"x-rapidapi-host:api-nba-v1.p.rapidapi.com", "x-rapidapi-key:5dbbf11d63msh76c8d4afa6cd3c7p16cdfejsn136e72230424"})
-    @GET("teams/teamId/{conference}/")
+    @GET("teams/teamId/{teamId}/")
     Call<TeamsModel> getTeam(@Path("teamId") String teamId);
 }

@@ -21,6 +21,9 @@ import android.widget.ProgressBar;
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.pages.home.main.ExampleViewModel;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 
 import java.util.ArrayList;
 
@@ -33,7 +36,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
     RecyclerView recyclerView;
     TeamsAdapter teamsAdapter;
-    ProgressBar bar;
+    String currentConference = "east";
 
 
     ArrayList<IndividualTeamsModel> teams = new ArrayList<IndividualTeamsModel>();
@@ -76,7 +79,6 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
         //recyclerView setup
         recyclerView = v.findViewById(R.id.teamsRecyclerView);
-        bar = v.findViewById(R.id.teamsRecyclerViewProgressBar);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setHasFixedSize(true);
         teamsAdapter = new TeamsAdapter(getContext(), teams, this);
@@ -87,28 +89,38 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
 
         //Observer
-        Observer<ArrayList<IndividualTeamsModel>> nameObserver = new Observer<ArrayList<IndividualTeamsModel>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
             @Override
-            public void onChanged(ArrayList<IndividualTeamsModel> individualTeamsModels) {
-                for(IndividualTeamsModel model : individualTeamsModels) {
-                    Log.d("TEAMS", model.getFullName());
+            public void onChanged(LiveDataStateData<ArrayList<IndividualTeamsModel>> stateLiveData) {
+                switch (stateLiveData.getStatus()) {
+                    case SUCCESS:
+                        ArrayList<IndividualTeamsModel> data = stateLiveData.getData();
+                        teamsAdapter.setTeams(data);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        UniversalErrorStateHandler.isSuccess(v);
+                        break;
+                    case ERROR:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
                 }
-                teamsAdapter.setTeams(individualTeamsModels);
-                recyclerView.setVisibility(View.VISIBLE);
-                bar.setVisibility(View.GONE);
             }
+
         };
 
-        //Set TextView with a list of api requests.
-        teamsBaseViewModel.getTeams("east").observe(getViewLifecycleOwner(), nameObserver);
+        teamsBaseViewModel.getTeams(currentConference).observe(getViewLifecycleOwner(), nameObserver);
 
         Button easternConferenceButton = (Button) v.findViewById(R.id.eastConferenceButton);
         easternConferenceButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
-                bar.setVisibility(View.VISIBLE);
-                teamsBaseViewModel.getTeams("east").observe(getViewLifecycleOwner(), nameObserver);
+                currentConference = "east";
+                teamsBaseViewModel.getTeams(currentConference).observe(getViewLifecycleOwner(), nameObserver);
             }
         });
 
@@ -117,13 +129,22 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             @Override
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
-                bar.setVisibility(View.VISIBLE);
-                teamsBaseViewModel.getTeams("west").observe(getViewLifecycleOwner(), nameObserver);
+                currentConference = "west";
+                teamsBaseViewModel.getTeams(currentConference).observe(getViewLifecycleOwner(), nameObserver);
+            }
+        });
+
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                teamsBaseViewModel.getTeams(currentConference).observe(getViewLifecycleOwner(), nameObserver);
             }
         });
 
         return v;
     }
+
+
 
 
 

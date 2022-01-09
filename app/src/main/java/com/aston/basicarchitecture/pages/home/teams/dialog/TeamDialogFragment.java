@@ -23,6 +23,8 @@ import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.pages.home.teams.TeamsAdapter;
 import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 
 import java.util.ArrayList;
 
@@ -87,20 +89,36 @@ public class TeamDialogFragment extends DialogFragment {
 
 
         //Observer
-        Observer<ArrayList<IndividualPlayerModel>> nameObserver = new Observer<ArrayList<IndividualPlayerModel>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
-            public void onChanged(ArrayList<IndividualPlayerModel> individualTeamsModels) {
-                for(IndividualPlayerModel model : individualTeamsModels) {
-                    Log.d("Player: ", model.getFirstName());
+            public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> stateLiveData) {
+                switch (stateLiveData.getStatus()) {
+                    case SUCCESS:
+                        ArrayList<IndividualPlayerModel> data = stateLiveData.getData();
+                        playersAdapter.setPlayers(data);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        UniversalErrorStateHandler.isSuccess(v);
+                        break;
+                    case ERROR:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
                 }
-                playersAdapter.setPlayers(individualTeamsModels);
-                recyclerView.setVisibility(View.VISIBLE);
-                //TODO: Loading State NOT VISIBLE
             }
         };
 
         teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
 
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
+            }
+        });
 
 
         return v;

@@ -10,6 +10,7 @@ import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.engine.model.teams.TeamsModel;
 import com.aston.basicarchitecture.engine.repository.ExampleRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +32,15 @@ public class TeamsBaseViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
-    LiveData<ArrayList<IndividualTeamsModel>> getTeams(String conference) {
+    StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams(String conference) {
 
-        MutableLiveData<ArrayList<IndividualTeamsModel>> data = new MutableLiveData<>();
-        Log.d("HIT", "GOT LIST");
+        StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
+        data.postLoading();
         repository.getTeams(conference).enqueue(new Callback<TeamsModel>() {
             @Override
             public void onResponse(Call<TeamsModel> call, Response<TeamsModel> response) {
               if(!response.isSuccessful()) {
-                  //data.postValue("Code: " + response.code());
-                  Log.d("UNSUCCESSFUL CALL", "" + response.code());
-                  return;
+                  data.postError(null);
               }
               else {
                   TeamsModel model = response.body();
@@ -53,7 +52,7 @@ public class TeamsBaseViewModel extends ViewModel {
                           filteredTeams.add(team);
                       }
                   }
-                  data.postValue(filteredTeams);
+                  data.postSuccess(filteredTeams);
               }
 
             }
@@ -61,8 +60,7 @@ public class TeamsBaseViewModel extends ViewModel {
             @Override
             public void onFailure(Call<TeamsModel> call, Throwable t) {
                 //Do Something here!
-                Log.d("UNSUCCESSFUL CALL", "" + t.getLocalizedMessage());
-
+                data.postError(t);
             }
 
         });

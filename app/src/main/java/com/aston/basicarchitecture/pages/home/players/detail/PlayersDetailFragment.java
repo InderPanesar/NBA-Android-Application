@@ -1,17 +1,33 @@
 package com.aston.basicarchitecture.pages.home.players.detail;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.os.StrictMode;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.aston.basicarchitecture.R;
+import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
+import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
+import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +40,11 @@ public class PlayersDetailFragment extends Fragment {
 
 
     Map<Integer, String> teams;
+    PlayersDetailViewModel viewModel;
+    TableLayout tableLayout;
+    ArrayList<TableRow> removeRows = new ArrayList<>();
+
+
     public PlayersDetailFragment() {
         // Required empty public constructor
     }
@@ -42,6 +63,14 @@ public class PlayersDetailFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onDestroy() {
+        for(TableRow row : removeRows) {
+            tableLayout.removeView(row);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -102,8 +131,9 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[5]);
         textView = v.findViewById(R.id.playersDetailWeight);
         textView.setText(playerAttributes[6]);
-
         textView = v.findViewById(R.id.playerTeamName);
+
+        tableLayout = v.findViewById(R.id.teamPlayerStats);
 
         //If attribute 7 doesn't exist and is null
         try {
@@ -124,7 +154,72 @@ public class PlayersDetailFragment extends Fragment {
         else {
             textView.setText("Not Active");
         }
+
+        viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
+
+
+        Observer<ArrayList<SinglePlayerStatsAdapter>> nameObserver = new Observer<ArrayList<SinglePlayerStatsAdapter>>() {
+            @Override
+            public void onChanged(ArrayList<SinglePlayerStatsAdapter> stats) {
+                for(SinglePlayerStatsAdapter model : stats) {
+                    Log.d("Player: ", String.valueOf(model.getAttributes().size()));
+                }
+                setTable(v, stats);
+                //TODO: Loading State NOT VISIBLE
+            }
+        };
+
+        viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), nameObserver);
+
+
+
         return v;
+    }
+
+
+    public void setTable (View v, ArrayList<SinglePlayerStatsAdapter> stats) {
+
+        for(TableRow row : removeRows) {
+            tableLayout.removeView(row);
+
+        }
+
+
+        if(stats.size() == 0) {
+            tableLayout.setVisibility(View.INVISIBLE);
+        }
+        else {
+            TableRow topRow = new TableRow(getContext());
+            for( String header : stats.get(0).topics) {
+                TextView tv0 = new TextView(getContext());
+                tv0.setText(header);
+                tv0.setTextColor(Color.BLACK);
+                tv0.setGravity(Gravity.CENTER);
+                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                topRow.addView(tv0);
+                removeRows.add(topRow);
+            }
+            tableLayout.addView(topRow);
+            for (SinglePlayerStatsAdapter _stats : stats) {
+                TableRow tbrow = new TableRow(getContext());
+                Log.d("HELP", String.valueOf(stats.size()));
+                for(String value : _stats.attributes) {
+                    TextView tv = new TextView(getContext());
+                    tv.setText(value);
+                    tv.setTextColor(Color.BLACK);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                    tbrow.addView(tv);
+                    removeRows.add(tbrow);
+                }
+                tableLayout.addView(tbrow);
+
+
+            }
+
+
+        }
+
     }
 
 

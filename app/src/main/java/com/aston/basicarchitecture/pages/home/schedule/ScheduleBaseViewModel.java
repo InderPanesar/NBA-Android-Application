@@ -13,6 +13,7 @@ import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
 import com.aston.basicarchitecture.engine.model.schedule.ScheduleModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -34,30 +35,28 @@ public class ScheduleBaseViewModel extends ViewModel  {
         repository = exampleRepository;
     }
 
-    LiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
+    StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
         Log.d("UNSUCCESSFUL CALL", "" + date);
 
-        MutableLiveData<ArrayList<GamesModel>> data = new MutableLiveData<>();
+        StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
+        data.postLoading();
+
         repository.getGames(date).enqueue(new Callback<ScheduleModel>() {
             @Override
             public void onResponse(Call<ScheduleModel> call, Response<ScheduleModel> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("UNSUCCESSFUL CALL", "" + response.code());
+                    data.postError(null);
                 } else {
                     ScheduleModel model = response.body();
                     ArrayList<GamesModel> games = model.getApi().getGames();
-                    for(GamesModel _model : games)  {
-                        Log.d("SUCCESSFUL CALL", "" + _model.getGameId());
-                    }
-
-                    data.postValue(games);
+                    data.postSuccess(games);
+                    Log.d("HIT", "made it here!");
                 }
 
             }
             @Override
             public void onFailure(Call<ScheduleModel> call, Throwable t) {
-                //Do Something here!
-                Log.d("UNSUCCESSFUL CALL", "" + t.getLocalizedMessage());
+                data.postError(t);
             }
 
         });

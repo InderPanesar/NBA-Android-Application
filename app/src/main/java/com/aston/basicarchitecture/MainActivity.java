@@ -11,19 +11,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.SettingsTeamsAdapter;
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.fragmentFavouriteTeam;
 import com.aston.basicarchitecture.utils.AppConsts;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setUpSharedPreferences();
+        updateNavBar();
     }
 
     @Override
@@ -102,6 +110,51 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt(AppConsts.RECENT_GAMES_THREE, 4);
             editor.putInt(AppConsts.RECENT_GAMES_FOUR, 5).apply();
         }
+    }
+
+    public int readHeaderPreferences() {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        return prefs.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
+    }
+
+    public void updateNavBar() {
+        int headerValue = readHeaderPreferences();
+        NavigationView navView = findViewById(R.id.nav_view);
+        View header = navView.getHeaderView(0);
+        TextView view = header.findViewById(R.id.playerTeamName);
+        ImageView imageView = header.findViewById(R.id.playerTeamLogo);
+        MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
+
+        if(headerValue != -1) {
+            TeamsRepo repo = new TeamsRepo();
+            for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
+                if(headerValue == team.getId()) {
+                    view.setText(team.getName());
+                    Picasso.get().load(team.getLogoURL()).fit().centerCrop().into(imageView);
+                }
+            }
+        }
+        else {
+            view.setText("Basketball Bonaza");
+            Picasso.get().load("https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png").fit().into(imageView);
+
+        }
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ToDo: Look into showing a new fragment
+
+                /* Look into how to implement this.
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    Fragment fragmentDemo = new fragmentFavouriteTeam();
+                    ft.add(R.id.fragmentContainerView, fragmentDemo, fragmentDemo.getClass().getSimpleName());
+                    ft.addToBackStack(fragmentDemo.getClass().getSimpleName());
+                    ft.commit();
+                */
+            }
+        });
+
     }
 
 
