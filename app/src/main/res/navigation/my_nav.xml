@@ -24,7 +24,11 @@
         android:id="@+id/schedule"
         android:name="com.aston.basicarchitecture.pages.home.schedule.ScheduleBaseFragment"
         android:label="Schedule"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_schedule_to_scheduleBottomSheetFragment"
+            app:destination="@id/scheduleBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/players"
         android:name="com.aston.basicarchitecture.pages.home.players.PlayersBaseFragment"
@@ -71,4 +75,9 @@
         android:name="com.aston.basicarchitecture.pages.home.settings.favouriteTeam.fragmentFavouriteTeam"
         android:label="Favourite Team"
         tools:layout="@layout/fragment_favourite_team" />
+    <dialog
+        android:id="@+id/scheduleBottomSheetFragment"
+        android:name="com.aston.basicarchitecture.pages.home.schedule.detail.ScheduleBottomSheetFragment"
+        android:label="fragment_schedule_bottom_sheet_list_dialog"
+        tools:layout="@layout/fragment_schedule_bottom_sheet" />
 </navigation>

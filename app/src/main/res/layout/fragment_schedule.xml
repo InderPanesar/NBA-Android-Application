@@ -21,13 +21,26 @@
         >
     </com.google.android.material.button.MaterialButton>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="16dp"
-        android:id="@+id/scheduleRecyclerView"
+    <FrameLayout
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/schedule_icon_item"
-        tools:itemCount="3" />
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/loading_error_states"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scheduleRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/schedule_icon_item"
+            tools:itemCount="3" />
+
+    </FrameLayout>
+
+
 
 </LinearLayout>

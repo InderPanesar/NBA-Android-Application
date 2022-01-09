@@ -26,16 +26,27 @@
             android:text="Players"
             android:textSize="26sp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="16dp"
-            android:id="@+id/playersRecyclerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/players_icon_item"
-            tools:itemCount="3"
-            tools:orientation="horizontal" />
+            android:layout_height="match_parent">
+
+            <include
+                layout="@layout/loading_error_states"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="16dp"
+                android:id="@+id/playersRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/players_icon_item"
+                tools:itemCount="3"
+                tools:orientation="horizontal" />
+        </FrameLayout>
+
 
     </LinearLayout>
 
