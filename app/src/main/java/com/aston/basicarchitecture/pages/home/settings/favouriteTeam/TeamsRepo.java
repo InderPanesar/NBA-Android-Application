@@ -37,7 +37,7 @@ public class TeamsRepo {
         teamList.add(new LocalTeam(30, "Sacramento Kings", "https://upload.wikimedia.org/wikipedia/en/c/c7/SacramentoKings.svg"));
         teamList.add(new LocalTeam(31, "San Antonio Spurs", "https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg"));
         teamList.add(new LocalTeam(38, "Toronto Raptors", "https://upload.wikimedia.org/wikipedia/en/3/36/Toronto_Raptors_logo.svg"));
-        teamList.add(new LocalTeam(40, "Washington Wizards", "https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg"));
+        teamList.add(new LocalTeam(41, "Washington Wizards", "https://upload.wikimedia.org/wikipedia/en/0/02/Washington_Wizards_logo.svg"));
     }
 
     public void setSelected(LocalTeam team) {

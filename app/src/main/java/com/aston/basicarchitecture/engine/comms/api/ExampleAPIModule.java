@@ -6,6 +6,8 @@ import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
 import com.aston.basicarchitecture.engine.repository.players.PlayersRepositoryImpl;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepositoryImpl;
+import com.aston.basicarchitecture.engine.repository.standings.StandingsRepository;
+import com.aston.basicarchitecture.engine.repository.standings.StandingsRepositoryImpl;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepositoryImpl;
 
@@ -36,6 +38,7 @@ public class ExampleAPIModule {
 
     }
 
+    //ToDo: Remove this example repository.
     @Singleton
     @Provides
     @Named("ExampleRepository")
@@ -59,6 +62,11 @@ public class ExampleAPIModule {
     @Provides
     @Named("ScheduleRepository")
     ScheduleRepository provideScheduleRepository() { return new ScheduleRepositoryImpl(provideRetrofit()); }
+
+    @Singleton
+    @Provides
+    @Named("StandingsRepository")
+    StandingsRepository provideStandingsRepository() { return new StandingsRepositoryImpl(provideRetrofit()); }
 }
 
 
