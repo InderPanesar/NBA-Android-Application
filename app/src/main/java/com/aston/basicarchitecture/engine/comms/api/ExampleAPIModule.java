@@ -11,12 +11,18 @@ import com.aston.basicarchitecture.engine.repository.standings.StandingsReposito
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepositoryImpl;
 
+import java.io.IOException;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,17 +31,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ExampleAPIModule {
 
     private final String BASE_URL = "https://api-nba-v1.p.rapidapi.com";
+    private final String HOST = "api-nba-v1.p.rapidapi.com";
+    private final String KEY = "5dbbf11d63msh76c8d4afa6cd3c7p16cdfejsn136e72230424";
 
 
     @Singleton
     @Provides
     @Named("AppRetrofit")
     Retrofit provideRetrofit() {
-        return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request().newBuilder()
+                        .addHeader("x-rapidapi-host", HOST)
+                        .addHeader("x-rapidapi-key", KEY)
+                        .build();
+                return chain.proceed(request);
+            }
+        });
+        return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(httpClient.build()).build();
     }
 
     //ToDo: Remove this example repository.
