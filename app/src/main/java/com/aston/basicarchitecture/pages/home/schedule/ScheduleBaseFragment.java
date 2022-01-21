@@ -115,9 +115,9 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
             public void onChanged(LiveDataStateData<ArrayList<GamesModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
                     case SUCCESS:
-                        ArrayList<GamesModel> data = stateLiveData.getData();
+                        games = stateLiveData.getData();
                         recyclerView.setVisibility(View.VISIBLE);
-                        scheduleBaseAdapter.setGames(data);
+                        scheduleBaseAdapter.setGames(games);
                         UniversalErrorStateHandler.isSuccess(v);
                         break;
                     case ERROR:
@@ -154,14 +154,25 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
     }
 
-    private void showBottomSheetDialog(View v) {
+    private void showBottomSheetDialog(View v, GamesModel gamesModel) {
         Bundle b = new Bundle();
+        b.putString("homeTeamLogo", gamesModel.gethTeam().getLogo());
+        b.putString("homeTeamScore", gamesModel.gethTeam().getScore().getPoints());
+        b.putString("homeTeamNickName", gamesModel.gethTeam().getNickName());
+
+        b.putString("awayTeamLogo", gamesModel.getvTeam().getLogo());
+        b.putString("awayTeamScore", gamesModel.getvTeam().getScore().getPoints());
+        b.putString("awayTeamNickName", gamesModel.getvTeam().getNickName());
+
+        b.putString("gameId", gamesModel.getGameId());
+
+
         Navigation.findNavController(v).navigate(R.id.action_schedule_to_scheduleBottomSheetFragment, b);
 
     }
 
     @Override
     public void scheduleCardClicked(View v, GamesModel gamesModel) {
-        showBottomSheetDialog(getView());
+        showBottomSheetDialog(getView(), gamesModel);
     }
 }

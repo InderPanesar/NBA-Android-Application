@@ -1,5 +1,6 @@
 package com.aston.basicarchitecture.pages.home.main;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,9 +11,17 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aston.basicarchitecture.R;
+import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,7 +29,7 @@ import com.aston.basicarchitecture.R;
  */
 public class landingPage extends Fragment {
 
-    private TextView textViewResult;
+    private LinearLayout favouriteTeamWidget;
     private ExampleViewModel exampleViewModel;
 
     public landingPage() { }
@@ -36,29 +45,57 @@ public class landingPage extends Fragment {
         View v = inflater.inflate(R.layout.fragment_landing_page, container, false);
 
         //Get Text Area
-        textViewResult = (TextView) v.findViewById(R.id.textView1);
+        favouriteTeamWidget =  v.findViewById(R.id.favourite_team_widget);
 
-        //When Clicked Move to next fragment.
-        textViewResult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Navigation.findNavController(view).navigate(R.id.action_landingPage_to_mainpage2);
-            }
-        });
+
 
         //Set the ViewModel
         exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
 
-        //Observer
-        Observer<String> nameObserver = new Observer<String>() {
+        Observer<LiveDataStateData<ArrayList<String>>> nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
-            public void onChanged(@Nullable final String newName) {
-                textViewResult.setText(newName);
+            public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
+                switch (stateLiveData.getStatus()) {
+                    case SUCCESS:
+                        favouriteTeamWidget.setVisibility(View.VISIBLE);
+                        ArrayList<String> data = stateLiveData.getData();
+                        UniversalErrorStateHandler.isSuccess(v);
+                        String conferenceString = "";
+
+                        if(data.get(0).equals("east")) { conferenceString = conferenceString + "Eastern Conference : "; }
+                        else { conferenceString = conferenceString + "Western Conference : "; }
+                        conferenceString = conferenceString + data.get(1);
+                        TextView favouriteTeamConference = v.findViewById(R.id.favouriteTeamConferenceRanking);
+                        favouriteTeamConference.setText(conferenceString);
+
+                        String recordString = "Record : ";
+                        recordString = recordString + data.get(2) + " - " + data.get(3);
+                        TextView favouriteRecord = v.findViewById(R.id.favouriteTeamRecord);
+                        favouriteRecord.setText(recordString);
+
+                        TextView favouriteName = v.findViewById(R.id.favouriteTeamName);
+                        favouriteName.setText(exampleViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
+
+                        ImageView imageView = v.findViewById(R.id.favouriteTeamIconImage);
+                        Picasso.get().load(exampleViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
+
+
+                        break;
+                    case ERROR:
+                        favouriteTeamWidget.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        favouriteTeamWidget.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
+                }
             }
+
         };
 
-        //Set TextView with a list of api requests.
-        exampleViewModel.getList().observe(getViewLifecycleOwner(), nameObserver);
+        exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
+
 
         return v;
     }

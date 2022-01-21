@@ -20,4 +20,10 @@ public class StandingsRepositoryImpl implements StandingsRepository {
         StandingsAPI api = retrofit.create(StandingsAPI.class);
         return api.getStandings();
     }
+
+    @Override
+    public Call<StandingsModel> getSpecificTeamStandings(String teamId) {
+        StandingsAPI api = retrofit.create(StandingsAPI.class);
+        return api.getStandingForTeam(teamId);
+    }
 }

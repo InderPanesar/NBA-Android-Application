@@ -11,4 +11,7 @@ import retrofit2.http.Path;
 public interface StandingsAPI {
     @GET("/standings/standard/2021/")
     Call<StandingsModel> getStandings();
+
+    @GET("standings/standard/2021/teamId/{teamId}/")
+    Call<StandingsModel> getStandingForTeam(@Path("teamId") String teamId);
 }

@@ -1,11 +1,24 @@
 package com.aston.basicarchitecture.pages.home.main;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.aston.basicarchitecture.engine.model.ExampleModel;
+import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
+import com.aston.basicarchitecture.engine.model.player.PlayerModel;
+import com.aston.basicarchitecture.engine.model.standings.StandingsModel;
+import com.aston.basicarchitecture.engine.model.standings.TeamStandingModel;
 import com.aston.basicarchitecture.engine.repository.ExampleRepository;
+import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
+import com.aston.basicarchitecture.engine.repository.standings.StandingsRepository;
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
+import com.aston.basicarchitecture.utils.AppConsts;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
+
+import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,47 +30,74 @@ import retrofit2.Response;
 @HiltViewModel
 public class ExampleViewModel extends ViewModel {
 
-    ExampleRepository repository;
+    StandingsRepository repository;
     @Inject
-    ExampleViewModel(@Named("ExampleRepository") ExampleRepository exampleRepository) {
-        repository = exampleRepository;
+    ExampleViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
+        repository = standingsRepository;
     }
 
-    LiveData<String> getList() {
-        MutableLiveData<String> data = new MutableLiveData<>();
-        data.postValue("Disabled! Check ViewModel!");
-        return data;
+    StateMutableLiveData<ArrayList<String>> getPlayers(String teamId) {
 
-        /*
-        MutableLiveData<String> data = new MutableLiveData<>();
-        Log.d("HIT", "GOT LIST");
-        repository.getSeason().enqueue(new Callback<ExampleModel>() {
+        StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
+        data.postLoading();
+        repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
             @Override
-            public void onResponse(Call<ExampleModel> call, Response<ExampleModel> response) {
-              if(!response.isSuccessful()) {
-                  data.postValue("Code: " + response.code());
-                  return;
-              }
-              ExampleModel model = response.body();
-              String content = "";
-              content += "Status: " + model.getApi().getStatus() + "\n";
-              content += "Message: " + model.getApi().getMessage() + "\n";
-              content += "Results: " + model.getApi().getResults() + "\n\n";
-              content += "Seasons: " + "\n";
-              for(String season : model.getApi().getSeasons()) {
-                  content += season + "\n";
-              }
-              data.postValue(content);
+            public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
+                if (!response.isSuccessful()) {
+                    data.postError(null);
+                    return;
+                } else {
+                    StandingsModel model = response.body();
+                    TeamStandingModel teamStandingModel = model.getApi().getStandings().get(0);
+                    ArrayList<String> values = new ArrayList<>();
+                    values.add(teamStandingModel.getConference().getName());
+                    values.add(teamStandingModel.getConference().getRank());
+                    values.add(teamStandingModel.getConference().getWin());
+                    values.add(teamStandingModel.getConference().getLoss());
+                    data.postSuccess(values);
+                }
 
             }
 
             @Override
-            public void onFailure(Call<ExampleModel> call, Throwable t) {
-                data.postValue("Error:" + t.getMessage());
+            public void onFailure(Call<StandingsModel> call, Throwable t) {
+                data.postError(t);
 
             }
+
         });
-         */
-
+        return data;
     }
+
+    public String getFavouriteTeamLink(SharedPreferences pref) {
+        int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
+        TeamsRepo repo = new TeamsRepo();
+        for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
+            if(team.getId() == selectedValue) {
+                return team.getLogoURL();
+            }
+        }
+        return "";
+    }
+
+    public String getFavouriteTeamName(SharedPreferences pref) {
+        int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
+        TeamsRepo repo = new TeamsRepo();
+        for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
+            if(team.getId() == selectedValue) {
+                return team.getName();
+            }
+        }
+        return "";
+    }
+
+    public String getFavouriteId(SharedPreferences pref) {
+        int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
+        return selectedValue + "";
+    }
+
+
+
+
+
 }

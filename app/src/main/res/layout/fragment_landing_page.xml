@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     tools:context=".pages.home.main.landingPage">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text=''
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginBottom="16dp"
+        android:text="Favourite Team">
+    </TextView>
 
-</FrameLayout>
+    <include
+        layout="@layout/favourite_team_widget"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+
+
+</LinearLayout>
