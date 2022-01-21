@@ -68,7 +68,7 @@ public class TeamsRepo {
         }
     }
 
-    public ArrayList<LocalTeam> getTeamList() {
+    public  ArrayList<LocalTeam> getTeamList() {
         return teamList;
     }
 

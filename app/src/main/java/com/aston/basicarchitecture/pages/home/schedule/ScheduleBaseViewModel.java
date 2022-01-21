@@ -50,10 +50,10 @@ public class ScheduleBaseViewModel extends ViewModel  {
                     ScheduleModel model = response.body();
                     ArrayList<GamesModel> games = model.getApi().getGames();
                     data.postSuccess(games);
-                    Log.d("HIT", "made it here!");
                 }
 
             }
+
             @Override
             public void onFailure(Call<ScheduleModel> call, Throwable t) {
                 data.postError(t);
@@ -62,8 +62,4 @@ public class ScheduleBaseViewModel extends ViewModel  {
         });
         return data;
     }
-
-
-
-
 }

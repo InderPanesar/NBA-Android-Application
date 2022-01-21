@@ -1,14 +1,13 @@
-package com.aston.basicarchitecture.engine.model.standings;
+package com.aston.basicarchitecture.engine.model.schedule.gameStatistics;
 
 import java.util.List;
 
-public class StandingsModelApi {
-
+public class GameStatisticModelAPI {
     int status;
     String message;
     int results;
     List<String> filters;
-    List<TeamStandingModel> standings;
+    List<StatisticsModel> statistics;
 
     public int getStatus() {
         return status;
@@ -26,7 +25,7 @@ public class StandingsModelApi {
         return filters;
     }
 
-    public List<TeamStandingModel> getStandings() {
-        return standings;
+    public List<StatisticsModel> getStatistics() {
+        return statistics;
     }
 }
