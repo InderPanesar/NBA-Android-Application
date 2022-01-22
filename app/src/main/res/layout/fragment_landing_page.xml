@@ -1,26 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    tools:context=".pages.home.main.landingPage">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="26sp"
-        android:layout_marginBottom="16dp"
-        android:text="Favourite Team">
-    </TextView>
-
-    <include
-        layout="@layout/favourite_team_widget"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        tools:context=".pages.home.main.landingPage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Favourite Team">
+        </TextView>
+
+        <include
+            layout="@layout/favourite_team_widget"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:layout_marginBottom="16dp"
+            android:text="Schedule">
+        </TextView>
+
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/schedule_button_group"
+            android:layout_width="match_parent"
+            app:selectionRequired="true"
+            app:checkedButton="@id/east_schedule_button"
+            app:singleSelection="true"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            app:cornerRadius="1000dp"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/east_schedule_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="East"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/west_schedule_button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="West"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/schedule_statistics_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:visibility="gone"
+                android:gravity="center">
+            </TableLayout>
+
+            <ProgressBar
+                android:id="@+id/schedule_table_progress_bar"
+                style="?android:progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxHeight="50dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                />
+
+            <LinearLayout
+                android:id="@+id/schedule_table_error_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/error_with_api_call">
+                </TextView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/schedule_table_retry_button"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="Retry">
+                </com.google.android.material.button.MaterialButton>
+
+
+            </LinearLayout>
+        </FrameLayout>
 
 
 
-</LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
