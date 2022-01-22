@@ -1,27 +1,39 @@
 package com.aston.basicarchitecture.pages.home.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.aston.basicarchitecture.R;
+import com.aston.basicarchitecture.engine.model.standings.TeamStandingModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
+import com.aston.basicarchitecture.pages.home.players.detail.SinglePlayerStatsAdapter;
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,6 +43,7 @@ public class landingPage extends Fragment {
 
     private LinearLayout favouriteTeamWidget;
     private ExampleViewModel exampleViewModel;
+    private TableLayout tableLayout;
 
     public landingPage() { }
 
@@ -47,10 +60,9 @@ public class landingPage extends Fragment {
         //Get Text Area
         favouriteTeamWidget =  v.findViewById(R.id.favourite_team_widget);
 
-
-
         //Set the ViewModel
         exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
+        tableLayout = v.findViewById(R.id.schedule_statistics_table);
 
         Observer<LiveDataStateData<ArrayList<String>>> nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
@@ -96,7 +108,130 @@ public class landingPage extends Fragment {
 
         exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
 
+        Observer<LiveDataStateData<ArrayList<TeamStandingModel>>> scheduleObserver = new Observer<LiveDataStateData<ArrayList<TeamStandingModel>>>() {
+            @Override
+            public void onChanged(LiveDataStateData<ArrayList<TeamStandingModel>> stateLiveData) {
+                switch (stateLiveData.getStatus()) {
+                    case SUCCESS:
+                        tableLayout.removeAllViews();
+                        ArrayList<TeamStandingModel> data = stateLiveData.getData();
+                        setTable(v, data);
+                        Log.d("HIT", "SET TABLE");
+
+                        break;
+                    case ERROR:
+
+                        break;
+                    case LOADING:
+
+                        break;
+                }
+            }
+
+        };
+
+        exampleViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
+
+        MaterialButtonToggleGroup toggleGroup = v.findViewById(R.id.schedule_button_group);
+
+        MaterialButton eastButton = v.findViewById(R.id.east_schedule_button);
+        MaterialButton westButton = v.findViewById(R.id.west_schedule_button);
+
+        eastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exampleViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
+            }
+        });
+
+        westButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exampleViewModel.getSchedule("west").observe(getViewLifecycleOwner(), scheduleObserver);
+            }
+        });
+
+
+
+
+
+
+
 
         return v;
+    }
+
+    public void setTable (View v, ArrayList<TeamStandingModel> teams) {
+
+        if(teams.size() == 0) {
+            tableLayout.setVisibility(View.INVISIBLE);
+        }
+        else {
+            ArrayList<String> headers = new ArrayList<>();
+            headers.add("Seed");
+            headers.add("Logo");
+            headers.add("Team");
+            headers.add("Record");
+
+            TableRow topRow = new TableRow(getContext());
+            for( String header : headers) {
+                TextView tv0 = new TextView(getContext());
+                tv0.setText(header);
+                tv0.setTextColor(Color.BLACK);
+                tv0.setGravity(Gravity.CENTER);
+                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                topRow.addView(tv0);
+            }
+            tableLayout.addView(topRow);
+            int seed = 1;
+            for (TeamStandingModel team : teams) {
+                TableRow tbrow = new TableRow(getContext());
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tbrow.setLayoutParams(params);
+
+                TextView tv = new TextView(getContext());
+                tv.setText(team.getConference().getRank());
+                tv.setPadding(10, 30, 10, 30);
+
+                tv.setTextColor(Color.BLACK);
+                tv.setGravity(Gravity.CENTER);
+                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tbrow.addView(tv);
+
+                ImageView view = new ImageView(getContext());
+                view.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                Picasso.get()
+                        .load(exampleViewModel.getTeamLogo(team.getTeamId()))
+                        .into(view);
+                view.setLayoutParams(new TableRow.LayoutParams(113, 113));
+                tbrow.addView(view);
+
+
+                tv = new TextView(getContext());
+                tv.setText(exampleViewModel.getTeamName(team.getTeamId()));
+                tv.setTextColor(Color.BLACK);
+                tv.setGravity(Gravity.CENTER);
+                tv.setPadding(10, 30, 10, 30);
+                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tbrow.addView(tv);
+
+
+                tv = new TextView(getContext());
+                tv.setText(new StringBuilder().append(team.getConference().getWin()).append(" - ").append(team.getConference().getLoss()).toString());
+                tv.setTextColor(Color.BLACK);
+                tv.setGravity(Gravity.CENTER);
+                tv.setPadding(10, 30, 10, 30);
+                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tbrow.addView(tv);
+
+
+                tableLayout.addView(tbrow);
+
+
+            }
+
+
+        }
+
     }
 }
