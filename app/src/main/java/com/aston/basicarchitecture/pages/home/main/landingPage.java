@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class landingPage extends Fragment {
     private LinearLayout favouriteTeamWidget;
     private ExampleViewModel exampleViewModel;
     private TableLayout tableLayout;
+    private String conference = "east";
 
     public landingPage() { }
 
@@ -108,6 +110,10 @@ public class landingPage extends Fragment {
 
         exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
 
+        ProgressBar bar = v.findViewById(R.id.schedule_table_progress_bar);
+        LinearLayout errorStates = v.findViewById(R.id.schedule_table_error_state);
+        MaterialButton errorButtonSchedule = v.findViewById(R.id.schedule_table_retry_button);
+
         Observer<LiveDataStateData<ArrayList<TeamStandingModel>>> scheduleObserver = new Observer<LiveDataStateData<ArrayList<TeamStandingModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<TeamStandingModel>> stateLiveData) {
@@ -118,12 +124,19 @@ public class landingPage extends Fragment {
                         setTable(v, data);
                         Log.d("HIT", "SET TABLE");
 
+                        bar.setVisibility(View.INVISIBLE);
+                        tableLayout.setVisibility(View.VISIBLE);
+                        errorStates.setVisibility(View.INVISIBLE);
                         break;
                     case ERROR:
-
+                        bar.setVisibility(View.INVISIBLE);
+                        tableLayout.setVisibility(View.INVISIBLE);
+                        errorStates.setVisibility(View.VISIBLE);
                         break;
                     case LOADING:
-
+                        bar.setVisibility(View.VISIBLE);
+                        tableLayout.setVisibility(View.INVISIBLE);
+                        errorStates.setVisibility(View.INVISIBLE);
                         break;
                 }
             }
@@ -140,23 +153,32 @@ public class landingPage extends Fragment {
         eastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exampleViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
+                conference = "east";
+                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
         westButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exampleViewModel.getSchedule("west").observe(getViewLifecycleOwner(), scheduleObserver);
+                conference = "west";
+                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
+        errorButtonSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+            }
+        });
 
-
-
-
-
-
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
+            }
+        });
 
         return v;
     }
