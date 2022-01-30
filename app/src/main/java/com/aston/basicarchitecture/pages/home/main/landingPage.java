@@ -31,6 +31,7 @@ import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -179,6 +180,15 @@ public class landingPage extends Fragment {
                 exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
             }
         });
+
+        TextView favouriteTeamTitle = v.findViewById(R.id.favourite_team_title);
+        MaterialCardView favouriteTeamWidgetPage = v.findViewById(R.id.favourite_team_widget_landing_page);
+
+
+        if(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE)).equals("-1")) {
+            favouriteTeamTitle.setVisibility(View.GONE);
+            favouriteTeamWidgetPage.setVisibility(View.GONE);
+        }
 
         return v;
     }

@@ -1,8 +1,12 @@
 package com.aston.basicarchitecture.pages.home.settings.favouriteTeam;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -51,7 +55,14 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        View actionBar = (getActivity()).findViewById(R.id.main_app_bar_layout);
+        actionBar.setBackground(new ColorDrawable(Color.parseColor("#FFA834")));
+
+
+
     }
 
     @Override
@@ -81,6 +92,9 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
             }
         });
 
+
+
+
         return v;
     }
 
@@ -92,5 +106,12 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
         }
         else { viewModel.removeTeamPreference(); }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        View actionBar = (getActivity()).findViewById(R.id.main_app_bar_layout);
+        actionBar.setBackground(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        super.onDestroy();
     }
 }
