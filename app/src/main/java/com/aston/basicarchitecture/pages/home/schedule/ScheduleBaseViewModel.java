@@ -36,7 +36,6 @@ public class ScheduleBaseViewModel extends ViewModel  {
     }
 
     StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
-        Log.d("UNSUCCESSFUL CALL", "" + date);
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
         data.postLoading();

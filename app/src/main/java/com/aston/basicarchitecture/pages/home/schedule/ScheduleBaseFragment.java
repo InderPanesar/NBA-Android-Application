@@ -105,7 +105,8 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(false);
-        scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games, this);
+        Float value = getContext().getResources().getDisplayMetrics().density;
+        scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games, this, value);
         recyclerView.setAdapter(scheduleBaseAdapter);
 
 

@@ -1,7 +1,9 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +42,16 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
     ArrayList<GamesModel> games;
     Context context;
+    float dpScale;
 
 
 
-    public ScheduleBaseAdapter(Context ct, ArrayList<GamesModel> _games, ScheduleCardClicked _itemListener) {
+
+    public ScheduleBaseAdapter(Context ct, ArrayList<GamesModel> _games, ScheduleCardClicked _itemListener, float _dpScale) {
         context = ct;
         games = _games;
         itemListener = _itemListener;
+        dpScale = _dpScale;
     }
 
     @NonNull
@@ -75,8 +80,27 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
         holder.gameStatus.setText(status);
 
-        if(status.equals("Finished")) {
-            holder.gameTimeStart.setVisibility(View.GONE);
+        Log.d("START TIME", "TODAYS STUFF");
+
+
+        //Changing heights of cards programmatically and including DP. To ensure scales correctly.
+        int normalHeight = (int) (250 * dpScale + 0.5f);
+        int smallerHeight = (int) (200 * dpScale + 0.5f);
+
+        ViewGroup.LayoutParams params = holder.view.getLayoutParams();
+        params.height = normalHeight;
+        holder.view.setLayoutParams(params);
+
+        if (status.equals("Scheduled")) {
+            holder.button.setVisibility(View.INVISIBLE);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH);
+            LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
+            holder.gameTimeStart.setText(outputFormatter.format(date));
+            holder.gameTimeStart.setVisibility(View.VISIBLE);
+            params.height = smallerHeight;
+            holder.view.setLayoutParams(params);
+
         }
         else if (status.equals("In Play")) {
             if(isHalfTime.equals("1")) {
@@ -85,13 +109,15 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
             else {
                 holder.gameTimeStart.setText("Quarter: " + games.get(position).getCurrentPeriod());
             }
+            holder.gameTimeStart.setVisibility(View.VISIBLE);
         }
-        else {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH);
-            LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
-            holder.gameTimeStart.setText(outputFormatter.format(date));
+        else if(status.equals("Finished")) {
+            holder.gameTimeStart.setVisibility(View.GONE);
+            holder.button.setVisibility(View.VISIBLE);
+
+
         }
+
 
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +138,9 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
+
+        View view;
+
         ImageView homeTeamLogo;
         ImageView awayTeamLogo;
 
@@ -127,6 +156,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
             homeTeamLogo = itemView.findViewById(R.id.homeTeamImage);
             awayTeamLogo = itemView.findViewById(R.id.awayTeamImage);
             homeTeamText = itemView.findViewById(R.id.homeTeamShortName);
