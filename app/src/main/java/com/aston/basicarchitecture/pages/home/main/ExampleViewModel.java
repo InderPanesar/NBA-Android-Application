@@ -44,6 +44,10 @@ public class ExampleViewModel extends ViewModel {
         repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
             @Override
             public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
+                if(teamId.equals("-1")) {
+                    data.postError(null);
+                    return;
+                }
                 if (!response.isSuccessful()) {
                     data.postError(null);
                     return;

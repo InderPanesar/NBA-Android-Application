@@ -15,6 +15,7 @@
         tools:context=".pages.home.main.landingPage">
 
         <TextView
+            android:id="@+id/favourite_team_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="26sp"
@@ -24,6 +25,7 @@
         </TextView>
 
         <include
+            android:id="@+id/favourite_team_widget_landing_page"
             layout="@layout/favourite_team_widget"
             android:layout_width="match_parent"
             android:layout_height="150dp"
