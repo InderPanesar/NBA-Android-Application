@@ -1,6 +1,5 @@
 package com.aston.basicarchitecture;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -9,25 +8,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.SettingsTeamsAdapter;
 import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
-import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.fragmentFavouriteTeam;
 import com.aston.basicarchitecture.utils.AppConsts;
+import com.aston.basicarchitecture.utils.motionsensors.Gyroscope;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -37,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
-
+    private Gyroscope gyroscope;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +80,40 @@ public class MainActivity extends AppCompatActivity {
 
         setUpSharedPreferences();
         updateNavBar();
+
+        gyroscope = new Gyroscope(this);
+
+
+
+        gyroscope.setGyroscopeListener(new Gyroscope.GyroscopeListener() {
+            @Override
+            public void onRotation(float dx, float dy, float dz) {
+                Log.d("Rotations", "dx: " + dx + " dy: " + dy + " dz: " + dz);
+
+                if(dy > 0.15) {
+                    drawerLayout.open();
+                }
+                if(dy < -0.15) {
+                    drawerLayout.close();
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        gyroscope.register();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        gyroscope.unregister();
     }
 
     @Override

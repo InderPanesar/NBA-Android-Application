@@ -14,10 +14,14 @@
         android:id="@+id/ScheduleDatePickerButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:fontFamily="@font/asap_bold"
         android:textAllCaps="false"
-        android:text="Date: 16/10/2021"
-        app:cornerRadius="100dp"
+        android:backgroundTint="@color/caramel"
+        app:strokeColor="@color/black"
+        android:textColor="@color/black"
+        app:strokeWidth="1dp"
+        app:shapeAppearanceOverlay="@style/PillShapeAppearance"
         >
     </com.google.android.material.button.MaterialButton>
 

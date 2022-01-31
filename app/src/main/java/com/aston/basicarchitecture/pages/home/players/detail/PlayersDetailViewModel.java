@@ -16,6 +16,7 @@ import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
 import com.aston.basicarchitecture.utils.AppConsts;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,25 +45,33 @@ public class PlayersDetailViewModel extends ViewModel {
 
 
 
-    LiveData<ArrayList<SinglePlayerStatsAdapter>> getPlayerGameStats(String playerId, SharedPreferences pref) {
+    StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> getPlayerGameStats(String playerId, SharedPreferences pref) {
         statistics = new ArrayList<>();
         List<Integer> integers = getSharedPreferences(pref);
         List<String> categories = new ArrayList<>();
+        Log.d("CHECK", String.valueOf(integers.size()));
+        Integer integer = -1;
+        integers.removeAll(Collections.singleton(integer));
         for(Integer i : integers) {
             if(i != -1) {
-                categories.add(returnStatisticTopic(i));
-                Log.d("VALUE", returnStatisticTopic(i));
+                String value = returnStatisticTopic(i);
+                if(!value.equals("n/a")) { categories.add(value); }
             }
         }
 
-        Log.d("PlayerID", playerId);
 
-        MutableLiveData<ArrayList<SinglePlayerStatsAdapter>> data = new MutableLiveData<>();
+        StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> data = new StateMutableLiveData<>();
+
+        if(integers.size() == 0) {
+            data.postSuccess(null);
+            return data;
+        }
+
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModel>() {
             @Override
             public void onResponse(Call<PlayerStatsModel> call, Response<PlayerStatsModel> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("UNSUCCESSFUL CALL", "" + response.code());
+                    data.postError(null);
                 } else {
                     PlayerStatsModel model = response.body();
                     ArrayList<PlayerStatistics> _statistics = model.getApi().getStatistics();
@@ -91,15 +100,14 @@ public class PlayersDetailViewModel extends ViewModel {
 
                         statistics.add(new SinglePlayerStatsAdapter(categories, _values));
                     }
-                    data.postValue(statistics);
+                    data.postSuccess(statistics);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerStatsModel> call, Throwable t) {
-                //Do Something here!
-                Log.d("UNSUCCESSFUL CALL", "" + t.getLocalizedMessage());
+                data.postError(t);
 
             }
 

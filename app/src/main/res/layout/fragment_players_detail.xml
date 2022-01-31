@@ -314,6 +314,7 @@
             android:layout_height="150dp" />
 
         <TextView
+            android:id="@+id/recent_game_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recent Games"
@@ -322,15 +323,27 @@
             android:layout_marginBottom="16dp"
             android:textSize="26sp"/>
 
-        <TableLayout
-            android:id="@+id/teamPlayerStats"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:gravity="center">
 
-        </TableLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/loading_error_states"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableLayout
+                android:id="@+id/team_player_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:gravity="center">
+
+            </TableLayout>
+
+        </FrameLayout>
+
 
 
 

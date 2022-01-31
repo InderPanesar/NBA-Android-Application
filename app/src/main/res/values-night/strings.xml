@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">BasicArchitecture</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="international">International</string>
     <string name="error_with_api_call">Error with API call!</string>
     <string name="logo">Logo</string>
+    <string name="east_team_button">East</string>
+    <string name="west_team_button">West</string>
+    <string name="box_score_button_text">Box Score</string>
+    <string name="away_team_text">AWAY</string>
+    <string name="home_team_text">HOME</string>
+    <string name="team_1_logo_cd">Team 1 Logo</string>
+    <string name="tickets_button_text">Tickets</string>
+
+    <string name="filter_button_all">Countries: All</string>
+    <string name="filter_button_1">Countries: Only USA</string>
+    <string name="filter_button_2">Countries: International</string>
+    <string name="players_title_detail_page">Players</string>
 </resources>

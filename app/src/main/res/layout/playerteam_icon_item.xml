@@ -34,12 +34,12 @@
                 android:layout_margin="5dp"
                 android:elevation="10dp">
                 <ImageView
-                    android:src="@color/black"
+                    android:id="@+id/player_team_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:scaleType="centerCrop"
-                    />
+                    android:contentDescription="@string/logo" />
             </androidx.cardview.widget.CardView>
 
         </com.google.android.material.card.MaterialCardView>

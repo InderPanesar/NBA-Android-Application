@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,9 +23,6 @@ import android.widget.TextView;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.standings.TeamStandingModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.players.detail.SinglePlayerStatsAdapter;
-import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
@@ -35,20 +31,19 @@ import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class landingPage extends Fragment {
+public class MainBaseFragment extends Fragment {
 
     private LinearLayout favouriteTeamWidget;
-    private ExampleViewModel exampleViewModel;
+    private MainFragmentViewModel exampleViewModel;
     private TableLayout tableLayout;
     private String conference = "east";
 
-    public landingPage() { }
+    public MainBaseFragment() { }
 
 
 
@@ -64,7 +59,7 @@ public class landingPage extends Fragment {
         favouriteTeamWidget =  v.findViewById(R.id.favourite_team_widget);
 
         //Set the ViewModel
-        exampleViewModel = new ViewModelProvider(getActivity()).get(ExampleViewModel.class);
+        exampleViewModel = new ViewModelProvider(getActivity()).get(MainFragmentViewModel.class);
         tableLayout = v.findViewById(R.id.schedule_statistics_table);
 
         Observer<LiveDataStateData<ArrayList<String>>> nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {

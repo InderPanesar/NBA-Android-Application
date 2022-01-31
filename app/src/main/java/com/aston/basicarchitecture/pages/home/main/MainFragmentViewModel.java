@@ -30,11 +30,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @HiltViewModel
-public class ExampleViewModel extends ViewModel {
+public class MainFragmentViewModel extends ViewModel {
 
     StandingsRepository repository;
     @Inject
-    ExampleViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
+    MainFragmentViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
         repository = standingsRepository;
     }
 

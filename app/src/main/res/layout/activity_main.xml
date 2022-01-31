@@ -43,6 +43,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
+        app:itemTextAppearance="@style/GlobalTextFont"
+
         app:menu="@menu/drawer_menu">
 
 

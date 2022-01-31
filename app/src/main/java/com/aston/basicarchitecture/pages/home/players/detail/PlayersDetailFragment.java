@@ -2,30 +2,30 @@ package com.aston.basicarchitecture.pages.home.players.detail;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
+import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,7 +133,7 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[6]);
         textView = v.findViewById(R.id.playerTeamName);
 
-        tableLayout = v.findViewById(R.id.teamPlayerStats);
+        tableLayout = v.findViewById(R.id.team_player_stats);
 
         //If attribute 7 doesn't exist and is null
         try {
@@ -153,20 +153,50 @@ public class PlayersDetailFragment extends Fragment {
         }
         else {
             textView.setText("Not Active");
+            textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
         }
+
+        ImageView view = v.findViewById(R.id.player_team_image_view);
+        TeamsRepo repo = new TeamsRepo();
+        if(playerAttributes[7] == null) {
+            Picasso.get().load("https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png").fit().into(view);
+        }
+        else {
+            Integer teamID = Integer.parseInt(playerAttributes[7]);
+            for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
+                if(teamID == team.getId()) {
+                    Picasso.get().load(team.getLogoURL()).fit().centerCrop().fit().into(view);
+                }
+            }
+        }
+
 
         viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
 
 
-        Observer<ArrayList<SinglePlayerStatsAdapter>> nameObserver = new Observer<ArrayList<SinglePlayerStatsAdapter>>() {
+        Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> nameObserver = new Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>>() {
             @Override
-            public void onChanged(ArrayList<SinglePlayerStatsAdapter> stats) {
-                for(SinglePlayerStatsAdapter model : stats) {
-                    Log.d("Player: ", String.valueOf(model.getAttributes().size()));
+            public void onChanged(LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>> stats) {
+                switch (stats.getStatus()) {
+                    case SUCCESS:
+                        if(stats == null) {
+                            TextView header = v.findViewById(R.id.recent_game_header);
+                            header.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            setTable(v, stats.getData());
+                        }
+                        UniversalErrorStateHandler.isSuccess(v);
+                        break;
+                    case ERROR:
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
                 }
-                setTable(v, stats);
-                //TODO: Loading State NOT VISIBLE
             }
+
         };
 
         viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), nameObserver);

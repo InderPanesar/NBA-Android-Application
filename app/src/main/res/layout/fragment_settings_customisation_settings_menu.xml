@@ -55,7 +55,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/pointsPerGameSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -89,7 +90,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/assistsPerGameSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -123,7 +125,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/reboundsPerGameSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -157,7 +160,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/overallFieldGoalPercentageSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -191,7 +195,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/stealsPercentageSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -225,7 +230,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/blocksPercentageSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -259,7 +265,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/freeThrowPercentageSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -293,7 +300,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/freeThrowsMadeSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 
@@ -327,7 +335,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/plusMinusSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:useMaterialThemeColors="false">
             </com.google.android.material.switchmaterial.SwitchMaterial>
         </LinearLayout>
 

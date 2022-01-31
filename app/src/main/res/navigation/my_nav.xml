@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/landingPage"
-        android:name="com.aston.basicarchitecture.pages.home.main.landingPage"
+        android:name="com.aston.basicarchitecture.pages.home.main.MainBaseFragment"
         android:label="Home"
         tools:layout="@layout/fragment_landing_page" />
     <fragment

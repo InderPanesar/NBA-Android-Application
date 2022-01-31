@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
+import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ import retrofit2.Response;
 public class PlayerBaseViewModel extends ViewModel {
 
     ArrayList<IndividualPlayerModel> localTempPlayers = new ArrayList<>();
+    int playerFilter = 0;
 
     PlayersRepository repository;
     @Inject
@@ -33,14 +35,15 @@ public class PlayerBaseViewModel extends ViewModel {
 
     //ToDo: Filter By Players Last Name!
 
-    LiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
+    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
 
-        MutableLiveData<ArrayList<IndividualPlayerModel>> data = new MutableLiveData<>();
+        StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override
             public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
                     Log.d("UNSUCCESSFUL CALL", "" + response.code());
+                    data.postError(null);
                 } else {
                     PlayerModel model = response.body();
                     ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
@@ -55,37 +58,35 @@ public class PlayerBaseViewModel extends ViewModel {
                         }
                     }
                     localTempPlayers = filteredPlayers;
-                    data.postValue(filteredPlayers);
+                    data.postSuccess(filteredPlayers);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerModel> call, Throwable t) {
-                //Do Something here!
-                Log.d("UNSUCCESSFUL CALL", "" + t.getLocalizedMessage());
-
+                data.postError(t);
             }
 
         });
         return data;
     }
 
-    LiveData<ArrayList<IndividualPlayerModel>> getInternationalFilterPlayers(int choice) {
+    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getInternationalFilterPlayers() {
 
 
-        MutableLiveData<ArrayList<IndividualPlayerModel>> data = new MutableLiveData<>();
+        StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         ArrayList<IndividualPlayerModel> players = localTempPlayers;
         ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
 
-        if(choice == 1) {
+        if(playerFilter == 1) {
             for(IndividualPlayerModel player : players) {
                 if(player.getCountry().equals("USA")) {
                     filteredPlayers.add(player);
                 }
             }
         }
-        else if (choice == 2) {
+        else if (playerFilter == 2) {
             for(IndividualPlayerModel player : players) {
                 if(!player.getCountry().equals("USA")) {
                     filteredPlayers.add(player);
@@ -96,7 +97,7 @@ public class PlayerBaseViewModel extends ViewModel {
             filteredPlayers = players;
         }
 
-        data.postValue(filteredPlayers);
+        data.postSuccess(filteredPlayers);
 
         return data;
     }
