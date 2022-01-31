@@ -1,7 +1,6 @@
 package com.aston.basicarchitecture.pages.home.teams;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 import com.aston.basicarchitecture.R;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.main.ExampleViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

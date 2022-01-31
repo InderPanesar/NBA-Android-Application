@@ -21,4 +21,20 @@
     <color name="sunshade">#FFA834</color>
     <color name="alabaster">#F7F7F7</color>
 
+
+    <color name="east_blue_selected">#0C59CF</color>
+    <color name="east_blue_unselected">#75A9F9</color>
+
+    <color name="west_red_selected">#FF3823</color>
+    <color name="west_red_unselected">#FF8A84</color>
+
+    <color name="switch_on_foreground">#E61610</color>
+    <color name="switch_on_background">#FF5D55</color>
+
+    <color name="switch_off_foreground">#ffffff</color>
+    <color name="switch_off_background">#E0E0E0</color>
+
+    <color name="switch_disabled_foreground">#C0C0C0</color>
+    <color name="switch_disabled_background">#AAAAAA</color>
+
 </resources>

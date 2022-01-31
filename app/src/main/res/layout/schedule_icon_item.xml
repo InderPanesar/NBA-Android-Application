@@ -30,18 +30,18 @@
                 <ImageView
                     android:id="@+id/homeTeamImage"
                     android:layout_width="78dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/team_1_logo_cd">
                 </ImageView>
                 <TextView
                     android:id="@+id/homeTeamScore"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="100">
+                    android:textColor="@color/black">
                 </TextView>
             </LinearLayout>
 
@@ -55,12 +55,11 @@
                     android:id="@+id/awayTeamScore"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
-                    android:textSize="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="100">
+                    android:textColor="@color/black">
                 </TextView>
                 <ImageView
                     android:id="@+id/awayTeamImage"
@@ -90,8 +89,7 @@
                     android:textSize="12sp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="Raptors">
+                    android:textColor="@color/black">
                 </TextView>
             </LinearLayout>
 
@@ -109,8 +107,7 @@
                     android:textSize="12sp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="FINAL">
+                    android:textColor="@color/black">
                 </TextView>
 
             </LinearLayout>
@@ -130,7 +127,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="Trail Blazers">
+                    >
                 </TextView>
 
             </LinearLayout>
@@ -142,7 +139,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -156,7 +154,7 @@
                     android:gravity="center"
                     android:textStyle="normal"
                     android:textColor="@color/black"
-                    android:text="HOME">
+                    android:text="@string/home_team_text">
                 </TextView>
             </LinearLayout>
 
@@ -174,8 +172,7 @@
                     android:textSize="12sp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="09:00 EST">
+                    android:textColor="@color/black">
                 </TextView>
 
             </LinearLayout>
@@ -194,21 +191,27 @@
                     android:gravity="center"
                     android:textStyle="normal"
                     android:textColor="@color/black"
-                    android:text="AWAY">
+                    android:text="@string/away_team_text">
                 </TextView>
 
             </LinearLayout>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scheduleBoxScoreButton"
+            android:id="@+id/schedule_box_score_button"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            app:cornerRadius="21dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:fontFamily="@font/asap_regular"
+            android:textAllCaps="false"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black"
+            android:layout_height="50dp"
+            app:cornerRadius="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="Box Score">
+            android:text="@string/box_score_button_text">
 
         </com.google.android.material.button.MaterialButton>
 

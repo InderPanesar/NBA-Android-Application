@@ -1,40 +1,25 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
-import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.players.PlayersCardClicked;
-import com.aston.basicarchitecture.pages.home.teams.TeamsCardClicked;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.MyViewHolder> {
 
@@ -165,7 +150,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
             awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
             gameStatus = itemView.findViewById(R.id.scheduleGameStatus);
             gameTimeStart = itemView.findViewById(R.id.scheduleGameTime);
-            button = itemView.findViewById(R.id.scheduleBoxScoreButton);
+            button = itemView.findViewById(R.id.schedule_box_score_button);
         }
 
 

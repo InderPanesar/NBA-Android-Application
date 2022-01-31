@@ -23,6 +23,8 @@ import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.pages.home.teams.dialog.PlayersAdapter;
 import com.aston.basicarchitecture.pages.home.teams.dialog.TeamDialogViewModel;
+import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
+import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 
 import java.util.ArrayList;
 
@@ -87,21 +89,32 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
 
         //Observer
-        Observer<ArrayList<IndividualPlayerModel>> nameObserver = new Observer<ArrayList<IndividualPlayerModel>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
-            public void onChanged(ArrayList<IndividualPlayerModel> individualTeamsModels) {
-                for(IndividualPlayerModel model : individualTeamsModels) {
-                    Log.d("Player: ", model.getFirstName());
+            public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> arrayListLiveDataStateData) {
+                switch (arrayListLiveDataStateData.getStatus()) {
+                    case SUCCESS:
+                        playersAdapter.setPlayers(arrayListLiveDataStateData.getData());
+                        recyclerView.setVisibility(View.VISIBLE);
+                        UniversalErrorStateHandler.isSuccess(v);
+                        break;
+                    case ERROR:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isError(v);
+                        break;
+                    case LOADING:
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        UniversalErrorStateHandler.isLoading(v);
+                        break;
                 }
-                playersAdapter.setPlayers(individualTeamsModels);
-                recyclerView.setVisibility(View.VISIBLE);
-                //TODO: Loading State NOT VISIBLE
             }
+
         };
 
         playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), nameObserver);
 
         Button internationButton  = v.findViewById(R.id.playersInternationalButton);
+        internationButton.setText(R.string.filter_button_all);
         internationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,9 +135,21 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         checkedItem = tempValue[0];
+                        playerBaseViewModel.playerFilter = tempValue[0];
+
+                        if(playerBaseViewModel.playerFilter == 1) {
+                            internationButton.setText(R.string.filter_button_1);
+                        }
+                        else if (playerBaseViewModel.playerFilter == 2) {
+                            internationButton.setText(R.string.filter_button_2);
+                        }
+                        else {
+                            internationButton.setText(R.string.filter_button_all);
+                        }
+
                         recyclerView.setVisibility(View.GONE);
                         //TODO: Loading State VISIBLE
-                        playerBaseViewModel.getInternationalFilterPlayers(checkedItem).observe(getViewLifecycleOwner(), nameObserver);
+                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), nameObserver);
                         dialog.dismiss();
 
 

@@ -17,21 +17,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/eastConferenceButton"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/east_conference_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:shapeAppearanceOverlay="@style/PillShapeAppearance"
+            android:textAllCaps="false"
+            android:fontFamily="@font/asap_bold"
+            android:textSize="14sp"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Eastern" />
+            android:text="@string/east_team_button" />
 
-        <Button
-            android:id="@+id/westConferenceButton"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/west_conference_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/asap_regular"
+            android:textSize="14sp"
+            app:shapeAppearanceOverlay="@style/PillShapeAppearance"
+            android:textAllCaps="false"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Western" />
+            android:text="@string/west_team_button" />
     </LinearLayout>
 
     <FrameLayout

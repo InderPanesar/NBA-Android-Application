@@ -1,9 +1,11 @@
 package com.aston.basicarchitecture.pages.home.stadiums;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
@@ -31,6 +33,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,7 +53,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
     TextView stadiumTextView;
     TextView capacityTextView;
     ImageView stadiumImageView;
+    MaterialButton ticketButton;
 
+    String currentURL;
 
 
     public StadiumsBaseFragment() {
@@ -92,6 +97,16 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         stadiumTextView =  v.findViewById(R.id.StadiumName);
         capacityTextView =  v.findViewById(R.id.StadiumCapacity);
         stadiumImageView =  v.findViewById(R.id.stadiumImage);
+        ticketButton =  v.findViewById(R.id.stadium_ticket_button);
+
+        ticketButton.setEnabled(false);
+
+        ticketButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentURL)));
+            }
+        });
 
         return v;
     }
@@ -117,7 +132,6 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 int position = (int)(marker.getTag());
                 StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
-
                 stadiumTextView.setText(new StringBuilder().append("Stadium: ").append(stadiumInformation.stadiumName).toString());
                 capacityTextView.setText(new StringBuilder().append("Capacity: ").append(stadiumInformation.capacity).toString());
                 Picasso.get()
@@ -128,6 +142,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
                 Log.d("MARKER CLICKED", String.valueOf(position));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
+
+                currentURL = stadiumInformation.ticketsURL;
+                ticketButton.setEnabled(true);
                 return false;
             }
         });

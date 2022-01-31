@@ -27,16 +27,19 @@ import retrofit2.Response;
 public class TeamsBaseViewModel extends ViewModel {
 
     TeamsRepository repository;
+    String currentConference = "east";
+
+
     @Inject
     TeamsBaseViewModel(@Named("TeamsRepository") TeamsRepository exampleRepository) {
         repository = exampleRepository;
     }
 
-    StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams(String conference) {
+    StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
 
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postLoading();
-        repository.getTeams(conference).enqueue(new Callback<TeamsModel>() {
+        repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
             @Override
             public void onResponse(Call<TeamsModel> call, Response<TeamsModel> response) {
               if(!response.isSuccessful()) {
