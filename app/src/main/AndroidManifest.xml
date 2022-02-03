@@ -20,6 +20,7 @@
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB7Jza3FTy7rcTQntYPnrHrAdXLLDck74Y"/>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

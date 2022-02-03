@@ -1,23 +1,14 @@
 package com.aston.basicarchitecture.pages.home.teams;
 
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
 import com.aston.basicarchitecture.engine.model.teams.TeamsModel;
-import com.aston.basicarchitecture.engine.repository.ExampleRepository;
 import com.aston.basicarchitecture.engine.repository.teams.TeamsRepository;
 import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;

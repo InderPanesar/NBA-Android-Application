@@ -19,5 +19,7 @@
     <string name="filter_button_1">Countries: Only USA</string>
     <string name="filter_button_2">Countries: International</string>
     <string name="players_title_detail_page">Players</string>
+    <string name="capacity">Capacity:</string>
+    <string name="stadium">Stadium:</string>
 
 </resources>

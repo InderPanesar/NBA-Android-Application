@@ -1,23 +1,13 @@
 package com.aston.basicarchitecture.pages.home.main;
 
 import android.content.SharedPreferences;
-import android.util.Log;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.aston.basicarchitecture.engine.model.ExampleModel;
-import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
-import com.aston.basicarchitecture.engine.model.player.PlayerModel;
 import com.aston.basicarchitecture.engine.model.standings.StandingsModel;
 import com.aston.basicarchitecture.engine.model.standings.TeamStandingModel;
-import com.aston.basicarchitecture.engine.repository.ExampleRepository;
-import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
 import com.aston.basicarchitecture.engine.repository.standings.StandingsRepository;
 import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basicarchitecture.utils.AppConsts;
 import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
-
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +24,7 @@ public class MainFragmentViewModel extends ViewModel {
 
     StandingsRepository repository;
     @Inject
-    MainFragmentViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
+    public MainFragmentViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
         repository = standingsRepository;
     }
 
@@ -158,7 +148,6 @@ public class MainFragmentViewModel extends ViewModel {
 
     public String getTeamLogo(String teamID) {
         TeamsRepo repo = new TeamsRepo();
-        Log.d("TEAMID", teamID);
         for(TeamsRepo.LocalTeam team :  repo.getTeamList()) {
             if(team.getId() == Integer.parseInt(teamID)) {
                 return team.getLogoURL();
