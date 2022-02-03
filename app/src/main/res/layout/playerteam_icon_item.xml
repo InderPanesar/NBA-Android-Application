@@ -20,7 +20,7 @@
             android:layout_height="120dp"
             android:padding="20dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             app:cardCornerRadius="60dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/black">
@@ -61,16 +61,14 @@
                 android:autoSizeMaxTextSize="24sp"
                 android:autoSizeStepGranularity="2sp"
                 android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="Atlanta Hawks"/>
+                android:layout_weight="1" />
             <TextView
                 android:id="@+id/playerTeamJersey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="26sp"
                 android:gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="#1">
+                android:layout_weight="1">
             </TextView>
             <TextView
                 android:id="@+id/playerTeamPosition"
@@ -78,8 +76,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:textSize="14sp"
-                android:gravity="center_vertical"
-                android:text="Position: Guard">
+                android:gravity="center_vertical">
             </TextView>
 
             <com.google.android.material.card.MaterialCardView
@@ -98,8 +95,7 @@
                     android:layout_height="match_parent"
                     android:textSize="14sp"
                     android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="Active">
+                    android:layout_weight="1">
                 </TextView>
 
 

@@ -43,7 +43,7 @@
                     android:layout_margin="5dp"
                     android:elevation="10dp">
                     <ImageView
-                        android:id="@+id/favouriteTeamIconImage"
+                        android:id="@+id/favourite_team_icon_image"
                         android:src="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="120">
                 <TextView
-                    android:id="@+id/favouriteTeamName"
+                    android:id="@+id/favourite_team_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:autoSizeTextType="uniform"
@@ -76,7 +76,7 @@
                     android:text="Atlanta Hawks"
                     android:fontFamily="@font/asap_condensed_regular" />
                 <TextView
-                    android:id="@+id/favouriteTeamConferenceRanking"
+                    android:id="@+id/favourite_team_conference_ranking"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="14sp"
@@ -87,7 +87,7 @@
                     android:text="Eastern Conference: 11th">
                 </TextView>
                 <TextView
-                    android:id="@+id/favouriteTeamRecord"
+                    android:id="@+id/favourite_team_record"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"

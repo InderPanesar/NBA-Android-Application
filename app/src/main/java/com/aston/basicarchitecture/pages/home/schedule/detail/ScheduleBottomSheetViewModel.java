@@ -46,7 +46,6 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
                     if(model.getStatistics().size() < 2) {
                         data.postError(new Throwable());
                     }
-                    Log.d("ScheduleViewModel", model.getMessage());
                     ArrayList<String> games = new ArrayList<>();
 
                     games.add(model.getStatistics().get(1).getFastBreakPoints());

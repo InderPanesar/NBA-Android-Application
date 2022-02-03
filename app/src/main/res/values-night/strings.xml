@@ -21,4 +21,7 @@
     <string name="filter_button_2">Countries: International</string>
     <string name="players_title_detail_page">Players</string>
     <string name="capacity">Capacity:</string>
+    <string name="your_favourite_team_title">Your Favourite Team</string>
+    <string name="favourite_team_confirm_cta">Confirm</string>
+    <string name="east_main_page">East</string>
 </resources>

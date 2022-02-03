@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="Retry">
+            android:text="@string/error_states_retry_button">
         </com.google.android.material.button.MaterialButton>
 
 

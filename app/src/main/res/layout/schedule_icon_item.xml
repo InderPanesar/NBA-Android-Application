@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:layout_marginBottom="16dp"
@@ -21,12 +22,14 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
                 <ImageView
                     android:id="@+id/homeTeamImage"
                     android:layout_width="78dp"
@@ -50,7 +53,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
                 <TextView
                     android:id="@+id/awayTeamScore"
                     android:layout_width="wrap_content"
@@ -64,7 +68,8 @@
                 <ImageView
                     android:id="@+id/awayTeamImage"
                     android:layout_width="78dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/secondary_logo_schedule_card">
                 </ImageView>
             </LinearLayout>
         </LinearLayout>

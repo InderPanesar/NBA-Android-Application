@@ -65,9 +65,6 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
         holder.gameStatus.setText(status);
 
-        Log.d("START TIME", "TODAYS STUFF");
-
-
         //Changing heights of cards programmatically and including DP. To ensure scales correctly.
         int normalHeight = (int) (250 * dpScale + 0.5f);
         int smallerHeight = (int) (200 * dpScale + 0.5f);

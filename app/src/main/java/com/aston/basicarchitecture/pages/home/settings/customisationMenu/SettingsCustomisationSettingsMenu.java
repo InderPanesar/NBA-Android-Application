@@ -81,7 +81,6 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
         List<Integer> values = viewModel.getSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
         for(int value : values) {
             if(value != -1) {
-                Log.d("HIT ", String.valueOf(value));
                 SwitchMaterial _switch = sliderList.inverse().get(value);
                 _switch.setChecked(true);
                 activeSwitches.add(_switch);

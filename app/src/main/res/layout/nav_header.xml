@@ -18,7 +18,8 @@
         android:clickable="true"
         android:background="@null"
         android:layout_marginStart="8dp"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/ic_close"
+        android:contentDescription="@string/close_drawer_icon" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/userFavouriteTeamCard"
@@ -45,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:scaleType="centerCrop"
-                />
+                android:contentDescription="@string/favourite_team_icon_content_description" />
         </androidx.cardview.widget.CardView>
 
     </com.google.android.material.card.MaterialCardView>
@@ -55,14 +56,14 @@
         android:layout_marginTop="16dp"
         android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="0dp"
         app:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeMaxTextSize="24sp"
         android:autoSizeStepGranularity="2sp"
         android:textAlignment="center"
         android:layout_weight="1"
-        android:text="Atlanta Hawks"/>
+        android:text=""/>
 
 
 

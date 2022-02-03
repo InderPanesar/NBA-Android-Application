@@ -38,7 +38,6 @@ public class TeamsBaseViewModel extends ViewModel {
               }
               else {
                   TeamsModel model = response.body();
-                  Log.d("SUCCESSFUL CALL", "" + model.getApi().getStatus());
                   ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
                   ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
                   for(IndividualTeamsModel team : teams) {

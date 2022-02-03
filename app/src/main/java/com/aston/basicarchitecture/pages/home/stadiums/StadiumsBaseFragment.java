@@ -118,7 +118,6 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
         ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
         for(int i = 0; i < bob.size(); i++) {
-            Log.d("HELP", String.valueOf(bob.size()));
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(bob.get(i).getMapPosition())
                     .icon(bitmapDescriptorFromVector(getActivity(), bob.get(i).getVectorPointer())));
@@ -140,7 +139,6 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
                         .into(stadiumImageView);
 
 
-                Log.d("MARKER CLICKED", String.valueOf(position));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
 
                 currentURL = stadiumInformation.ticketsURL;

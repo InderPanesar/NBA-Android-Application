@@ -11,7 +11,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/ScheduleDatePickerButton"
+        android:id="@+id/schedule_date_picker_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="14sp"

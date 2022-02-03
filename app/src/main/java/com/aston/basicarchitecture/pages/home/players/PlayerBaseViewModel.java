@@ -42,7 +42,6 @@ public class PlayerBaseViewModel extends ViewModel {
             @Override
             public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("UNSUCCESSFUL CALL", "" + response.code());
                     data.postError(null);
                 } else {
                     PlayerModel model = response.body();

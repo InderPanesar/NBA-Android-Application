@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="East"/>
+                android:text="@string/east_main_page"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/west_schedule_button"
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="West"/>
+                android:text="@string/west_main_page"/>
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:text="Retry">
+                    android:text="@string/alternate_retry_api_call">
                 </com.google.android.material.button.MaterialButton>
 
 

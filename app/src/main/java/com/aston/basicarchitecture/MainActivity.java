@@ -6,7 +6,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         NavController navController = navHostFragment.getNavController();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.landingPage,
@@ -72,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("String Help!", "String Help!");
-                //ToDo: Link to change teams.
-            }
-        });
-
 
         setUpSharedPreferences();
         updateNavBar();
@@ -91,13 +82,13 @@ public class MainActivity extends AppCompatActivity {
         gyroscope.setGyroscopeListener(new Gyroscope.GyroscopeListener() {
             @Override
             public void onRotation(float dx, float dy, float dz) {
-                Log.d("Rotations", "dx: " + dx + " dy: " + dy + " dz: " + dz);
-
-                if(dy > 0.15) {
-                    drawerLayout.open();
-                }
-                if(dy < -0.15) {
-                    drawerLayout.close();
+                if(dx > 2) {
+                    if(drawerLayout.isOpen()) {
+                        drawerLayout.close();
+                    }
+                    else {
+                        drawerLayout.open();
+                    }
                 }
             }
         });
@@ -121,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        NavController navController = Navigation.findNavController(this, R.id.fragment_container_view);
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }

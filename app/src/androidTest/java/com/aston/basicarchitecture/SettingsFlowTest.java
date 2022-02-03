@@ -62,21 +62,21 @@ public class SettingsFlowTest {
                 allOf(withId(R.id.settingsChangeFavouriteTeam),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.fragmentContainerView),
+                                        withId(R.id.fragment_container_view),
                                         0),
                                 1),
                         isDisplayed()));
         materialCardView.perform(click());
 
         ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.favouriteTeamRecyclerView),
+                allOf(withId(R.id.favourite_team_recycler_view),
                         childAtPosition(
                                 withClassName(is("android.widget.LinearLayout")),
                                 0)));
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction recyclerView2 = onView(
-                allOf(withId(R.id.favouriteTeamRecyclerView),
+                allOf(withId(R.id.favourite_team_recycler_view),
                         childAtPosition(
                                 withClassName(is("android.widget.LinearLayout")),
                                 0)));
@@ -97,7 +97,7 @@ public class SettingsFlowTest {
                 allOf(withId(R.id.settingsCustomisationSettings),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.fragmentContainerView),
+                                        withId(R.id.fragment_container_view),
                                         0),
                                 0),
                         isDisplayed()));

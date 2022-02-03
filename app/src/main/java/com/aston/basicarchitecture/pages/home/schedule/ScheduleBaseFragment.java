@@ -10,27 +10,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.players.PlayersBaseAdapter;
-import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,7 +81,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         int mMonth = c.get(Calendar.MONTH) + 1;
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        scheduleButton = v.findViewById(R.id.ScheduleDatePickerButton);
+        scheduleButton = v.findViewById(R.id.schedule_date_picker_button);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
         datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth - 1, mDay);
         scheduleButton.setOnClickListener(new View.OnClickListener() {

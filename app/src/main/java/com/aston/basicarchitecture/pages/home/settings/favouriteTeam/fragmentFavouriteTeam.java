@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.aston.basicarchitecture.MainActivity;
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.pages.home.teams.TeamsAdapter;
-import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
 import com.google.android.material.button.MaterialButton;
 
 /**
@@ -75,14 +71,14 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_favourite_team, container, false);
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.favouriteTeamRecyclerView);
+        recyclerView = v.findViewById(R.id.favourite_team_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
 
         teamsAdapter = new SettingsTeamsAdapter(getContext(), viewModel.getTeams(), this);
         recyclerView.setAdapter(teamsAdapter);
 
-        MaterialButton b = v.findViewById(R.id.favouriteTeamConfirm);
+        MaterialButton b = v.findViewById(R.id.favourite_team_confirm);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

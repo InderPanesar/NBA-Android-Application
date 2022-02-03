@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,18 +71,18 @@ public class MainBaseFragment extends Fragment {
                         if(data.get(0).equals("east")) { conferenceString = conferenceString + "Eastern Conference : "; }
                         else { conferenceString = conferenceString + "Western Conference : "; }
                         conferenceString = conferenceString + data.get(1);
-                        TextView favouriteTeamConference = v.findViewById(R.id.favouriteTeamConferenceRanking);
+                        TextView favouriteTeamConference = v.findViewById(R.id.favourite_team_conference_ranking);
                         favouriteTeamConference.setText(conferenceString);
 
                         String recordString = "Record : ";
                         recordString = recordString + data.get(2) + " - " + data.get(3);
-                        TextView favouriteRecord = v.findViewById(R.id.favouriteTeamRecord);
+                        TextView favouriteRecord = v.findViewById(R.id.favourite_team_record);
                         favouriteRecord.setText(recordString);
 
-                        TextView favouriteName = v.findViewById(R.id.favouriteTeamName);
+                        TextView favouriteName = v.findViewById(R.id.favourite_team_name);
                         favouriteName.setText(exampleViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
 
-                        ImageView imageView = v.findViewById(R.id.favouriteTeamIconImage);
+                        ImageView imageView = v.findViewById(R.id.favourite_team_icon_image);
                         Picasso.get().load(exampleViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
 
 
@@ -115,7 +114,6 @@ public class MainBaseFragment extends Fragment {
                         tableLayout.removeAllViews();
                         ArrayList<TeamStandingModel> data = stateLiveData.getData();
                         setTable(v, data);
-                        Log.d("HIT", "SET TABLE");
 
                         bar.setVisibility(View.INVISIBLE);
                         tableLayout.setVisibility(View.VISIBLE);

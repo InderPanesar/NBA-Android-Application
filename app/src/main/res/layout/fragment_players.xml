@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:id="@+id/topBarFragmentPlayer"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/playersInternationalButton"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:fontFamily="@font/asap_bold"
             android:textAllCaps="false"
             android:backgroundTint="@color/caramel"
@@ -34,7 +34,7 @@
             android:layout_weight="0"
             android:textSize="14sp"
 
-            android:text="Country: International" />
+            android:text="@string/default_player_picker_string" />
 
     </LinearLayout>
 

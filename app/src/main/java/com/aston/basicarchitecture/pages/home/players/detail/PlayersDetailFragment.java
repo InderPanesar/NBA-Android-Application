@@ -232,7 +232,6 @@ public class PlayersDetailFragment extends Fragment {
             tableLayout.addView(topRow);
             for (SinglePlayerStatsAdapter _stats : stats) {
                 TableRow tbrow = new TableRow(getContext());
-                Log.d("HELP", String.valueOf(stats.size()));
                 for(String value : _stats.attributes) {
                     TextView tv = new TextView(getContext());
                     tv.setText(value);

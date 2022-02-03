@@ -49,7 +49,6 @@ public class PlayersDetailViewModel extends ViewModel {
         statistics = new ArrayList<>();
         List<Integer> integers = getSharedPreferences(pref);
         List<String> categories = new ArrayList<>();
-        Log.d("CHECK", String.valueOf(integers.size()));
         Integer integer = -1;
         integers.removeAll(Collections.singleton(integer));
         for(Integer i : integers) {
@@ -78,7 +77,6 @@ public class PlayersDetailViewModel extends ViewModel {
                     Collections.reverse(_statistics);
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
-                        Log.d("Statisics", String.valueOf(integers.size()));
                         if(integers.size() == 1 && _statistics.size() > 0) {
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                         }
