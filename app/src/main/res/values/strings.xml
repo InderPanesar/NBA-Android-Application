@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Basketball Bonanza</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="international">International</string>
     <string name="error_with_api_call">Error with API call!</string>
     <string name="logo">Logo</string>
@@ -14,7 +10,6 @@
     <string name="home_team_text">HOME</string>
     <string name="team_1_logo_cd">Team 1 Logo</string>
     <string name="tickets_button_text">Tickets</string>
-
     <string name="filter_button_all">Countries: All</string>
     <string name="filter_button_1">Countries: Only USA</string>
     <string name="filter_button_2">Countries: International</string>
@@ -38,7 +33,7 @@
     <string name="player_id_table_text">Player ID:</string>
     <string name="country_table_text">Country:</string>
     <string name="college_table_text">College:</string>
-    <string name="secondteamlogo_contentdescription">SecondTeamLogo</string>
+    <string name="second_team_logo_content_description">SecondTeamLogo</string>
     <string name="team_1_table_header">Team 1</string>
     <string name="team_2_table_header">Team 2</string>
     <string name="fast_break_points_table_row">Fast Break Points</string>

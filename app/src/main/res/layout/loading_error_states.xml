@@ -5,10 +5,11 @@
 
     <ProgressBar
         android:id="@+id/universal_progress_bar"
-        style="?android:progressBarStyle"
+        android:theme="@style/progressBarSunglow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:maxHeight="50dp"
+        android:foregroundTint="@color/sunglow"
         android:visibility="visible"
         android:layout_gravity="center"
         />

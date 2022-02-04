@@ -67,7 +67,7 @@
                 android:id="@+id/away_team_image"
                 android:layout_width="78dp"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/secondteamlogo_contentdescription">
+                android:contentDescription="@string/second_team_logo_content_description">
             </ImageView>
         </LinearLayout>
 

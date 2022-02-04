@@ -32,4 +32,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="progressBarSunglow" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/sunglow</item>
+    </style>
+
+
+
 </resources>
