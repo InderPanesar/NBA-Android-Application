@@ -11,18 +11,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.teams.dialog.PlayersAdapter;
-import com.aston.basicarchitecture.pages.home.teams.dialog.TeamDialogViewModel;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 
@@ -77,7 +72,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
         playerBaseViewModel = new ViewModelProvider(this.getActivity()).get(PlayerBaseViewModel.class);
 
-        recyclerView = v.findViewById(R.id.playersFragmentRecyclerView);
+        recyclerView = v.findViewById(R.id.players_fragment_recycler_view);
         //TODO: Implement Loading State
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
@@ -89,7 +84,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> individualPlayerObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> arrayListLiveDataStateData) {
                 switch (arrayListLiveDataStateData.getStatus()) {
@@ -111,9 +106,9 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
         };
 
-        playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), nameObserver);
+        playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), individualPlayerObserver);
 
-        Button internationButton  = v.findViewById(R.id.playersInternationalButton);
+        Button internationButton  = v.findViewById(R.id.players_international_button);
         internationButton.setText(R.string.filter_button_all);
         internationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +144,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
                         recyclerView.setVisibility(View.GONE);
                         //TODO: Loading State VISIBLE
-                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), nameObserver);
+                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), individualPlayerObserver);
                         dialog.dismiss();
 
 

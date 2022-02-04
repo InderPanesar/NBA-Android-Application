@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
@@ -57,6 +56,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
     // TODO: Rename and change types and number of parameters
     public static TeamsBaseFragment newInstance(String param1, String param2) {
         TeamsBaseFragment fragment = new TeamsBaseFragment();
+
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -75,8 +75,9 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         View v = inflater.inflate(R.layout.fragment_teams, container, false);
 
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.teamsRecyclerView);
+        recyclerView = v.findViewById(R.id.teams_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
         recyclerView.setHasFixedSize(true);
         teamsAdapter = new TeamsAdapter(getContext(), teams, this);
         recyclerView.setAdapter(teamsAdapter);
@@ -86,7 +87,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> individualTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualTeamsModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -109,7 +110,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
         };
 
-        teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+        teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
         MaterialButton easternConferenceButton = (MaterialButton) v.findViewById(R.id.east_conference_button);
         MaterialButton westernConferenceButton = (MaterialButton) v.findViewById(R.id.west_conference_button);
@@ -123,7 +124,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 teamsBaseViewModel.currentConference = "east";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
                 easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
                 westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
@@ -139,7 +140,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 teamsBaseViewModel.currentConference = "west";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
                 easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
                 westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
@@ -152,7 +153,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
             }
         });
 

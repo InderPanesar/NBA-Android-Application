@@ -5,10 +5,11 @@
 
     <ProgressBar
         android:id="@+id/universal_progress_bar"
-        style="?android:progressBarStyle"
+        android:theme="@style/progressBarSunglow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:maxHeight="50dp"
+        android:foregroundTint="@color/sunglow"
         android:visibility="visible"
         android:layout_gravity="center"
         />
@@ -23,6 +24,7 @@
 
         <TextView
             android:layout_gravity="center"
+            android:fontFamily="@font/asap_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -32,10 +34,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/universal_retry_button"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/caramel_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="Retry">
+            android:text="@string/error_states_retry_button">
         </com.google.android.material.button.MaterialButton>
 
 

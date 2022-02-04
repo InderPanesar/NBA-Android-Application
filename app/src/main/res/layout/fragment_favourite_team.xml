@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".pages.home.settings.favouriteTeam.fragmentFavouriteTeam"
+    tools:context=".pages.home.settings.favouriteTeam.FragmentFavouriteTeam"
     android:fillViewport="true"
     android:background="@color/sunshade"
     android:orientation="vertical">
@@ -15,7 +15,7 @@
             android:paddingTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Favourite Team"
+            android:text="@string/your_favourite_team_title"
             android:textSize="32sp"
             android:textColor="@color/black"
             android:layout_marginBottom="16dp"
@@ -39,7 +39,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_weight="1"
                     android:layout_marginTop="16dp"
-                    android:id="@+id/favouriteTeamRecyclerView"
+                    android:id="@+id/favourite_team_recycler_view"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_height="0dp"
@@ -47,13 +47,13 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/favouriteTeamConfirm"
+                    android:id="@+id/favourite_team_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     app:cornerRadius="25dp"
                     android:textAllCaps="false"
-                    android:text="Confirm">
+                    android:text="@string/favourite_team_confirm_cta">
 
                 </com.google.android.material.button.MaterialButton>
 

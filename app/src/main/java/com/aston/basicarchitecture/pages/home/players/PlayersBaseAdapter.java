@@ -10,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.pages.home.teams.TeamsCardClicked;
 
 import java.util.ArrayList;
 
-public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.MyViewHolder> {
+public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.PlayerBaseViewHolder> {
     private static PlayersCardClicked itemListener;
 
     ArrayList<IndividualPlayerModel> players;
@@ -30,14 +29,14 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlayerBaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.players_icon_item, parent, false);
-        return new MyViewHolder(view);
+        return new PlayerBaseViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlayerBaseViewHolder holder, int position) {
 
 
         if(!players.isEmpty()) {
@@ -60,18 +59,18 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class PlayerBaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //ToDo: Implement Team Logos.
 
         TextView playerJersey, playerName, playerDescriptors, playerPosition;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        public PlayerBaseViewHolder(@NonNull View itemView) {
             super(itemView);
-            playerJersey = itemView.findViewById(R.id.cardPlayersJerseyNumber);
-            playerName = itemView.findViewById(R.id.cardPlayersName);
-            playerDescriptors = itemView.findViewById(R.id.cardPlayersHeightAndWeight);
-            playerPosition = itemView.findViewById(R.id.cardPlayersPosition);
+            playerJersey = itemView.findViewById(R.id.card_players_jersey_number);
+            playerName = itemView.findViewById(R.id.card_players_name);
+            playerDescriptors = itemView.findViewById(R.id.card_players_height_and_weight);
+            playerPosition = itemView.findViewById(R.id.card_players_position);
             itemView.setOnClickListener(this);
 
         }

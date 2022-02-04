@@ -1,11 +1,11 @@
 package com.aston.basicarchitecture;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         setContentView(R.layout.activity_main);
         //Set Toolbar
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         NavController navController = navHostFragment.getNavController();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.landingPage,
@@ -68,15 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("String Help!", "String Help!");
-                //ToDo: Link to change teams.
-            }
-        });
-
+        MaterialCardView cardView = header.findViewById(R.id.user_favourite_team_card);
 
         setUpSharedPreferences();
         updateNavBar();
@@ -88,13 +82,13 @@ public class MainActivity extends AppCompatActivity {
         gyroscope.setGyroscopeListener(new Gyroscope.GyroscopeListener() {
             @Override
             public void onRotation(float dx, float dy, float dz) {
-                Log.d("Rotations", "dx: " + dx + " dy: " + dy + " dz: " + dz);
-
-                if(dy > 0.15) {
-                    drawerLayout.open();
-                }
-                if(dy < -0.15) {
-                    drawerLayout.close();
+                if(dx > 2) {
+                    if(drawerLayout.isOpen()) {
+                        drawerLayout.close();
+                    }
+                    else {
+                        drawerLayout.open();
+                    }
                 }
             }
         });
@@ -118,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        NavController navController = Navigation.findNavController(this, R.id.fragment_container_view);
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }
@@ -150,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         int headerValue = readHeaderPreferences();
         NavigationView navView = findViewById(R.id.nav_view);
         View header = navView.getHeaderView(0);
-        TextView view = header.findViewById(R.id.playerTeamName);
-        ImageView imageView = header.findViewById(R.id.playerTeamLogo);
-        MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
+        TextView view = header.findViewById(R.id.player_team_name);
+        ImageView imageView = header.findViewById(R.id.player_team_logo);
+        MaterialCardView cardView = header.findViewById(R.id.user_favourite_team_card);
 
         if(headerValue != -1) {
             TeamsRepo repo = new TeamsRepo();

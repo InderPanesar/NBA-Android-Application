@@ -2,17 +2,14 @@ package com.aston.basicarchitecture.pages.home.teams.dialog;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +17,6 @@ import android.widget.ProgressBar;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.teams.TeamsAdapter;
-import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 
@@ -77,7 +71,7 @@ public class TeamDialogFragment extends DialogFragment {
         teamDialogViewModel = new ViewModelProvider(this.getActivity()).get(TeamDialogViewModel.class);
 
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.playersRecyclerView);
+        recyclerView = v.findViewById(R.id.players_recycler_view);
         //TODO: Implement Loading State
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
@@ -89,7 +83,7 @@ public class TeamDialogFragment extends DialogFragment {
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> playersOnTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -111,12 +105,12 @@ public class TeamDialogFragment extends DialogFragment {
             }
         };
 
-        teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
+        teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), playersOnTeamObserver);;
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
+                teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), playersOnTeamObserver);;
             }
         });
 

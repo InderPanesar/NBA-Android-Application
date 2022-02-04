@@ -1,7 +1,6 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.MyViewHolder> {
+public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.ScheduleBaseAdapterViewHolder> {
 
     private static ScheduleCardClicked itemListener;
 
@@ -41,16 +40,16 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
     @NonNull
     @Override
-    public ScheduleBaseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleBaseAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.schedule_icon_item, parent, false);
-        return new ScheduleBaseAdapter.MyViewHolder(view);
+        return new ScheduleBaseAdapterViewHolder(view);
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull ScheduleBaseAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ScheduleBaseAdapterViewHolder holder, int position) {
         GamesModel model = games.get(position);
         Picasso.get().load(games.get(position).gethTeam().getLogo()).into(holder.homeTeamLogo);
         holder.homeTeamScore.setText(games.get(position).gethTeam().getScore().getPoints());
@@ -64,9 +63,6 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         String isHalfTime = games.get(position).getHalftime();
 
         holder.gameStatus.setText(status);
-
-        Log.d("START TIME", "TODAYS STUFF");
-
 
         //Changing heights of cards programmatically and including DP. To ensure scales correctly.
         int normalHeight = (int) (250 * dpScale + 0.5f);
@@ -122,7 +118,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+    public class ScheduleBaseAdapterViewHolder extends RecyclerView.ViewHolder  {
 
         View view;
 
@@ -139,17 +135,17 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
         MaterialButton button;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public ScheduleBaseAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-            homeTeamLogo = itemView.findViewById(R.id.homeTeamImage);
-            awayTeamLogo = itemView.findViewById(R.id.awayTeamImage);
-            homeTeamText = itemView.findViewById(R.id.homeTeamShortName);
-            awayTeamText = itemView.findViewById(R.id.awayTeamShortName);
-            homeTeamScore = itemView.findViewById(R.id.homeTeamScore);
-            awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
-            gameStatus = itemView.findViewById(R.id.scheduleGameStatus);
-            gameTimeStart = itemView.findViewById(R.id.scheduleGameTime);
+            homeTeamLogo = itemView.findViewById(R.id.home_team_image);
+            awayTeamLogo = itemView.findViewById(R.id.away_team_image);
+            homeTeamText = itemView.findViewById(R.id.home_team_short_mame);
+            awayTeamText = itemView.findViewById(R.id.away_team_short_name);
+            homeTeamScore = itemView.findViewById(R.id.home_team_score);
+            awayTeamScore = itemView.findViewById(R.id.away_team_score);
+            gameStatus = itemView.findViewById(R.id.schedule_game_status);
+            gameTimeStart = itemView.findViewById(R.id.schedule_game_time);
             button = itemView.findViewById(R.id.schedule_box_score_button);
         }
 

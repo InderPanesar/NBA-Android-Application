@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
     android:fillViewport="true">
 
     <LinearLayout
@@ -54,18 +55,24 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/east_schedule_button"
                 style="?attr/materialButtonOutlinedStyle"
+                android:fontFamily="@font/asap_regular"
+                android:textFontWeight="1000"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="East"/>
+                android:text="@string/east_main_page"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/west_schedule_button"
                 style="?attr/materialButtonOutlinedStyle"
+                android:fontFamily="@font/asap_regular"
+                android:textFontWeight="1000"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="West"/>
+                android:text="@string/west_main_page"/>
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -86,6 +93,7 @@
 
             <ProgressBar
                 android:id="@+id/schedule_table_progress_bar"
+                android:theme="@style/progressBarSunglow"
                 style="?android:progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:text="Retry">
+                    android:text="@string/alternate_retry_api_call">
                 </com.google.android.material.button.MaterialButton>
 
 

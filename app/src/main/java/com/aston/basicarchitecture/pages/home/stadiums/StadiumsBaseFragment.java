@@ -13,20 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aston.basicarchitecture.R;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -87,16 +83,16 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_stadiums, container, false);
 
-        mapView = (MapView) v.findViewById(R.id.mapView);
+        mapView = (MapView) v.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
 
-        mapView = (MapView) v.findViewById(R.id.mapView);
+        mapView = (MapView) v.findViewById(R.id.map_view);
 
-        stadiumTextView =  v.findViewById(R.id.StadiumName);
-        capacityTextView =  v.findViewById(R.id.StadiumCapacity);
-        stadiumImageView =  v.findViewById(R.id.stadiumImage);
+        stadiumTextView =  v.findViewById(R.id.stadium_name);
+        capacityTextView =  v.findViewById(R.id.stadium_capacity);
+        stadiumImageView =  v.findViewById(R.id.stadium_image);
         ticketButton =  v.findViewById(R.id.stadium_ticket_button);
 
         ticketButton.setEnabled(false);
@@ -118,7 +114,6 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
         ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
         for(int i = 0; i < bob.size(); i++) {
-            Log.d("HELP", String.valueOf(bob.size()));
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(bob.get(i).getMapPosition())
                     .icon(bitmapDescriptorFromVector(getActivity(), bob.get(i).getVectorPointer())));
@@ -140,7 +135,6 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
                         .into(stadiumImageView);
 
 
-                Log.d("MARKER CLICKED", String.valueOf(position));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
 
                 currentURL = stadiumInformation.ticketsURL;

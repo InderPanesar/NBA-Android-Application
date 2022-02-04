@@ -27,7 +27,6 @@ public class SettingsCustomisationSettingsMenuViewModel extends ViewModel {
 
         if(values.size() > 3) { editor.putInt(AppConsts.RECENT_GAMES_FOUR, values.get(3)).apply(); }
         else {
-            Log.d("HIT: ", "RESET");
             editor.putInt(AppConsts.RECENT_GAMES_FOUR, -1);
         }
         editor.apply();

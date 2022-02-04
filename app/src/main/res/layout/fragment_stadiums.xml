@@ -10,10 +10,10 @@
 
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+        android:id="@+id/map_view"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,15 +29,16 @@
                 android:layout_width="120dp"
                 app:cardMaxElevation="0dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 app:cardCornerRadius="20dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/stadiumImage"
+                    android:id="@+id/stadium_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/google_maps_stadium_image">
                 </ImageView>
             </com.google.android.material.card.MaterialCardView>
 
@@ -50,23 +51,25 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_marginTop="20dp"
-                    android:id="@+id/StadiumName"
+                    android:id="@+id/stadium_name"
                     android:layout_weight="1"
                     android:singleLine="true"
                     android:gravity="left"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
+                    android:text="@string/stadium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:background="@drawable/rounded_textview" />
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/StadiumCapacity"
+                    android:id="@+id/stadium_capacity"
                     android:layout_weight="1"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:singleLine="true"
                     android:gravity="left"
                     android:padding="16dp"
+                    android:text="@string/capacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_textview" />

@@ -44,7 +44,6 @@ public class TeamDialogViewModel extends ViewModel {
                     return;
                 } else {
                     PlayerModel model = response.body();
-                    Log.d("SUCCESSFUL PLAYER CALL", "" + model.getApi().getStatus());
                     ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
                     ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
                     for(IndividualPlayerModel player : players) {

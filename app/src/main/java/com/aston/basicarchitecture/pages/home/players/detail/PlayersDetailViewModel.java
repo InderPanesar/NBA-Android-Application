@@ -20,7 +20,9 @@ import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,8 +36,9 @@ import retrofit2.Response;
 public class PlayersDetailViewModel extends ViewModel {
 
     ArrayList<SinglePlayerStatsAdapter> statistics = new ArrayList<>();
+    String nbaLogoURL = "https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png";
 
-
+    Map<Integer, String> teams;
     PlayersRepository repository;
 
     @Inject
@@ -43,13 +46,10 @@ public class PlayersDetailViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
-
-
     StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> getPlayerGameStats(String playerId, SharedPreferences pref) {
         statistics = new ArrayList<>();
         List<Integer> integers = getSharedPreferences(pref);
         List<String> categories = new ArrayList<>();
-        Log.d("CHECK", String.valueOf(integers.size()));
         Integer integer = -1;
         integers.removeAll(Collections.singleton(integer));
         for(Integer i : integers) {
@@ -78,7 +78,6 @@ public class PlayersDetailViewModel extends ViewModel {
                     Collections.reverse(_statistics);
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
-                        Log.d("Statisics", String.valueOf(integers.size()));
                         if(integers.size() == 1 && _statistics.size() > 0) {
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                         }
@@ -148,6 +147,39 @@ public class PlayersDetailViewModel extends ViewModel {
         if(categoryValue == 8) { return "FTM"; }
         if(categoryValue == 9) { return "+/-"; }
         return "n/a";
+    }
+
+    public void addTeamsToHashMap() {
+        teams = new HashMap<Integer, String>();
+        teams.put(1, "Atlanta Hawks");
+        teams.put(2, "Boston Celtics");
+        teams.put(4, "Brooklyn Nets");
+        teams.put(5, "Charlotte Hornets");
+        teams.put(6, "Chicago Bulls");
+        teams.put(7, "Cleveland Cavaliers");
+        teams.put(8, "Dallas Mavericks");
+        teams.put(9, "Denver Nuggets");
+        teams.put(10, "Detroit Pistons");
+        teams.put(11, "Golden State Warriors");
+        teams.put(14, "Houston Rockets");
+        teams.put(15, "Indiana Pacers");
+        teams.put(16, "Los Angeles Clippers");
+        teams.put(17, "Los Angeles Lakers");
+        teams.put(19, "Memphis Grizzlies");
+        teams.put(20, "Miami Heat");
+        teams.put(21, "Milwaukee Bucks");
+        teams.put(22, "Minnesota Timberwolves");
+        teams.put(23, "New Orleans Pelicans");
+        teams.put(24, "New York Knicks");
+        teams.put(25, "Oklahoma City Thunder");
+        teams.put(26, "Orlando Magic");
+        teams.put(27, "Philadelphia 76ers");
+        teams.put(28, "Phoenix Suns");
+        teams.put(29, "Portland Trail Blazers");
+        teams.put(30, "Sacramento Kings");
+        teams.put(31, "San Antonio Spurs");
+        teams.put(38, "Toronto Raptors");
+        teams.put(40, "Washington Wizards");
     }
 
 }

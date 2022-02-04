@@ -1,7 +1,5 @@
-package com.aston.basicarchitecture.engine.comms.api;
+package com.aston.basicarchitecture.engine.repository;
 
-import com.aston.basicarchitecture.engine.repository.ExampleRepository;
-import com.aston.basicarchitecture.engine.repository.ExampleRepositoryImpl;
 import com.aston.basicarchitecture.engine.repository.players.PlayersRepository;
 import com.aston.basicarchitecture.engine.repository.players.PlayersRepositoryImpl;
 import com.aston.basicarchitecture.engine.repository.schedule.ScheduleRepository;
@@ -28,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public class ExampleAPIModule {
+public class Repositories {
 
     private final String BASE_URL = "https://api-nba-v1.p.rapidapi.com";
     private final String HOST = "api-nba-v1.p.rapidapi.com";
@@ -53,13 +51,6 @@ public class ExampleAPIModule {
         return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(httpClient.build()).build();
     }
 
-    //ToDo: Remove this example repository.
-    @Singleton
-    @Provides
-    @Named("ExampleRepository")
-    ExampleRepository provideExampleRepository() {
-        return new ExampleRepositoryImpl(provideRetrofit());
-    }
 
     @Singleton
     @Provides

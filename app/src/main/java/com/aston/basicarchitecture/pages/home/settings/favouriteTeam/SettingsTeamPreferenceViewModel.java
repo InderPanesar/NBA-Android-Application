@@ -20,13 +20,11 @@ public class SettingsTeamPreferenceViewModel extends ViewModel {
     TeamsRepo repo = new TeamsRepo();
     int selectedValue = -1;
 
-
     public void setPref(SharedPreferences pref) {
         selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
         if(selectedValue > 0) {
             addTeamPreference(selectedValue);
         }
-        Log.d("VALUE", "ID: " + String.valueOf(selectedValue));
     }
 
     ArrayList<TeamsRepo.LocalTeam> getTeams() {
@@ -34,21 +32,22 @@ public class SettingsTeamPreferenceViewModel extends ViewModel {
     }
 
     void addTeamPreference(int id) {
-        Log.d("ADDED", "ID: " + id);
         repo.setSelected(id);
         selectedValue = id;
     }
 
     void removeTeamPreference() {
-        Log.d("REMOVED", "ID: " + -1);
         repo.removeAllSelected();
         selectedValue = -1;
     }
 
-    void setSharedPreferences(SharedPreferences pref) {
+    public void setSharedPreferences(SharedPreferences pref) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(AppConsts.TEAM_FAVOURITE_KEY, selectedValue).apply();
-
-        Log.d("ADDED", "ID: " + String.valueOf(selectedValue));
     }
+
+    public int getSelectedValue() {
+        return selectedValue;
+    }
+
 }

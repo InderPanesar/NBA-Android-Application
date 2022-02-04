@@ -8,8 +8,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aston.basicarchitecture.databinding.FragmentScheduleBottomSheetBinding;
-import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
-import com.aston.basicarchitecture.pages.home.schedule.ScheduleBaseViewModel;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -35,7 +33,7 @@ import java.util.ArrayList;
  */
 public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
-    Observer<LiveDataStateData<ArrayList<String>>> nameObserver;
+    Observer<LiveDataStateData<ArrayList<String>>> statisticsObserver;
     ScheduleBottomSheetViewModel scheduleBottomSheetViewModel;
     TableLayout tableLayout;
 
@@ -63,22 +61,22 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
         tableLayout = binding.getRoot().findViewById(R.id.schedule_statistics_table);
 
-        ImageView iv = binding.getRoot().findViewById(R.id.homeTeamImage);
+        ImageView iv = binding.getRoot().findViewById(R.id.home_team_image);
         Picasso.get().load(getArguments().getString("homeTeamLogo")).into(iv);
-        iv = binding.getRoot().findViewById(R.id.awayTeamImage);
+        iv = binding.getRoot().findViewById(R.id.away_team_image);
         Picasso.get().load(getArguments().getString("awayTeamLogo")).into(iv);
 
-        TextView textView = binding.getRoot().findViewById(R.id.homeTeamScore);
+        TextView textView = binding.getRoot().findViewById(R.id.home_team_score);
         textView.setText(getArguments().getString("homeTeamScore", ""));
         textView = binding.getRoot().findViewById(R.id.table_team1_title);
         textView.setText(getArguments().getString("homeTeamNickName", ""));
 
-        textView = binding.getRoot().findViewById(R.id.awayTeamScore);
+        textView = binding.getRoot().findViewById(R.id.away_team_score);
         textView.setText(getArguments().getString("awayTeamScore", ""));
         textView = binding.getRoot().findViewById(R.id.table_team2_title);
         textView.setText(getArguments().getString("awayTeamNickName", ""));
 
-        nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
+        statisticsObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -142,12 +140,12 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
         };
 
-        scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), statisticsObserver);
 
         UniversalErrorStateHandler.getRetryButton(binding.getRoot()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), nameObserver);
+                scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), statisticsObserver);
             }
         });
 

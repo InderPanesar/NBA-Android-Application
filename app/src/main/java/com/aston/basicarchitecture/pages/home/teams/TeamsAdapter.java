@@ -57,17 +57,14 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        //ToDo: Implement Team Logos.
         ImageView logo;
-
-
         TextView teamCity, teamName;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            teamCity = itemView.findViewById(R.id.TeamCity);
-            teamName = itemView.findViewById(R.id.TeamName);
-            logo = itemView.findViewById(R.id.teamLogo);
+            teamCity = itemView.findViewById(R.id.teams_icon_teams_city);
+            teamName = itemView.findViewById(R.id.teams_icon_teams_name);
+            logo = itemView.findViewById(R.id.teams_icon_team_logo);
             itemView.setOnClickListener(this);
         }
 

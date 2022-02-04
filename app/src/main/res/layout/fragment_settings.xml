@@ -9,7 +9,7 @@
     tools:context=".pages.home.settings.SettingsFragment">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/settingsCustomisationSettings"
+        android:id="@+id/settings_customisation_settings"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:cardCornerRadius="20dp"
@@ -25,13 +25,13 @@
             android:paddingEnd="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
-                android:text="Customisation Settings">
+                android:text="@string/customisation_settings_settings_title">
             </TextView>
 
             <ImageView
@@ -44,7 +44,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/settingsChangeFavouriteTeam"
+        android:id="@+id/settings_change_favourite_team"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:cardCornerRadius="20dp"
@@ -59,13 +59,13 @@
             android:paddingEnd="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
-                android:text="Change Favourite Team">
+                android:text="@string/change_favourite_team_title">
             </TextView>
 
             <ImageView

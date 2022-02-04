@@ -15,11 +15,13 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textViewStyle">@style/GlobalTextFont</item>
-        <item name="android:buttonStyle">@style/GlobalTextFont</item>
+        <item name="android:textViewStyle">@style/global_text_font</item>
+        <item name="android:buttonStyle">@style/global_text_font</item>
         <item name="switchStyle">@style/Widget.App.Switch</item>
         <item name="android:textColor">#000000</item>
-
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:datePickerDialogTheme">@style/AppTheme.DialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
     </style>
 
@@ -52,7 +54,7 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
-    <style name="GlobalTextFont" parent="android:Widget.TextView">
+    <style name="global_text_font" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/asap_regular</item>
     </style>
 
@@ -65,5 +67,33 @@
         <item name="colorSwitchThumbNormal">@color/white</item>
         <item name="android:colorForeground">@color/switch_off_foreground</item>
     </style>
+
+    <style name="AppTheme.DialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/caramel_selected</item>
+        <item name="android:colorPrimary">@color/caramel_selected</item>
+        <item name="android:colorPrimaryDark">@color/caramel_selected</item>
+        <item name="android:colorAccent">@color/caramel_selected</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerTheme.ButtonBarNegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerTheme.ButtonBarNegativeButtonStyle</item>
+    </style>
+
+    <style name="DatePickerTheme.ButtonBarNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/caramel_selected</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/curved_top_bottom_sheet</item>
+    </style>
+
+
+
+
+
 
 </resources>

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,14 +38,11 @@ import java.util.ArrayList;
 public class MainBaseFragment extends Fragment {
 
     private LinearLayout favouriteTeamWidget;
-    private MainFragmentViewModel exampleViewModel;
+    private MainFragmentViewModel mainFragmentViewModel;
     private TableLayout tableLayout;
     private String conference = "east";
 
     public MainBaseFragment() { }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,10 +55,10 @@ public class MainBaseFragment extends Fragment {
         favouriteTeamWidget =  v.findViewById(R.id.favourite_team_widget);
 
         //Set the ViewModel
-        exampleViewModel = new ViewModelProvider(getActivity()).get(MainFragmentViewModel.class);
+        mainFragmentViewModel = new ViewModelProvider(getActivity()).get(MainFragmentViewModel.class);
         tableLayout = v.findViewById(R.id.schedule_statistics_table);
 
-        Observer<LiveDataStateData<ArrayList<String>>> nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
+        Observer<LiveDataStateData<ArrayList<String>>> favouriteTeamObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -75,19 +71,19 @@ public class MainBaseFragment extends Fragment {
                         if(data.get(0).equals("east")) { conferenceString = conferenceString + "Eastern Conference : "; }
                         else { conferenceString = conferenceString + "Western Conference : "; }
                         conferenceString = conferenceString + data.get(1);
-                        TextView favouriteTeamConference = v.findViewById(R.id.favouriteTeamConferenceRanking);
+                        TextView favouriteTeamConference = v.findViewById(R.id.favourite_team_conference_ranking);
                         favouriteTeamConference.setText(conferenceString);
 
                         String recordString = "Record : ";
                         recordString = recordString + data.get(2) + " - " + data.get(3);
-                        TextView favouriteRecord = v.findViewById(R.id.favouriteTeamRecord);
+                        TextView favouriteRecord = v.findViewById(R.id.favourite_team_record);
                         favouriteRecord.setText(recordString);
 
-                        TextView favouriteName = v.findViewById(R.id.favouriteTeamName);
-                        favouriteName.setText(exampleViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
+                        TextView favouriteName = v.findViewById(R.id.favourite_team_name);
+                        favouriteName.setText(mainFragmentViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
 
-                        ImageView imageView = v.findViewById(R.id.favouriteTeamIconImage);
-                        Picasso.get().load(exampleViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
+                        ImageView imageView = v.findViewById(R.id.favourite_team_icon_image);
+                        Picasso.get().load(mainFragmentViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
 
 
                         break;
@@ -104,7 +100,7 @@ public class MainBaseFragment extends Fragment {
 
         };
 
-        exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
+        mainFragmentViewModel.getPlayers(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
 
         ProgressBar bar = v.findViewById(R.id.schedule_table_progress_bar);
         LinearLayout errorStates = v.findViewById(R.id.schedule_table_error_state);
@@ -118,7 +114,6 @@ public class MainBaseFragment extends Fragment {
                         tableLayout.removeAllViews();
                         ArrayList<TeamStandingModel> data = stateLiveData.getData();
                         setTable(v, data);
-                        Log.d("HIT", "SET TABLE");
 
                         bar.setVisibility(View.INVISIBLE);
                         tableLayout.setVisibility(View.VISIBLE);
@@ -139,7 +134,7 @@ public class MainBaseFragment extends Fragment {
 
         };
 
-        exampleViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
+        mainFragmentViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
 
         MaterialButtonToggleGroup toggleGroup = v.findViewById(R.id.schedule_button_group);
 
@@ -150,7 +145,8 @@ public class MainBaseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 conference = "east";
-                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+
+                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
@@ -158,21 +154,21 @@ public class MainBaseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 conference = "west";
-                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
         errorButtonSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exampleViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exampleViewModel.getPlayers(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), nameObserver);
+                mainFragmentViewModel.getPlayers(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
             }
         });
 
@@ -180,7 +176,7 @@ public class MainBaseFragment extends Fragment {
         MaterialCardView favouriteTeamWidgetPage = v.findViewById(R.id.favourite_team_widget_landing_page);
 
 
-        if(exampleViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE)).equals("-1")) {
+        if(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE)).equals("-1")) {
             favouriteTeamTitle.setVisibility(View.GONE);
             favouriteTeamWidgetPage.setVisibility(View.GONE);
         }
@@ -194,23 +190,17 @@ public class MainBaseFragment extends Fragment {
             tableLayout.setVisibility(View.INVISIBLE);
         }
         else {
-            ArrayList<String> headers = new ArrayList<>();
-            headers.add("Seed");
-            headers.add("Logo");
-            headers.add("Team");
-            headers.add("Record");
-
             TableRow topRow = new TableRow(getContext());
-            for( String header : headers) {
+            for( String header : mainFragmentViewModel.headers) {
                 TextView tv0 = new TextView(getContext());
                 tv0.setText(header);
+                tv0.setPadding(10, 30, 10, 30);
                 tv0.setTextColor(Color.BLACK);
                 tv0.setGravity(Gravity.CENTER);
-                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
             }
             tableLayout.addView(topRow);
-            int seed = 1;
             for (TeamStandingModel team : teams) {
                 TableRow tbrow = new TableRow(getContext());
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -228,20 +218,21 @@ public class MainBaseFragment extends Fragment {
                 ImageView view = new ImageView(getContext());
                 view.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                 Picasso.get()
-                        .load(exampleViewModel.getTeamLogo(team.getTeamId()))
+                        .load(mainFragmentViewModel.getTeamLogo(team.getTeamId()))
                         .into(view);
-                view.setLayoutParams(new TableRow.LayoutParams(113, 113));
+                view.setLayoutParams(new TableRow.LayoutParams(
+                        111,
+                        111
+                ));
                 tbrow.addView(view);
 
-
                 tv = new TextView(getContext());
-                tv.setText(exampleViewModel.getTeamName(team.getTeamId()));
+                tv.setText(mainFragmentViewModel.getTeamName(team.getTeamId()));
                 tv.setTextColor(Color.BLACK);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(10, 30, 10, 30);
                 tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                 tbrow.addView(tv);
-
 
                 tv = new TextView(getContext());
                 tv.setText(new StringBuilder().append(team.getConference().getWin()).append(" - ").append(team.getConference().getLoss()).toString());
@@ -261,4 +252,5 @@ public class MainBaseFragment extends Fragment {
         }
 
     }
+
 }

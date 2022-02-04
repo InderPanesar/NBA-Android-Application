@@ -10,27 +10,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.engine.model.schedule.GamesModel;
-import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
-import com.aston.basicarchitecture.pages.home.players.PlayersBaseAdapter;
-import com.aston.basicarchitecture.pages.home.teams.TeamsBaseViewModel;
 import com.aston.basicarchitecture.utils.livedata.LiveDataStateData;
 import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,22 +41,15 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     Calendar c;
 
     ArrayList<GamesModel> games = new ArrayList<>();
-    Observer<LiveDataStateData<ArrayList<GamesModel>>> nameObserver;
+
+    Observer<LiveDataStateData<ArrayList<GamesModel>>> gameScheduleObserver;
 
 
     public ScheduleBaseFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Schedule.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static ScheduleBaseFragment newInstance(String param1, String param2) {
         ScheduleBaseFragment fragment = new ScheduleBaseFragment();
         return fragment;
@@ -88,7 +74,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         int mMonth = c.get(Calendar.MONTH) + 1;
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        scheduleButton = v.findViewById(R.id.ScheduleDatePickerButton);
+        scheduleButton = v.findViewById(R.id.schedule_date_picker_button);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
         datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth - 1, mDay);
         scheduleButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +84,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
             }
         });
 
-        recyclerView = v.findViewById(R.id.scheduleRecyclerView);
+        recyclerView = v.findViewById(R.id.schedule_recycler_view);
         //TODO: Implement Loading State
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
@@ -111,7 +97,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
 
         //Observer
-        nameObserver = new Observer<LiveDataStateData<ArrayList<GamesModel>>>() {
+        gameScheduleObserver = new Observer<LiveDataStateData<ArrayList<GamesModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<GamesModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -135,12 +121,12 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
         };
 
-        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
+                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
             }
         });
 
@@ -151,7 +137,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         c.set(year, month, dayOfMonth);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month + 1).append("/").append(year).toString());
-        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
 
     }
 
