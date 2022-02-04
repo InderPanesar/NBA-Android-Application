@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.MyViewHolder> {
+public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.ScheduleBaseAdapterViewHolder> {
 
     private static ScheduleCardClicked itemListener;
 
@@ -40,16 +40,16 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
     @NonNull
     @Override
-    public ScheduleBaseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleBaseAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.schedule_icon_item, parent, false);
-        return new ScheduleBaseAdapter.MyViewHolder(view);
+        return new ScheduleBaseAdapterViewHolder(view);
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull ScheduleBaseAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ScheduleBaseAdapterViewHolder holder, int position) {
         GamesModel model = games.get(position);
         Picasso.get().load(games.get(position).gethTeam().getLogo()).into(holder.homeTeamLogo);
         holder.homeTeamScore.setText(games.get(position).gethTeam().getScore().getPoints());
@@ -118,7 +118,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+    public class ScheduleBaseAdapterViewHolder extends RecyclerView.ViewHolder  {
 
         View view;
 
@@ -135,7 +135,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
         MaterialButton button;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public ScheduleBaseAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             homeTeamLogo = itemView.findViewById(R.id.home_team_image);

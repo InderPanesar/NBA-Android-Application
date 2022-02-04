@@ -27,8 +27,6 @@ import com.aston.basicarchitecture.utils.livedata.UniversalErrorStateHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,25 +36,13 @@ import java.util.Map;
 public class PlayersDetailFragment extends Fragment {
 
 
-    Map<Integer, String> teams;
     PlayersDetailViewModel viewModel;
     TableLayout tableLayout;
     ArrayList<TableRow> removeRows = new ArrayList<>();
 
 
-    public PlayersDetailFragment() {
-        // Required empty public constructor
-    }
+    public PlayersDetailFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayersDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PlayersDetailFragment newInstance(String param1, String param2) {
         PlayersDetailFragment fragment = new PlayersDetailFragment();
         Bundle args = new Bundle();
@@ -78,36 +64,6 @@ public class PlayersDetailFragment extends Fragment {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(getArguments().getString("playerName"));
 
-        teams = new HashMap<Integer, String>();
-        teams.put(1, "Atlanta Hawks");
-        teams.put(2, "Boston Celtics");
-        teams.put(4, "Brooklyn Nets");
-        teams.put(5, "Charlotte Hornets");
-        teams.put(6, "Chicago Bulls");
-        teams.put(7, "Cleveland Cavaliers");
-        teams.put(8, "Dallas Mavericks");
-        teams.put(9, "Denver Nuggets");
-        teams.put(10, "Detroit Pistons");
-        teams.put(11, "Golden State Warriors");
-        teams.put(14, "Houston Rockets");
-        teams.put(15, "Indiana Pacers");
-        teams.put(16, "Los Angeles Clippers");
-        teams.put(17, "Los Angeles Lakers");
-        teams.put(19, "Memphis Grizzlies");
-        teams.put(20, "Miami Heat");
-        teams.put(21, "Milwaukee Bucks");
-        teams.put(22, "Minnesota Timberwolves");
-        teams.put(23, "New Orleans Pelicans");
-        teams.put(24, "New York Knicks");
-        teams.put(25, "Oklahoma City Thunder");
-        teams.put(26, "Orlando Magic");
-        teams.put(27, "Philadelphia 76ers");
-        teams.put(28, "Phoenix Suns");
-        teams.put(29, "Portland Trail Blazers");
-        teams.put(30, "Sacramento Kings");
-        teams.put(31, "San Antonio Spurs");
-        teams.put(38, "Toronto Raptors");
-        teams.put(40, "Washington Wizards");
     }
 
     @Override
@@ -136,7 +92,7 @@ public class PlayersDetailFragment extends Fragment {
 
         //If attribute 7 doesn't exist and is null
         try {
-            textView.setText(teams.get(Integer.parseInt(playerAttributes[7])));
+            textView.setText(viewModel.teams.get(Integer.parseInt(playerAttributes[7])));
         }
         catch (NumberFormatException e) {
             textView.setText("Infomation Not Available");
@@ -158,7 +114,7 @@ public class PlayersDetailFragment extends Fragment {
         ImageView view = v.findViewById(R.id.player_team_image_view);
         TeamsRepo repo = new TeamsRepo();
         if(playerAttributes[7] == null) {
-            Picasso.get().load("https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png").fit().into(view);
+            Picasso.get().load(viewModel.nbaLogoURL).fit().into(view);
         }
         else {
             Integer teamID = Integer.parseInt(playerAttributes[7]);
@@ -173,7 +129,7 @@ public class PlayersDetailFragment extends Fragment {
         viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
 
 
-        Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> nameObserver = new Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>>() {
+        Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> recentGamesAdapterObserver = new Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>> stats) {
                 switch (stats.getStatus()) {
@@ -198,7 +154,7 @@ public class PlayersDetailFragment extends Fragment {
 
         };
 
-        viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), nameObserver);
+        viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
 
 
 

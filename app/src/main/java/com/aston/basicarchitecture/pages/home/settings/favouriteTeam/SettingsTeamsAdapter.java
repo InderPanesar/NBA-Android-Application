@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdapter.MyViewHolder> {
+public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdapter.SettingsTeamsAdapterViewHolder> {
     private static SettingsTeamClicked itemListener;
     ArrayList<TeamsRepo.LocalTeam> teams;
     Context context;
@@ -34,14 +34,14 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
 
     @NonNull
     @Override
-    public SettingsTeamsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SettingsTeamsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.teams_image_icon_item, parent, false);
-        return new SettingsTeamsAdapter.MyViewHolder(view);
+        return new SettingsTeamsAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SettingsTeamsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SettingsTeamsAdapterViewHolder holder, int position) {
         Picasso.get().load(teams.get(position).getLogoURL()).into(holder.logo);
         if(teams.get(position).isSelected) {
             holder.cardView.setCardBackgroundColor(Color.LTGRAY);
@@ -55,11 +55,11 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
         return teams.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class SettingsTeamsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView logo;
         MaterialCardView cardView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public SettingsTeamsAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             logo = itemView.findViewById(R.id.teams_image_view);
             cardView = itemView.findViewById(R.id.teams_image_icon_item);

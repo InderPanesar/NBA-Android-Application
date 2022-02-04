@@ -87,7 +87,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> individualTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualTeamsModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -110,7 +110,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
         };
 
-        teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+        teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
         MaterialButton easternConferenceButton = (MaterialButton) v.findViewById(R.id.east_conference_button);
         MaterialButton westernConferenceButton = (MaterialButton) v.findViewById(R.id.west_conference_button);
@@ -124,7 +124,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 teamsBaseViewModel.currentConference = "east";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
                 easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
                 westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
@@ -140,7 +140,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             public void onClick(View v) {
                 recyclerView.setVisibility(View.GONE);
                 teamsBaseViewModel.currentConference = "west";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
                 easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
                 westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
@@ -153,7 +153,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), nameObserver);
+                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
             }
         });
 

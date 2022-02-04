@@ -33,7 +33,7 @@ import java.util.ArrayList;
  */
 public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
-    Observer<LiveDataStateData<ArrayList<String>>> nameObserver;
+    Observer<LiveDataStateData<ArrayList<String>>> statisticsObserver;
     ScheduleBottomSheetViewModel scheduleBottomSheetViewModel;
     TableLayout tableLayout;
 
@@ -76,7 +76,7 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
         textView = binding.getRoot().findViewById(R.id.table_team2_title);
         textView.setText(getArguments().getString("awayTeamNickName", ""));
 
-        nameObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
+        statisticsObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -140,12 +140,12 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
         };
 
-        scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), nameObserver);
+        scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), statisticsObserver);
 
         UniversalErrorStateHandler.getRetryButton(binding.getRoot()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), nameObserver);
+                scheduleBottomSheetViewModel.getGameStatistics(getArguments().getString("gameId", "-1")).observe(getViewLifecycleOwner(), statisticsObserver);
             }
         });
 

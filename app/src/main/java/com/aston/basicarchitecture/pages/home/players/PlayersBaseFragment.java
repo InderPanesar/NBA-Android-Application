@@ -84,7 +84,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> individualPlayerObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> arrayListLiveDataStateData) {
                 switch (arrayListLiveDataStateData.getStatus()) {
@@ -106,7 +106,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
         };
 
-        playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), nameObserver);
+        playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), individualPlayerObserver);
 
         Button internationButton  = v.findViewById(R.id.players_international_button);
         internationButton.setText(R.string.filter_button_all);
@@ -144,7 +144,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
                         recyclerView.setVisibility(View.GONE);
                         //TODO: Loading State VISIBLE
-                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), nameObserver);
+                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), individualPlayerObserver);
                         dialog.dismiss();
 
 

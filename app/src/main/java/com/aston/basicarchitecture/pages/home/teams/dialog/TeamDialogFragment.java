@@ -83,7 +83,7 @@ public class TeamDialogFragment extends DialogFragment {
 
 
         //Observer
-        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> nameObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> playersOnTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
@@ -105,12 +105,12 @@ public class TeamDialogFragment extends DialogFragment {
             }
         };
 
-        teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
+        teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), playersOnTeamObserver);;
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), nameObserver);;
+                teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), playersOnTeamObserver);;
             }
         });
 

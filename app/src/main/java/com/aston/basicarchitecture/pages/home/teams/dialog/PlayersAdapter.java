@@ -12,7 +12,7 @@ import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.R;
 import java.util.ArrayList;
 
-public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.MyViewHolder> {
+public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerViewHolder> {
     ArrayList<IndividualPlayerModel> players;
     Context context;
 
@@ -25,14 +25,14 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.MyViewHo
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.players_icon_item, parent, false);
-        return new MyViewHolder(view);
+        return new PlayerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlayerViewHolder holder, int position) {
         //holder.teamCity.setText(teams.get(position).getCity());
         //holder.teamName.setText(teams.get(position).getNickname());
         //Picasso.get().load(teams.get(position).getLogo()).into(holder.logo);
@@ -57,13 +57,9 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.MyViewHo
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        //ToDo: Implement Team Logos.
-
+    public class PlayerViewHolder extends RecyclerView.ViewHolder {
         TextView playerJersey, playerName, playerDescriptors, playerPosition;
-
-
-        public MyViewHolder(@NonNull View itemView) {
+        public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
             playerJersey = itemView.findViewById(R.id.card_players_jersey_number);
             playerName = itemView.findViewById(R.id.card_players_name);

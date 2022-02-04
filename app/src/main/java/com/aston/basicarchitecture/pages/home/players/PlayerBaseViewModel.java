@@ -33,10 +33,7 @@ public class PlayerBaseViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
-    //ToDo: Filter By Players Last Name!
-
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
-
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override
@@ -72,8 +69,6 @@ public class PlayerBaseViewModel extends ViewModel {
     }
 
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getInternationalFilterPlayers() {
-
-
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         ArrayList<IndividualPlayerModel> players = localTempPlayers;
         ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();

@@ -6,22 +6,34 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/landingPage"
+            android:icon="@drawable/ic_home"
+            android:iconTint="@color/black"
             android:title="Home" />
         <item
             android:id="@+id/teams"
+            android:icon="@drawable/ic_team"
+            android:iconTint="@color/black"
             android:title="Teams" />
         <item
             android:id="@+id/schedule"
+            android:icon="@drawable/ic_calendar"
+            android:iconTint="@color/black"
             android:title="Schedule" />
         <item
             android:id="@+id/players"
+            android:icon="@drawable/ic_person"
+            android:iconTint="@color/black"
             android:title="Players" />
         <item
             android:id="@+id/stadiums"
+            android:icon="@drawable/ic_place"
+            android:iconTint="@color/black"
             android:title="Stadiums" />
 
         <item
             android:id="@+id/settings"
+            android:icon="@drawable/ic_settings"
+            android:iconTint="@color/black"
             android:title="Settings" />
     </group>
 

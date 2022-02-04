@@ -9,6 +9,7 @@ import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basicarchitecture.utils.AppConsts;
 import com.aston.basicarchitecture.utils.livedata.StateMutableLiveData;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -21,6 +22,9 @@ import retrofit2.Response;
 
 @HiltViewModel
 public class MainFragmentViewModel extends ViewModel {
+
+    List<String> headers = Arrays.asList("Seed", "Logo", "Team", "Record");
+
 
     StandingsRepository repository;
     @Inject

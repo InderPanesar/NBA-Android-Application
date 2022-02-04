@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
     android:fillViewport="true">
 
     <LinearLayout
@@ -54,6 +55,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/east_schedule_button"
                 style="?attr/materialButtonOutlinedStyle"
+                android:fontFamily="@font/asap_regular"
+                android:textFontWeight="1000"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,6 +66,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/west_schedule_button"
                 style="?attr/materialButtonOutlinedStyle"
+                android:fontFamily="@font/asap_regular"
+                android:textFontWeight="1000"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
