@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.aston.basicarchitecture.R;
 import com.aston.basicarchitecture.engine.model.teams.IndividualTeamsModel;
@@ -75,7 +74,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         View v = inflater.inflate(R.layout.fragment_teams, container, false);
 
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.teamsRecyclerView);
+        recyclerView = v.findViewById(R.id.teams_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setHasFixedSize(true);
         teamsAdapter = new TeamsAdapter(getContext(), teams, this);

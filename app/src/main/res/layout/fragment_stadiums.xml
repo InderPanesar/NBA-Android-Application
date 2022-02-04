@@ -10,7 +10,7 @@
 
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+        android:id="@+id/map_view"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
@@ -35,7 +35,7 @@
                 app:strokeWidth="1dp"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/stadiumImage"
+                    android:id="@+id/stadium_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/google_maps_stadium_image">
@@ -51,7 +51,7 @@
                 android:orientation="vertical">
                 <TextView
                     android:layout_marginTop="20dp"
-                    android:id="@+id/StadiumName"
+                    android:id="@+id/stadium_name"
                     android:layout_weight="1"
                     android:singleLine="true"
                     android:gravity="left"
@@ -63,7 +63,7 @@
                     android:background="@drawable/rounded_textview" />
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/StadiumCapacity"
+                    android:id="@+id/stadium_capacity"
                     android:layout_weight="1"
                     android:textSize="12sp"
                     android:singleLine="true"

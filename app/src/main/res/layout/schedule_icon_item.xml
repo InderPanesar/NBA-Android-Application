@@ -31,13 +31,13 @@
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
                 <ImageView
-                    android:id="@+id/homeTeamImage"
+                    android:id="@+id/home_team_image"
                     android:layout_width="78dp"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/team_1_logo_cd">
                 </ImageView>
                 <TextView
-                    android:id="@+id/homeTeamScore"
+                    android:id="@+id/home_team_score"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
@@ -56,7 +56,7 @@
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
                 <TextView
-                    android:id="@+id/awayTeamScore"
+                    android:id="@+id/away_team_score"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
@@ -66,7 +66,7 @@
                     android:textColor="@color/black">
                 </TextView>
                 <ImageView
-                    android:id="@+id/awayTeamImage"
+                    android:id="@+id/away_team_image"
                     android:layout_width="78dp"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/secondary_logo_schedule_card">
@@ -88,7 +88,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/homeTeamShortName"
+                    android:id="@+id/home_team_short_mame"
                     android:layout_width="78dp"
                     android:layout_height="match_parent"
                     android:textSize="12sp"
@@ -106,7 +106,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/scheduleGameStatus"
+                    android:id="@+id/schedule_game_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="12sp"
@@ -125,7 +125,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/awayTeamShortName"
+                    android:id="@+id/away_team_short_name"
                     android:layout_width="78dp"
                     android:layout_height="match_parent"
                     android:textSize="12sp"
@@ -171,7 +171,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/scheduleGameTime"
+                    android:id="@+id/schedule_game_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="12sp"

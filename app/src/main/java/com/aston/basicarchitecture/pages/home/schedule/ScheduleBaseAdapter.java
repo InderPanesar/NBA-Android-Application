@@ -1,7 +1,6 @@
 package com.aston.basicarchitecture.pages.home.schedule;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,14 +138,14 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-            homeTeamLogo = itemView.findViewById(R.id.homeTeamImage);
-            awayTeamLogo = itemView.findViewById(R.id.awayTeamImage);
-            homeTeamText = itemView.findViewById(R.id.homeTeamShortName);
-            awayTeamText = itemView.findViewById(R.id.awayTeamShortName);
-            homeTeamScore = itemView.findViewById(R.id.homeTeamScore);
-            awayTeamScore = itemView.findViewById(R.id.awayTeamScore);
-            gameStatus = itemView.findViewById(R.id.scheduleGameStatus);
-            gameTimeStart = itemView.findViewById(R.id.scheduleGameTime);
+            homeTeamLogo = itemView.findViewById(R.id.home_team_image);
+            awayTeamLogo = itemView.findViewById(R.id.away_team_image);
+            homeTeamText = itemView.findViewById(R.id.home_team_short_mame);
+            awayTeamText = itemView.findViewById(R.id.away_team_short_name);
+            homeTeamScore = itemView.findViewById(R.id.home_team_score);
+            awayTeamScore = itemView.findViewById(R.id.away_team_score);
+            gameStatus = itemView.findViewById(R.id.schedule_game_status);
+            gameTimeStart = itemView.findViewById(R.id.schedule_game_time);
             button = itemView.findViewById(R.id.schedule_box_score_button);
         }
 

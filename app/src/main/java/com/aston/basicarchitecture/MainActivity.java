@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
+        MaterialCardView cardView = header.findViewById(R.id.user_favourite_team_card);
 
         setUpSharedPreferences();
         updateNavBar();
@@ -144,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         int headerValue = readHeaderPreferences();
         NavigationView navView = findViewById(R.id.nav_view);
         View header = navView.getHeaderView(0);
-        TextView view = header.findViewById(R.id.playerTeamName);
-        ImageView imageView = header.findViewById(R.id.playerTeamLogo);
-        MaterialCardView cardView = header.findViewById(R.id.userFavouriteTeamCard);
+        TextView view = header.findViewById(R.id.player_team_name);
+        ImageView imageView = header.findViewById(R.id.player_team_logo);
+        MaterialCardView cardView = header.findViewById(R.id.user_favourite_team_card);
 
         if(headerValue != -1) {
             TeamsRepo repo = new TeamsRepo();

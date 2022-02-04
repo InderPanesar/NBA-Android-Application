@@ -22,7 +22,7 @@
         </ImageView>
 
         <TextView
-            android:id="@+id/teamDialogTeamTitle"
+            android:id="@+id/team_dialog_team_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/players_title_detail_page"
@@ -44,7 +44,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="16dp"
-                android:id="@+id/playersRecyclerView"
+                android:id="@+id/players_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,21 +116,21 @@ public class PlayersDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         String playerAttributes[] = getArguments().getStringArray("playerAttributes");
         View v = inflater.inflate(R.layout.fragment_players_detail, container, false);
-        TextView textView =  v.findViewById(R.id.playersDetailYearsPro);
+        TextView textView =  v.findViewById(R.id.players_detail_years_pro);
         textView.setText(playerAttributes[0]);
-        textView = v.findViewById(R.id.playersDetailCollege);
+        textView = v.findViewById(R.id.players_detail_college);
         textView.setText(playerAttributes[1]);
-        textView = v.findViewById(R.id.playersDetailCountry);
+        textView = v.findViewById(R.id.players_detail_country);
         textView.setText(playerAttributes[2]);
-        textView = v.findViewById(R.id.playersDetailPlayerId);
+        textView = v.findViewById(R.id.players_detail_player_id);
         textView.setText(playerAttributes[3]);
-        textView = v.findViewById(R.id.playersDetailFirstYear);
+        textView = v.findViewById(R.id.players_detail_first_year);
         textView.setText(playerAttributes[4]);
-        textView = v.findViewById(R.id.playersDetailHeight);
+        textView = v.findViewById(R.id.players_detail_height);
         textView.setText(playerAttributes[5]);
-        textView = v.findViewById(R.id.playersDetailWeight);
+        textView = v.findViewById(R.id.players_detail_weight);
         textView.setText(playerAttributes[6]);
-        textView = v.findViewById(R.id.playerTeamName);
+        textView = v.findViewById(R.id.player_team_name);
 
         tableLayout = v.findViewById(R.id.team_player_stats);
 
@@ -143,11 +142,11 @@ public class PlayersDetailFragment extends Fragment {
             textView.setText("Infomation Not Available");
         }
 
-        textView = v.findViewById(R.id.playerTeamJersey);
+        textView = v.findViewById(R.id.player_team_jersey);
         textView.setText(playerAttributes[8]);
-        textView = v.findViewById(R.id.playerTeamPosition);
+        textView = v.findViewById(R.id.player_team_position);
         textView.setText(playerAttributes[9]);
-        textView = v.findViewById(R.id.playerTeamStatusTitle);
+        textView = v.findViewById(R.id.player_team_status_title);
         if(playerAttributes[10].equals("1")) {
             textView.setText("Active");
         }

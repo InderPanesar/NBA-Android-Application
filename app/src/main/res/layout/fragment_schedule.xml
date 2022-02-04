@@ -36,7 +36,7 @@
             android:layout_height="match_parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scheduleRecyclerView"
+            android:id="@+id/schedule_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layoutManager="android.support.v7.widget.LinearLayoutManager"

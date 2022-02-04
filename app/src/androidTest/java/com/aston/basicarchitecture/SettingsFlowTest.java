@@ -59,7 +59,7 @@ public class SettingsFlowTest {
         navigationMenuItemView.perform(click());
 
         ViewInteraction materialCardView = onView(
-                allOf(withId(R.id.settingsChangeFavouriteTeam),
+                allOf(withId(R.id.settings_change_favourite_team),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.fragment_container_view),
@@ -94,7 +94,7 @@ public class SettingsFlowTest {
         appCompatImageButton2.perform(click());
 
         ViewInteraction materialCardView2 = onView(
-                allOf(withId(R.id.settingsCustomisationSettings),
+                allOf(withId(R.id.settings_customisation_settings),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.fragment_container_view),
@@ -104,7 +104,7 @@ public class SettingsFlowTest {
         materialCardView2.perform(click());
 
         ViewInteraction switchMaterial = onView(
-                allOf(withId(R.id.pointsPerGameSlider),
+                allOf(withId(R.id.points_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -114,7 +114,7 @@ public class SettingsFlowTest {
         switchMaterial.perform(click());
 
         ViewInteraction switchMaterial2 = onView(
-                allOf(withId(R.id.pointsPerGameSlider),
+                allOf(withId(R.id.points_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -124,7 +124,7 @@ public class SettingsFlowTest {
         switchMaterial2.perform(click());
 
         ViewInteraction switchMaterial3 = onView(
-                allOf(withId(R.id.pointsPerGameSlider),
+                allOf(withId(R.id.points_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -134,7 +134,7 @@ public class SettingsFlowTest {
         switchMaterial3.perform(click());
 
         ViewInteraction switchMaterial4 = onView(
-                allOf(withId(R.id.pointsPerGameSlider),
+                allOf(withId(R.id.points_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -144,7 +144,7 @@ public class SettingsFlowTest {
         switchMaterial4.perform(click());
 
         ViewInteraction switchMaterial5 = onView(
-                allOf(withId(R.id.pointsPerGameSlider),
+                allOf(withId(R.id.points_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -154,7 +154,7 @@ public class SettingsFlowTest {
         switchMaterial5.perform(click());
 
         ViewInteraction switchMaterial6 = onView(
-                allOf(withId(R.id.blocksPercentageSlider),
+                allOf(withId(R.id.blocks_percentage_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -164,7 +164,7 @@ public class SettingsFlowTest {
         switchMaterial6.perform(click());
 
         ViewInteraction switchMaterial7 = onView(
-                allOf(withId(R.id.stealsPercentageSlider),
+                allOf(withId(R.id.steals_percentage_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -174,7 +174,7 @@ public class SettingsFlowTest {
         switchMaterial7.perform(click());
 
         ViewInteraction switchMaterial8 = onView(
-                allOf(withId(R.id.freeThrowPercentageSlider),
+                allOf(withId(R.id.free_throw_percentage_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -184,7 +184,7 @@ public class SettingsFlowTest {
         switchMaterial8.perform(click());
 
         ViewInteraction switchMaterial9 = onView(
-                allOf(withId(R.id.overallFieldGoalPercentageSlider),
+                allOf(withId(R.id.overall_field_goal_percentage_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -194,7 +194,7 @@ public class SettingsFlowTest {
         switchMaterial9.perform(click());
 
         ViewInteraction switchMaterial10 = onView(
-                allOf(withId(R.id.freeThrowsMadeSlider),
+                allOf(withId(R.id.free_throws_made_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -204,7 +204,7 @@ public class SettingsFlowTest {
         switchMaterial10.perform(click());
 
         ViewInteraction switchMaterial11 = onView(
-                allOf(withId(R.id.reboundsPerGameSlider),
+                allOf(withId(R.id.rebounds_per_game_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),
@@ -214,7 +214,7 @@ public class SettingsFlowTest {
         switchMaterial11.perform(click());
 
         ViewInteraction switchMaterial12 = onView(
-                allOf(withId(R.id.plusMinusSlider),
+                allOf(withId(R.id.plus_minus_slider),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("com.google.android.material.card.MaterialCardView")),

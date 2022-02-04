@@ -22,7 +22,7 @@
             android:id="@+id/favourite_team_widget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/playerteam_background_gradient"
+            android:background="@drawable/player_team_background_gradient"
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
@@ -30,7 +30,7 @@
                 android:layout_height="120dp"
                 android:padding="20dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 app:cardCornerRadius="60dp"
                 app:strokeWidth="1dp"
                 app:strokeColor="@color/black">
@@ -49,7 +49,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:scaleType="centerCrop"
-                        />
+                        android:contentDescription="@string/team_logo_content_description" />
                 </androidx.cardview.widget.CardView>
 
             </com.google.android.material.card.MaterialCardView>
@@ -73,7 +73,6 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:text="Atlanta Hawks"
                     android:fontFamily="@font/asap_condensed_regular" />
                 <TextView
                     android:id="@+id/favourite_team_conference_ranking"
@@ -83,8 +82,7 @@
                     android:gravity="center_vertical"
                     android:fontFamily="@font/asap_condensed_regular"
                     android:textColor="@color/black"
-                    android:layout_weight="2"
-                    android:text="Eastern Conference: 11th">
+                    android:layout_weight="2">
                 </TextView>
                 <TextView
                     android:id="@+id/favourite_team_record"
@@ -95,8 +93,7 @@
                     android:layout_weight="0"
                     android:textColor="@color/black"
                     android:fontFamily="@font/asap_condensed_regular"
-                    android:gravity="center_vertical"
-                    android:text="Record: 1-2">
+                    android:gravity="center_vertical">
                 </TextView>
 
 

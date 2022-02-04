@@ -16,23 +16,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/TopBar"
+            android:id="@+id/teams_icon_top_bar"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:background="@color/teal_200"
+            android:background="@color/caramel"
             android:gravity="center"
             android:layout_weight="1">
             <ImageView
                 android:layout_gravity="center"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:id="@+id/teamLogo"
+                android:id="@+id/teams_icon_team_logo"
                 android:contentDescription="@string/logo">
             </ImageView>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/BottomBar"
+            android:id="@+id/teams_icon_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
@@ -41,13 +41,13 @@
             android:padding="5dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/TeamCity"
+                android:id="@+id/teams_icon_teams_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="13sp"/>
             <TextView
-                android:id="@+id/TeamName"
+                android:id="@+id/teams_icon_teams_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

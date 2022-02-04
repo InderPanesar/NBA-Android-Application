@@ -22,7 +22,7 @@
         android:contentDescription="@string/close_drawer_icon" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/userFavouriteTeamCard"
+        android:id="@+id/user_favourite_team_card"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:clickable="true"
@@ -40,7 +40,7 @@
             android:layout_margin="5dp"
             android:elevation="10dp">
             <ImageView
-                android:id="@+id/playerTeamLogo"
+                android:id="@+id/player_team_logo"
                 android:src="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,8 +52,9 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/playerTeamName"
+        android:id="@+id/player_team_name"
         android:layout_marginTop="16dp"
+        android:height="24dp"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="0dp"

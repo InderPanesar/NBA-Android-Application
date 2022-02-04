@@ -6,25 +6,17 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.pages.home.settings.favouriteTeam.SettingsTeamPreferenceViewModel;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.common.collect.HashBiMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,15 +59,15 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
         viewModel = new ViewModelProvider(this.getActivity()).get(SettingsCustomisationSettingsMenuViewModel.class);
 
         // Adds sliders to the view.
-        sliderList.put(v.findViewById(R.id.pointsPerGameSlider), 1);
-        sliderList.put(v.findViewById(R.id.assistsPerGameSlider), 2);
-        sliderList.put(v.findViewById(R.id.reboundsPerGameSlider), 3);
-        sliderList.put(v.findViewById(R.id.overallFieldGoalPercentageSlider), 4);
-        sliderList.put(v.findViewById(R.id.stealsPercentageSlider), 5);
-        sliderList.put(v.findViewById(R.id.blocksPercentageSlider), 6);
-        sliderList.put(v.findViewById(R.id.freeThrowPercentageSlider), 7);
-        sliderList.put(v.findViewById(R.id.freeThrowsMadeSlider), 8);
-        sliderList.put(v.findViewById(R.id.plusMinusSlider), 9);
+        sliderList.put(v.findViewById(R.id.points_per_game_slider), 1);
+        sliderList.put(v.findViewById(R.id.assists_per_game_slider), 2);
+        sliderList.put(v.findViewById(R.id.rebounds_per_game_slider), 3);
+        sliderList.put(v.findViewById(R.id.overall_field_goal_percentage_slider), 4);
+        sliderList.put(v.findViewById(R.id.steals_percentage_slider), 5);
+        sliderList.put(v.findViewById(R.id.blocks_percentage_slider), 6);
+        sliderList.put(v.findViewById(R.id.free_throw_percentage_slider), 7);
+        sliderList.put(v.findViewById(R.id.free_throws_made_slider), 8);
+        sliderList.put(v.findViewById(R.id.plus_minus_slider), 9);
 
 
         List<Integer> values = viewModel.getSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));

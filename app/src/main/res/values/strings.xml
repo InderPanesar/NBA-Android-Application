@@ -62,5 +62,15 @@
     <string name="favourite_team_icon_content_description">Favourite Team Icon</string>
     <string name="secondary_logo_schedule_card">Secondary Logo Schedule Card</string>
     <string name="teams_selection_image_icon">teams_selection_image_icon</string>
+    <string name="team_logo_content_description">Team Logo</string>
+    <string name="plus_minus">Plus Minus</string>
+    <string name="free_throws_made">Free Throws Made</string>
+    <string name="ft">FT%</string>
+    <string name="blocks">Blocks</string>
+    <string name="steals">Steals</string>
+    <string name="overall_field_goal_percentage">Overall Field Goal Percentage</string>
+    <string name="rebounds_per_game">Rebounds Per Game</string>
+    <string name="assists_per_game">Assists Per Game</string>
+    <string name="points_per_game">Points Per Game</string>
 
 </resources>

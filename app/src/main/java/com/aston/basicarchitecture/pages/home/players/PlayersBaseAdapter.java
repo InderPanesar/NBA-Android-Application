@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.aston.basicarchitecture.engine.model.player.IndividualPlayerModel;
 import com.aston.basicarchitecture.R;
-import com.aston.basicarchitecture.pages.home.teams.TeamsCardClicked;
 
 import java.util.ArrayList;
 
@@ -68,10 +67,10 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            playerJersey = itemView.findViewById(R.id.cardPlayersJerseyNumber);
-            playerName = itemView.findViewById(R.id.cardPlayersName);
-            playerDescriptors = itemView.findViewById(R.id.cardPlayersHeightAndWeight);
-            playerPosition = itemView.findViewById(R.id.cardPlayersPosition);
+            playerJersey = itemView.findViewById(R.id.card_players_jersey_number);
+            playerName = itemView.findViewById(R.id.card_players_name);
+            playerDescriptors = itemView.findViewById(R.id.card_players_height_and_weight);
+            playerPosition = itemView.findViewById(R.id.card_players_position);
             itemView.setOnClickListener(this);
 
         }

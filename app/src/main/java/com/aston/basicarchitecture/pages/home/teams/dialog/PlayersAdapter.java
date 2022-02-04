@@ -65,10 +65,10 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            playerJersey = itemView.findViewById(R.id.cardPlayersJerseyNumber);
-            playerName = itemView.findViewById(R.id.cardPlayersName);
-            playerDescriptors = itemView.findViewById(R.id.cardPlayersHeightAndWeight);
-            playerPosition = itemView.findViewById(R.id.cardPlayersPosition);
+            playerJersey = itemView.findViewById(R.id.card_players_jersey_number);
+            playerName = itemView.findViewById(R.id.card_players_name);
+            playerDescriptors = itemView.findViewById(R.id.card_players_height_and_weight);
+            playerPosition = itemView.findViewById(R.id.card_players_position);
 
         }
     }

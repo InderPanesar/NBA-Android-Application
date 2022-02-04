@@ -2,7 +2,6 @@ package com.aston.basicarchitecture.pages.home.settings.favouriteTeam;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +61,8 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            logo = itemView.findViewById(R.id.teamCardLogo);
-            cardView = itemView.findViewById(R.id.teamsImageIconItem);
+            logo = itemView.findViewById(R.id.teams_image_view);
+            cardView = itemView.findViewById(R.id.teams_image_icon_item);
             itemView.setOnClickListener(this);
 
         }

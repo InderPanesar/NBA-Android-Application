@@ -62,7 +62,7 @@ public class TeamsCategoryFlowTest {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.west_conference_button), withText("West"),
                         childAtPosition(
-                                allOf(withId(R.id.linearLayout1),
+                                allOf(withId(R.id.top_teams_bar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.LinearLayout")),
                                                 0)),
@@ -73,7 +73,7 @@ public class TeamsCategoryFlowTest {
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.east_conference_button), withText("East"),
                         childAtPosition(
-                                allOf(withId(R.id.linearLayout1),
+                                allOf(withId(R.id.top_teams_bar),
                                         childAtPosition(
                                                 withClassName(is("android.widget.LinearLayout")),
                                                 0)),
@@ -82,7 +82,7 @@ public class TeamsCategoryFlowTest {
         materialButton2.perform(click());
 
         ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.teamsRecyclerView),
+                allOf(withId(R.id.teams_recycler_view),
                         childAtPosition(
                                 withClassName(is("android.widget.FrameLayout")),
                                 0)));
