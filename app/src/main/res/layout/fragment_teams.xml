@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pages.home.players.PlayersBaseFragment"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/top_teams_bar"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

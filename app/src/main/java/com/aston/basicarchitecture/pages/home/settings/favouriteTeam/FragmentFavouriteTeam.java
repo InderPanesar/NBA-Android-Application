@@ -20,16 +20,16 @@ import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragmentFavouriteTeam#newInstance} factory method to
+ * Use the {@link FragmentFavouriteTeam#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClicked {
+public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClicked {
 
     RecyclerView recyclerView;
     SettingsTeamsAdapter teamsAdapter;
     SettingsTeamPreferenceViewModel viewModel;
 
-    public fragmentFavouriteTeam() {
+    public FragmentFavouriteTeam() {
         // Required empty public constructor
     }
 
@@ -42,8 +42,8 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
      * @return A new instance of fragment fragmentFavouriteTeam.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragmentFavouriteTeam newInstance(String param1, String param2) {
-        fragmentFavouriteTeam fragment = new fragmentFavouriteTeam();
+    public static FragmentFavouriteTeam newInstance(String param1, String param2) {
+        FragmentFavouriteTeam fragment = new FragmentFavouriteTeam();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -84,7 +84,7 @@ public class fragmentFavouriteTeam extends Fragment implements SettingsTeamClick
             public void onClick(View v) {
                 viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
                 ((MainActivity)getActivity()).updateNavBar();
-                fragmentFavouriteTeam.super.getActivity().onBackPressed();
+                FragmentFavouriteTeam.super.getActivity().onBackPressed();
             }
         });
 

@@ -24,6 +24,7 @@
 
         <TextView
             android:layout_gravity="center"
+            android:fontFamily="@font/asap_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -33,6 +34,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/universal_retry_button"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/caramel_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"

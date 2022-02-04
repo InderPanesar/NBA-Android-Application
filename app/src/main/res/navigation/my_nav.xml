@@ -72,7 +72,7 @@
         tools:layout="@layout/fragment_settings_customisation_settings_menu" />
     <fragment
         android:id="@+id/fragmentFavouriteTeam"
-        android:name="com.aston.basicarchitecture.pages.home.settings.favouriteTeam.fragmentFavouriteTeam"
+        android:name="com.aston.basicarchitecture.pages.home.settings.favouriteTeam.FragmentFavouriteTeam"
         android:label="Favourite Team"
         tools:layout="@layout/fragment_favourite_team" />
     <dialog

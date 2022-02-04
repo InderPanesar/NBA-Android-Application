@@ -56,6 +56,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
     // TODO: Rename and change types and number of parameters
     public static TeamsBaseFragment newInstance(String param1, String param2) {
         TeamsBaseFragment fragment = new TeamsBaseFragment();
+
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -76,6 +77,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         //recyclerView setup
         recyclerView = v.findViewById(R.id.teams_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
         recyclerView.setHasFixedSize(true);
         teamsAdapter = new TeamsAdapter(getContext(), teams, this);
         recyclerView.setAdapter(teamsAdapter);

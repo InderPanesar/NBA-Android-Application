@@ -224,7 +224,8 @@ public class PlayersDetailFragment extends Fragment {
                 tv0.setText(header);
                 tv0.setTextColor(Color.BLACK);
                 tv0.setGravity(Gravity.CENTER);
-                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tv0.setPadding(5, 10, 5, 10);
+                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
                 removeRows.add(topRow);
             }
@@ -236,6 +237,7 @@ public class PlayersDetailFragment extends Fragment {
                     tv.setText(value);
                     tv.setTextColor(Color.BLACK);
                     tv.setGravity(Gravity.CENTER);
+                    tv.setPadding(5, 10, 5, 10);
                     tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                     tbrow.addView(tv);
                     removeRows.add(tbrow);

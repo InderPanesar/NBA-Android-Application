@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -199,13 +200,13 @@ public class MainBaseFragment extends Fragment {
             for( String header : headers) {
                 TextView tv0 = new TextView(getContext());
                 tv0.setText(header);
+                tv0.setPadding(10, 30, 10, 30);
                 tv0.setTextColor(Color.BLACK);
                 tv0.setGravity(Gravity.CENTER);
-                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
             }
             tableLayout.addView(topRow);
-            int seed = 1;
             for (TeamStandingModel team : teams) {
                 TableRow tbrow = new TableRow(getContext());
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -225,9 +226,11 @@ public class MainBaseFragment extends Fragment {
                 Picasso.get()
                         .load(exampleViewModel.getTeamLogo(team.getTeamId()))
                         .into(view);
-                view.setLayoutParams(new TableRow.LayoutParams(113, 113));
+                view.setLayoutParams(new TableRow.LayoutParams(
+                        111,
+                        111
+                ));
                 tbrow.addView(view);
-
 
                 tv = new TextView(getContext());
                 tv.setText(exampleViewModel.getTeamName(team.getTeamId()));
@@ -236,7 +239,6 @@ public class MainBaseFragment extends Fragment {
                 tv.setPadding(10, 30, 10, 30);
                 tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                 tbrow.addView(tv);
-
 
                 tv = new TextView(getContext());
                 tv.setText(new StringBuilder().append(team.getConference().getWin()).append(" - ").append(team.getConference().getLoss()).toString());
@@ -256,4 +258,5 @@ public class MainBaseFragment extends Fragment {
         }
 
     }
+
 }

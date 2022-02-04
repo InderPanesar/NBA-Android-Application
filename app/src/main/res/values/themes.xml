@@ -21,6 +21,7 @@
         <item name="android:textColor">#000000</item>
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:datePickerDialogTheme">@style/AppTheme.DialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
     </style>
 
@@ -80,9 +81,17 @@
         <item name="android:textColor">@color/caramel_selected</item>
     </style>
 
-    <style name="DatePickerTheme.ButtonBarPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/caramel_selected</item>
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/curved_top_bottom_sheet</item>
+    </style>
+
+
 
 
 
