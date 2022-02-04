@@ -67,5 +67,11 @@
     <string name="rebounds_per_game">Rebounds Per Game</string>
     <string name="assists_per_game">Assists Per Game</string>
     <string name="points_per_game">Points Per Game</string>
+    <string name="home_menu">Home</string>
+    <string name="teams_menu">Teams</string>
+    <string name="schedule_menu">Schedule</string>
+    <string name="players_menu">Players</string>
+    <string name="stadiums_menu">Stadiums</string>
+    <string name="settings_menu">Settings</string>
 
 </resources>
