@@ -44,6 +44,7 @@ public class PlayersDetailViewModel extends ViewModel {
     @Inject
     PlayersDetailViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
+        addTeamsToHashMap();
     }
 
     StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> getPlayerGameStats(String playerId, SharedPreferences pref) {

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,8 @@ public class PlayersDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         String playerAttributes[] = getArguments().getStringArray("playerAttributes");
         View v = inflater.inflate(R.layout.fragment_players_detail, container, false);
+        viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
+
         TextView textView =  v.findViewById(R.id.players_detail_years_pro);
         textView.setText(playerAttributes[0]);
         textView = v.findViewById(R.id.players_detail_college);
@@ -91,6 +94,7 @@ public class PlayersDetailFragment extends Fragment {
         tableLayout = v.findViewById(R.id.team_player_stats);
 
         //If attribute 7 doesn't exist and is null
+        Log.d("TAG", playerAttributes[7]);
         try {
             textView.setText(viewModel.teams.get(Integer.parseInt(playerAttributes[7])));
         }
@@ -126,7 +130,6 @@ public class PlayersDetailFragment extends Fragment {
         }
 
 
-        viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
 
 
         Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> recentGamesAdapterObserver = new Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>>() {
@@ -190,7 +193,8 @@ public class PlayersDetailFragment extends Fragment {
                 TableRow tbrow = new TableRow(getContext());
                 for(String value : _stats.attributes) {
                     TextView tv = new TextView(getContext());
-                    tv.setText(value);
+                    if(value.equals("")) { tv.setText("n/a"); }
+                    else { tv.setText(value); }
                     tv.setTextColor(Color.BLACK);
                     tv.setGravity(Gravity.CENTER);
                     tv.setPadding(5, 10, 5, 10);

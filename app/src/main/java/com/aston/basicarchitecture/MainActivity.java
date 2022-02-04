@@ -29,8 +29,11 @@ import com.squareup.picasso.Picasso;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+
+
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+    
 
     private Gyroscope gyroscope;
 
