@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
+    android:label="Favourite Team"
     app:startDestination="@id/landingPage">
 
     <fragment
@@ -14,7 +15,7 @@
         android:id="@+id/teams"
         android:name="com.aston.basketballapp.pages.home.teams.TeamsBaseFragment"
         android:label="Teams"
-        tools:layout="@layout/fragment_teams" >
+        tools:layout="@layout/fragment_teams">
         <action
             android:id="@+id/action_teams_to_teamDialogFragment"
             app:destination="@id/teamDialogFragment"
@@ -24,7 +25,7 @@
         android:id="@+id/schedule"
         android:name="com.aston.basketballapp.pages.home.schedule.ScheduleBaseFragment"
         android:label="Schedule"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_schedule">
         <action
             android:id="@+id/action_schedule_to_scheduleBottomSheetFragment"
             app:destination="@id/scheduleBottomSheetFragment" />
@@ -33,7 +34,7 @@
         android:id="@+id/players"
         android:name="com.aston.basketballapp.pages.home.players.PlayersBaseFragment"
         android:label="Players"
-        tools:layout="@layout/fragment_players" >
+        tools:layout="@layout/fragment_players">
         <action
             android:id="@+id/action_players_to_playersDetailFragment"
             app:destination="@id/playersDetailFragment" />
