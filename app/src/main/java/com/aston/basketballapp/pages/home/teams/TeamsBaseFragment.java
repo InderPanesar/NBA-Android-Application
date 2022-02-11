@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
+import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
@@ -171,11 +172,15 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
     }
 
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
+    }
 
     @Override
     public void cardClicked(View v, IndividualTeamsModel teamsModel) {
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
         Bundle bundle = new Bundle();
         bundle.putString("teamId", teamsModel.getTeamId());
         bundle.putString("teamName", teamsModel.getFullName());

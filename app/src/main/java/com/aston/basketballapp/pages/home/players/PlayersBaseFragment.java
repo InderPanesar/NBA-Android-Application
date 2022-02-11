@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
+import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 
@@ -168,7 +169,15 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
+    }
+
+    @Override
     public void cardClicked(View v, IndividualPlayerModel playerModel) {
+
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
 
         //ToDo: Move this to the ViewModel
         Bundle bundle = new Bundle();
