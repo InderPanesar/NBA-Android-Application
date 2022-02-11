@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 
 
 public class LiveDataStateData<T> {
-    
+
     public enum LiveDataStatus {
         SUCCESS,
         ERROR,
