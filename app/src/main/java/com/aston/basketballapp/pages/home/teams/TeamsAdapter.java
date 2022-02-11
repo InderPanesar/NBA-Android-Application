@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.teamCity.setText(teams.get(position).getCity());
         holder.teamName.setText(teams.get(position).getNickname());
-        Picasso.get().load(teams.get(position).getLogo()).into(holder.logo);
+        Picasso.get().load(AppConsts.URLImageCorrector(teams.get(position).getLogo())).into(holder.logo);
     }
 
     @Override
