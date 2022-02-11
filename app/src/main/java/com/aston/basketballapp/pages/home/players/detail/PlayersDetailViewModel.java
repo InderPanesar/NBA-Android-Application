@@ -56,7 +56,7 @@ public class PlayersDetailViewModel extends ViewModel {
         StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> data = new StateMutableLiveData<>();
 
         if(integers.size() == 0) {
-            data.postSuccess(null);
+            data.postValueSuccess(null);
             return data;
         }
 
@@ -64,7 +64,7 @@ public class PlayersDetailViewModel extends ViewModel {
             @Override
             public void onResponse(Call<PlayerStatsModel> call, Response<PlayerStatsModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                 } else {
                     PlayerStatsModel model = response.body();
                     ArrayList<PlayerStatistics> _statistics = model.getApi().getStatistics();
@@ -92,14 +92,14 @@ public class PlayersDetailViewModel extends ViewModel {
 
                         statistics.add(new SinglePlayerStatsAdapter(categories, _values));
                     }
-                    data.postSuccess(statistics);
+                    data.postValueSuccess(statistics);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerStatsModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
 
             }
 

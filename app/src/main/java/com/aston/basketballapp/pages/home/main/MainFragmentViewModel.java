@@ -34,16 +34,16 @@ public class MainFragmentViewModel extends ViewModel {
 
     StateMutableLiveData<ArrayList<String>> getPlayers(String teamId) {
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
         repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
             @Override
             public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
                 if(teamId.equals("-1")) {
-                    data.postError(null);
+                    data.postValueError(null);
                     return;
                 }
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                     return;
                 } else {
                     StandingsModel model = response.body();
@@ -53,14 +53,14 @@ public class MainFragmentViewModel extends ViewModel {
                     values.add(teamStandingModel.getConference().getRank());
                     values.add(teamStandingModel.getConference().getWin());
                     values.add(teamStandingModel.getConference().getLoss());
-                    data.postSuccess(values);
+                    data.postValueSuccess(values);
                 }
 
             }
 
             @Override
             public void onFailure(Call<StandingsModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
 
             }
 
@@ -70,12 +70,12 @@ public class MainFragmentViewModel extends ViewModel {
 
     StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule(String conference) {
         StateMutableLiveData<ArrayList<TeamStandingModel>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
         repository.getStandings().enqueue(new Callback<StandingsModel>() {
             @Override
             public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                     return;
                 } else {
                     StandingsModel model = response.body();
@@ -96,7 +96,7 @@ public class MainFragmentViewModel extends ViewModel {
                             return rank1.compareTo(rank2);
                         }
                     });
-                    data.postSuccess(temp_StandingModel);
+                    data.postValueSuccess(temp_StandingModel);
 
 
                 }
@@ -105,7 +105,7 @@ public class MainFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<StandingsModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
 
             }
 

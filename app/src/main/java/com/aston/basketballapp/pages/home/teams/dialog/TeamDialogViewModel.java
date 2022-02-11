@@ -29,12 +29,12 @@ public class TeamDialogViewModel extends ViewModel {
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
 
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
         repository.getPlayers(teamId).enqueue(new Callback<PlayerModel>() {
             @Override
             public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                     return;
                 } else {
                     PlayerModel model = response.body();
@@ -51,14 +51,14 @@ public class TeamDialogViewModel extends ViewModel {
                             }
                         }
                     }
-                    data.postSuccess(filteredPlayers);
+                    data.postValueSuccess(filteredPlayers);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
 
             }
 

@@ -29,17 +29,17 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
     StateMutableLiveData<ArrayList<String>> getGameStatistics(String gameID) {
 
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
 
         repository.getGameStatisticDetails(gameID).enqueue(new Callback<GameStatisticModel>() {
             @Override
             public void onResponse(Call<GameStatisticModel> call, Response<GameStatisticModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                 } else {
                     GameStatisticModelAPI model = response.body().getApi();
                     if(model.getStatistics().size() < 2) {
-                        data.postError(new Throwable());
+                        data.postValueError(new Throwable());
                     }
                     ArrayList<String> games = new ArrayList<>();
 
@@ -65,14 +65,14 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
 
 
 
-                    data.postSuccess(games);
+                    data.postValueSuccess(games);
                 }
 
             }
 
             @Override
             public void onFailure(Call<GameStatisticModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
             }
 
         });

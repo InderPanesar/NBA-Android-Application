@@ -29,24 +29,24 @@ public class ScheduleBaseViewModel extends ViewModel  {
     StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
 
         repository.getGames(date).enqueue(new Callback<ScheduleModel>() {
             @Override
             public void onResponse(Call<ScheduleModel> call, Response<ScheduleModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                 } else {
                     ScheduleModel model = response.body();
                     ArrayList<GamesModel> games = model.getApi().getGames();
-                    data.postSuccess(games);
+                    data.postValueSuccess(games);
                 }
 
             }
 
             @Override
             public void onFailure(Call<ScheduleModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
             }
 
         });

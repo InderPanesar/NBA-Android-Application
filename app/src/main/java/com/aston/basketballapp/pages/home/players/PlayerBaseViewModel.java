@@ -35,7 +35,7 @@ public class PlayerBaseViewModel extends ViewModel {
             @Override
             public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
-                    data.postError(null);
+                    data.postValueError(null);
                 } else {
                     PlayerModel model = response.body();
                     ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
@@ -50,14 +50,14 @@ public class PlayerBaseViewModel extends ViewModel {
                         }
                     }
                     localTempPlayers = filteredPlayers;
-                    data.postSuccess(filteredPlayers);
+                    data.postValueSuccess(filteredPlayers);
                 }
 
             }
 
             @Override
             public void onFailure(Call<PlayerModel> call, Throwable t) {
-                data.postError(t);
+                data.postValueError(t);
             }
 
         });
@@ -87,7 +87,7 @@ public class PlayerBaseViewModel extends ViewModel {
             filteredPlayers = players;
         }
 
-        data.postSuccess(filteredPlayers);
+        data.postValueSuccess(filteredPlayers);
 
         return data;
     }

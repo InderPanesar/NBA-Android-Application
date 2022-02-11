@@ -28,12 +28,12 @@ public class TeamsBaseViewModel extends ViewModel {
     StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
 
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
-        data.postLoading();
+        data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
             @Override
             public void onResponse(Call<TeamsModel> call, Response<TeamsModel> response) {
               if(!response.isSuccessful()) {
-                  data.postError(null);
+                  data.postValueError(null);
               }
               else {
                   TeamsModel model = response.body();
@@ -44,7 +44,7 @@ public class TeamsBaseViewModel extends ViewModel {
                           filteredTeams.add(team);
                       }
                   }
-                  data.postSuccess(filteredTeams);
+                  data.postValueSuccess(filteredTeams);
               }
 
             }
@@ -52,7 +52,7 @@ public class TeamsBaseViewModel extends ViewModel {
             @Override
             public void onFailure(Call<TeamsModel> call, Throwable t) {
                 //Do Something here!
-                data.postError(t);
+                data.postValueError(t);
             }
 
         });
