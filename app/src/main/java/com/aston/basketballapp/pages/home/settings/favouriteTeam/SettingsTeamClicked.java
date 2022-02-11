@@ -1,7 +1,6 @@
 package com.aston.basketballapp.pages.home.settings.favouriteTeam;
 
-import android.view.View;
 
 public interface SettingsTeamClicked {
-    public void cardClicked(View v, TeamsRepo.LocalTeam team, Boolean isRemoved);
+    public void cardClicked(TeamsRepo.LocalTeam team, Boolean isRemoved);
 }

@@ -2,6 +2,7 @@ package com.aston.basketballapp.pages.home.settings.favouriteTeam;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,8 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
     private static SettingsTeamClicked itemListener;
     ArrayList<TeamsRepo.LocalTeam> teams;
     Context context;
+    int ItemSelected = -1;
 
-    MaterialCardView tempCardView;
 
 
 
@@ -29,7 +30,12 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
         context = ct;
         teams = _teams;
         this.itemListener = itemListener;
-
+        for(int i = 0; i < teams.size(); i++) {
+            if(teams.get(i).isSelected) {
+                ItemSelected = i;
+                break;
+            }
+        }
     }
 
     @NonNull
@@ -43,9 +49,11 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
     @Override
     public void onBindViewHolder(@NonNull SettingsTeamsAdapterViewHolder holder, int position) {
         Picasso.get().load(teams.get(position).getLogoURL()).into(holder.logo);
-        if(teams.get(position).isSelected) {
+        if(position == ItemSelected) {
             holder.cardView.setCardBackgroundColor(Color.LTGRAY);
-            tempCardView = holder.cardView;
+        }
+        else {
+            holder.cardView.setCardBackgroundColor(Color.WHITE);
         }
 
     }
@@ -70,21 +78,16 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
 
         @Override
         public void onClick(View v) {
-            if(tempCardView == cardView) {
-                tempCardView = null;
-                cardView.setCardBackgroundColor(Color.WHITE);
-                itemListener.cardClicked(v, teams.get(getLayoutPosition()), true);
+            int _valueSelected = getAdapterPosition();
+            if(_valueSelected == ItemSelected) {
+                ItemSelected = -1;
+                itemListener.cardClicked(teams.get(_valueSelected), true);
             }
-
             else {
-                if(tempCardView != null) {
-                    tempCardView.setCardBackgroundColor(Color.WHITE);
-                    tempCardView = null;
-                }
-                tempCardView = cardView;
-                cardView.setCardBackgroundColor(Color.LTGRAY);
-                itemListener.cardClicked(v, teams.get(getLayoutPosition()), false);
+                ItemSelected = getAdapterPosition();
+                itemListener.cardClicked(teams.get(_valueSelected), false);
             }
+            notifyDataSetChanged();
 
         }
     }

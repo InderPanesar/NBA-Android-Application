@@ -96,7 +96,7 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
 
 
     @Override
-    public void cardClicked(View v, TeamsRepo.LocalTeam team, Boolean isRemoved) {
+    public void cardClicked(TeamsRepo.LocalTeam team, Boolean isRemoved) {
         if(!isRemoved) {
             viewModel.addTeamPreference(team.getId());
         }

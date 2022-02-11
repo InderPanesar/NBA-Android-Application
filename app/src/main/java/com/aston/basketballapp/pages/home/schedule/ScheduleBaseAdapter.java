@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.schedule.GamesModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
@@ -51,11 +52,11 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
     @Override
     public void onBindViewHolder(@NonNull ScheduleBaseAdapterViewHolder holder, int position) {
         GamesModel model = games.get(position);
-        Picasso.get().load(games.get(position).gethTeam().getLogo()).into(holder.homeTeamLogo);
+        Picasso.get().load(AppConsts.URLImageCorrector(games.get(position).gethTeam().getLogo())).into(holder.homeTeamLogo);
         holder.homeTeamScore.setText(games.get(position).gethTeam().getScore().getPoints());
         holder.homeTeamText.setText(games.get(position).gethTeam().getNickName());
 
-        Picasso.get().load(games.get(position).getvTeam().getLogo()).into(holder.awayTeamLogo);
+        Picasso.get().load(AppConsts.URLImageCorrector(games.get(position).getvTeam().getLogo())).into(holder.awayTeamLogo);
         holder.awayTeamScore.setText(games.get(position).getvTeam().getScore().getPoints());
         holder.awayTeamText.setText(games.get(position).getvTeam().getNickName());
 
