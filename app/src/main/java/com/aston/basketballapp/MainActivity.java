@@ -3,7 +3,6 @@ package com.aston.basketballapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,26 +10,21 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.widget.Toolbar;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.aston.basketballapp.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.motionsensors.Gyroscope;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
-
-
+//Initial Point of Entry for the Application
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity  {
 
