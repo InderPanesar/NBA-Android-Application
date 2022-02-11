@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aston.basketballapp.R;
+import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.google.android.material.card.MaterialCardView;
 
 /**
@@ -46,6 +47,12 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -55,6 +62,7 @@ public class SettingsFragment extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
                 Navigation.findNavController(v).navigate(R.id.action_settings_to_settingsCustomisationSettingsMenu);
             }
         });
@@ -63,6 +71,7 @@ public class SettingsFragment extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
                 Navigation.findNavController(v).navigate(R.id.action_settings_to_fragmentFavouriteTeam);
             }
         });

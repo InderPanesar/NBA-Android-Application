@@ -1,5 +1,8 @@
 package com.aston.basketballapp.engine.repository;
 
+import android.content.Context;
+
+import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
 import com.aston.basketballapp.engine.repository.players.PlayersRepositoryImpl;
 import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
@@ -28,10 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class Repositories {
 
-    private final String BASE_URL = "https://api-nba-v1.p.rapidapi.com";
     private final String HOST = "api-nba-v1.p.rapidapi.com";
     private final String KEY = "5dbbf11d63msh76c8d4afa6cd3c7p16cdfejsn136e72230424";
-
 
     @Singleton
     @Provides
@@ -48,7 +49,7 @@ public class Repositories {
                 return chain.proceed(request);
             }
         });
-        return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).client(httpClient.build()).build();
+        return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("https://"+HOST).client(httpClient.build()).build();
     }
 
 

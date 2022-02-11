@@ -18,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.aston.basketballapp.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basketballapp.utils.AppConsts;
+import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.motionsensors.Gyroscope;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
@@ -26,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 //Initial Point of Entry for the Application
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements DrawerLayoutControl {
 
     private Gyroscope gyroscope;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity  {
                 R.id.players,
                 R.id.stadiums,
                 R.id.settings
-        ).setDrawerLayout(drawerLayout).build();
+        ).setOpenableLayout(drawerLayout).build();
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
@@ -160,5 +161,17 @@ public class MainActivity extends AppCompatActivity  {
         }
 
 
+    }
+
+    @Override
+    public void setDrawerEnabled(boolean enabled) {
+        if(enabled) {
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+        else {
+            DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
     }
 }
