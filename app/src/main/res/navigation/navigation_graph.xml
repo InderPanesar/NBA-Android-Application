@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    android:label="Favourite Team"
+    app:startDestination="@id/landingPage">
+
+    <fragment
+        android:id="@+id/landingPage"
+        android:name="com.aston.basketballapp.pages.home.main.MainBaseFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_landing_page" />
+    <fragment
+        android:id="@+id/teams"
+        android:name="com.aston.basketballapp.pages.home.teams.TeamsBaseFragment"
+        android:label="Teams"
+        tools:layout="@layout/fragment_teams">
+        <action
+            android:id="@+id/action_teams_to_teamDialogFragment"
+            app:destination="@id/teamDialogFragment"
+            app:popUpTo="@id/teams" />
+    </fragment>
+    <fragment
+        android:id="@+id/schedule"
+        android:name="com.aston.basketballapp.pages.home.schedule.ScheduleBaseFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule">
+        <action
+            android:id="@+id/action_schedule_to_scheduleBottomSheetFragment"
+            app:destination="@id/scheduleBottomSheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/players"
+        android:name="com.aston.basketballapp.pages.home.players.PlayersBaseFragment"
+        android:label="Players"
+        tools:layout="@layout/fragment_players">
+        <action
+            android:id="@+id/action_players_to_playersDetailFragment"
+            app:destination="@id/playersDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stadiums"
+        android:name="com.aston.basketballapp.pages.home.stadiums.StadiumsBaseFragment"
+        android:label="Stadiums"
+        tools:layout="@layout/fragment_stadiums" />
+    <fragment
+        android:id="@+id/teamDialogFragment"
+        android:name="com.aston.basketballapp.pages.home.teams.dialog.TeamDialogFragment"
+        android:label="fragment_team_dialog"
+        tools:layout="@layout/fragment_team_dialog" />
+    <fragment
+        android:id="@+id/playersDetailFragment"
+        android:name="com.aston.basketballapp.pages.home.players.detail.PlayersDetailFragment"
+        android:label="fragment_players_detail"
+        tools:layout="@layout/fragment_players_detail" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.aston.basketballapp.pages.home.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settings_to_settingsCustomisationSettingsMenu"
+            app:destination="@id/settingsCustomisationSettingsMenu" />
+        <action
+            android:id="@+id/action_settings_to_fragmentFavouriteTeam"
+            app:destination="@id/fragmentFavouriteTeam" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsCustomisationSettingsMenu"
+        android:name="com.aston.basketballapp.pages.home.settings.customisationMenu.SettingsCustomisationSettingsMenu"
+        android:label="Customisation - Player Profile"
+        tools:layout="@layout/fragment_settings_customisation_settings_menu" />
+    <fragment
+        android:id="@+id/fragmentFavouriteTeam"
+        android:name="com.aston.basketballapp.pages.home.settings.favouriteTeam.FragmentFavouriteTeam"
+        android:label="Favourite Team"
+        tools:layout="@layout/fragment_favourite_team" />
+    <dialog
+        android:id="@+id/scheduleBottomSheetFragment"
+        android:name="com.aston.basketballapp.pages.home.schedule.detail.ScheduleBottomSheetFragment"
+        android:label="fragment_schedule_bottom_sheet_list_dialog"
+        tools:layout="@layout/fragment_schedule_bottom_sheet" />
+</navigation>

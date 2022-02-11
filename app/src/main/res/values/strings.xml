@@ -73,5 +73,6 @@
     <string name="players_menu">Players</string>
     <string name="stadiums_menu">Stadiums</string>
     <string name="settings_menu">Settings</string>
+    <string name="empty_name"> </string>
 
 </resources>
