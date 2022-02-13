@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
@@ -41,8 +42,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
 
 
     public static PlayersBaseFragment newInstance() {
-        PlayersBaseFragment fragment = new PlayersBaseFragment();
-        return fragment;
+        return new PlayersBaseFragment();
     }
 
     @Override
@@ -58,6 +58,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_players, container, false);
 
+        AppConsts.verifyActivity(getActivity());
         playerBaseViewModel = new ViewModelProvider(this.getActivity()).get(PlayerBaseViewModel.class);
 
         playersRecyclerView = v.findViewById(R.id.players_fragment_recycler_view);
@@ -67,31 +68,27 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
         playersRecyclerView.setLayoutManager(linearLayoutManager);
         playersRecyclerView.setNestedScrollingEnabled(false);
         playersRecyclerView.setHasFixedSize(false);
-        playersAdapter = new PlayersBaseAdapter(getContext(), new ArrayList<IndividualPlayerModel>(), this);
+        playersAdapter = new PlayersBaseAdapter(getContext(), new ArrayList<>(), this);
         playersRecyclerView.setAdapter(playersAdapter);
 
 
         //Get Multiplayer Player Observer.
-        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> playersObserver = new Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<IndividualPlayerModel>> arrayListLiveDataStateData) {
-                switch (arrayListLiveDataStateData.getStatus()) {
-                    case SUCCESS:
-                        playersAdapter.setPlayers(arrayListLiveDataStateData.getData());
-                        playersRecyclerView.setVisibility(View.VISIBLE);
-                        UniversalErrorStateHandler.isSuccess(v);
-                        break;
-                    case ERROR:
-                        playersRecyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isError(v);
-                        break;
-                    case LOADING:
-                        playersRecyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isLoading(v);
-                        break;
-                }
+        Observer<LiveDataStateData<ArrayList<IndividualPlayerModel>>> playersObserver = arrayListLiveDataStateData -> {
+            switch (arrayListLiveDataStateData.getStatus()) {
+                case SUCCESS:
+                    playersAdapter.setPlayers(arrayListLiveDataStateData.getData());
+                    playersRecyclerView.setVisibility(View.VISIBLE);
+                    UniversalErrorStateHandler.isSuccess(v);
+                    break;
+                case ERROR:
+                    playersRecyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isError(v);
+                    break;
+                case LOADING:
+                    playersRecyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isLoading(v);
+                    break;
             }
-
         };
 
         playerBaseViewModel.getAllPlayers().observe(getViewLifecycleOwner(), playersObserver);
@@ -108,38 +105,24 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
                 final int[] tempValue = {playerBaseViewModel.playerFilter};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Choose Player Category");
-                builder.setSingleChoiceItems(playerBaseViewModel.internationalValues, playerBaseViewModel.playerFilter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        tempValue[0] = which;
+                builder.setSingleChoiceItems(playerBaseViewModel.internationalValues, playerBaseViewModel.playerFilter, (dialog, which) -> tempValue[0] = which);
+                builder.setPositiveButton("Confirm", (dialog, which) -> {
+                    playerBaseViewModel.playerFilter = tempValue[0];
+                    if(playerBaseViewModel.playerFilter == 1) {
+                        internationButton.setText(R.string.filter_button_1);
                     }
-                });
-                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        playerBaseViewModel.playerFilter = tempValue[0];
-
-                        if(playerBaseViewModel.playerFilter == 1) {
-                            internationButton.setText(R.string.filter_button_1);
-                        }
-                        else if (playerBaseViewModel.playerFilter == 2) {
-                            internationButton.setText(R.string.filter_button_2);
-                        }
-                        else {
-                            internationButton.setText(R.string.filter_button_all);
-                        }
-                        playersRecyclerView.setVisibility(View.GONE);
-                        playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), playersObserver);
-                        dialog.dismiss();
+                    else if (playerBaseViewModel.playerFilter == 2) {
+                        internationButton.setText(R.string.filter_button_2);
                     }
+                    else {
+                        internationButton.setText(R.string.filter_button_all);
+                    }
+                    playersRecyclerView.setVisibility(View.GONE);
+                    playerBaseViewModel.getInternationalFilterPlayers().observe(getViewLifecycleOwner(), playersObserver);
+                    dialog.dismiss();
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
                 builder.show();
 
             }
@@ -153,12 +136,14 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
     @Override
     public void onResume() {
         super.onResume();
+        AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
     }
 
     @Override
     public void cardClicked(View v, IndividualPlayerModel playerModel) {
 
+        AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
 
         //Pass all bundle information to PlayersDetailFragment.

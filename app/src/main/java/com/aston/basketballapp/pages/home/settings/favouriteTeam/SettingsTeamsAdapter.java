@@ -29,7 +29,7 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
     public SettingsTeamsAdapter(Context ct, ArrayList<TeamsRepo.LocalTeam> _teams, SettingsTeamClicked itemListener) {
         context = ct;
         teams = _teams;
-        this.itemListener = itemListener;
+        SettingsTeamsAdapter.itemListener = itemListener;
         for(int i = 0; i < teams.size(); i++) {
             if(teams.get(i).isSelected) {
                 ItemSelected = i;

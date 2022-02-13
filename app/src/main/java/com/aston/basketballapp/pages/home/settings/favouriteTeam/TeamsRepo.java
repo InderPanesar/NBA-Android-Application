@@ -41,25 +41,9 @@ public class TeamsRepo {
         teamList.add(new LocalTeam(41, "Washington Wizards"));
     }
 
-    public void setSelected(LocalTeam team) {
-        for(LocalTeam t : teamList) {
-            if(team.id == t.id) {
-                t.isSelected = true;
-            }
-            else {
-                t.isSelected = false;
-            }
-        }
-    }
-
     public void setSelected(int id) {
         for(LocalTeam t : teamList) {
-            if(id == t.id) {
-                t.isSelected = true;
-            }
-            else {
-                t.isSelected = false;
-            }
+            t.isSelected = id == t.id;
         }
     }
 
@@ -92,17 +76,13 @@ public class TeamsRepo {
             return logoURL;
         }
 
-        public Boolean getSelected() {
-            return isSelected;
-        }
-
         public LocalTeam(int _id, String _name) {
             this.name = _name;
             this.id = _id;
 
-            String[] splited = _name.split("\\s");
+            String[] split = _name.split("\\s");
             StringBuilder urlExtension = new StringBuilder();
-            for(String s : splited) {
+            for(String s : split) {
                 urlExtension.append(s.toLowerCase(Locale.ROOT)).append("-");
             }
             //Set Logo using
@@ -113,10 +93,6 @@ public class TeamsRepo {
                 this.logoURL = "https://loodibee.com/wp-content/uploads/nba-" + urlExtension + "logo.png";
             }
             isSelected = false;
-        }
-
-        public void setSelected(Boolean selected) {
-            isSelected = selected;
         }
 
     }

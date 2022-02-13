@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aston.basketballapp.R;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.google.android.material.card.MaterialCardView;
 
@@ -34,6 +35,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
     }
 
@@ -45,22 +47,18 @@ public class SettingsFragment extends Fragment {
 
         // Set Interactions with Customisation Settings Page
         MaterialCardView settingsCardView = v.findViewById(R.id.settings_customisation_settings);
-        settingsCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
-                Navigation.findNavController(v).navigate(R.id.action_settings_to_settingsCustomisationSettingsMenu);
-            }
+        settingsCardView.setOnClickListener(cardView -> {
+            AppConsts.verifyActivity(getActivity());
+            ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
+            Navigation.findNavController(cardView).navigate(R.id.action_settings_to_settingsCustomisationSettingsMenu);
         });
 
         // Set Interactions with Favourite Teams customisation page.
         settingsCardView = v.findViewById(R.id.settings_change_favourite_team);
-        settingsCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
-                Navigation.findNavController(v).navigate(R.id.action_settings_to_fragmentFavouriteTeam);
-            }
+        settingsCardView.setOnClickListener(cardView -> {
+            AppConsts.verifyActivity(getActivity());
+            ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
+            Navigation.findNavController(cardView).navigate(R.id.action_settings_to_fragmentFavouriteTeam);
         });
         return v;
     }

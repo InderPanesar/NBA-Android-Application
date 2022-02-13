@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.schedule.GamesModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
@@ -51,8 +52,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
 
     public static ScheduleBaseFragment newInstance() {
-        ScheduleBaseFragment fragment = new ScheduleBaseFragment();
-        return fragment;
+        return new ScheduleBaseFragment();
     }
 
     @Override
@@ -64,6 +64,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        AppConsts.verifyActivity(getActivity());
         scheduleBaseViewModel = new ViewModelProvider(this.getActivity()).get(ScheduleBaseViewModel.class);
 
         // Inflate the layout for this fragment
@@ -78,12 +79,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         scheduleButton = v.findViewById(R.id.schedule_date_picker_button);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
         datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth - 1, mDay);
-        scheduleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog.show();
-            }
-        });
+        scheduleButton.setOnClickListener(v1 -> datePickerDialog.show());
 
         scheduleRecyclerView = v.findViewById(R.id.schedule_recycler_view);
         //TODO: Implement Loading State
@@ -94,44 +90,37 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         scheduleRecyclerView.setHasFixedSize(false);
 
         //Pass the Density of the current screen to ensure schedule widget scales correctly.
-        Float value = getContext().getResources().getDisplayMetrics().density;
+        AppConsts.verifyContext(getContext());
+        float value = getContext().getResources().getDisplayMetrics().density;
         scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games, this, value);
         scheduleRecyclerView.setAdapter(scheduleBaseAdapter);
 
 
         //Observer for the game schedule.
-        gameScheduleObserver = new Observer<LiveDataStateData<ArrayList<GamesModel>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<GamesModel>> stateLiveData) {
-                switch (stateLiveData.getStatus()) {
-                    case SUCCESS:
-                        games = stateLiveData.getData();
-                        scheduleRecyclerView.setVisibility(View.VISIBLE);
-                        scheduleBaseAdapter.setGames(games);
-                        UniversalErrorStateHandler.isSuccess(v);
-                        break;
-                    case ERROR:
-                        scheduleRecyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isError(v);
-                        break;
-                    case LOADING:
-                        scheduleRecyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isLoading(v);
-                        break;
-                }
+        gameScheduleObserver = stateLiveData -> {
+            switch (stateLiveData.getStatus()) {
+                case SUCCESS:
+                    games = stateLiveData.getData();
+                    scheduleRecyclerView.setVisibility(View.VISIBLE);
+                    scheduleBaseAdapter.setGames(games);
+                    UniversalErrorStateHandler.isSuccess(v);
+                    break;
+                case ERROR:
+                    scheduleRecyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isError(v);
+                    break;
+                case LOADING:
+                    scheduleRecyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isLoading(v);
+                    break;
             }
-
-
         };
 
         scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
 
-        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
-            }
-        });
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(v12 ->
+                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver)
+        );
 
         return v;
     }

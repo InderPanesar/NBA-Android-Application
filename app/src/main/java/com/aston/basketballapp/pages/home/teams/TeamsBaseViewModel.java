@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.teams;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
 import com.aston.basketballapp.engine.model.teams.TeamsModel;
@@ -33,7 +34,7 @@ public class TeamsBaseViewModel extends ViewModel {
         data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
             @Override
-            public void onResponse(Call<TeamsModel> call, Response<TeamsModel> response) {
+            public void onResponse(@NonNull Call<TeamsModel> call, @NonNull Response<TeamsModel> response) {
               if(!response.isSuccessful()) {
                   data.postValueError(null);
               }
@@ -52,7 +53,7 @@ public class TeamsBaseViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<TeamsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<TeamsModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

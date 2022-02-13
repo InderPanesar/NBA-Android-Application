@@ -53,7 +53,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
         notifyDataSetChanged();
     }
 
-    public class PlayerViewHolder extends RecyclerView.ViewHolder {
+    public static class PlayerViewHolder extends RecyclerView.ViewHolder {
         TextView playerJersey, playerName, playerDescriptors, playerPosition;
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);

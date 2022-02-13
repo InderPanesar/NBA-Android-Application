@@ -2,6 +2,7 @@ package com.aston.basketballapp.pages.home.players.detail;
 
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.stats.PlayerStatistics;
@@ -65,7 +66,7 @@ public class PlayersDetailViewModel extends ViewModel {
 
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModel>() {
             @Override
-            public void onResponse(Call<PlayerStatsModel> call, Response<PlayerStatsModel> response) {
+            public void onResponse(@NonNull Call<PlayerStatsModel> call, @NonNull Response<PlayerStatsModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -101,7 +102,7 @@ public class PlayersDetailViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlayerStatsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlayerStatsModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
 
             }
@@ -150,7 +151,7 @@ public class PlayersDetailViewModel extends ViewModel {
 
     //Create Local TeamID and Name HashMap.
     public void addTeamsToHashMap() {
-        teams = new HashMap<Integer, String>();
+        teams = new HashMap<>();
         teams.put(1, "Atlanta Hawks");
         teams.put(2, "Boston Celtics");
         teams.put(4, "Brooklyn Nets");

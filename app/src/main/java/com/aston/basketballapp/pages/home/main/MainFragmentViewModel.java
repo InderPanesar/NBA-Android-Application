@@ -1,6 +1,8 @@
 package com.aston.basketballapp.pages.home.main;
 
 import android.content.SharedPreferences;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import com.aston.basketballapp.engine.model.standings.StandingsModel;
 import com.aston.basketballapp.engine.model.standings.TeamStandingModel;
@@ -44,29 +46,34 @@ public class MainFragmentViewModel extends ViewModel {
         data.postValueLoading();
         repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
             @Override
-            public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
+            public void onResponse(@NonNull Call<StandingsModel> call, @NonNull Response<StandingsModel> response) {
                 if(teamId.equals("-1")) {
                     data.postValueError(null);
                     return;
                 }
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
-                    return;
                 } else {
                     StandingsModel model = response.body();
-                    TeamStandingModel teamStandingModel = model.getApi().getStandings().get(0);
-                    ArrayList<String> values = new ArrayList<>();
-                    values.add(teamStandingModel.getConference().getName());
-                    values.add(teamStandingModel.getConference().getRank());
-                    values.add(teamStandingModel.getConference().getWin());
-                    values.add(teamStandingModel.getConference().getLoss());
-                    data.postValueSuccess(values);
+                    if(model == null) {
+                        data.postValueError(null);
+                    }
+                    else {
+                        TeamStandingModel teamStandingModel = model.getApi().getStandings().get(0);
+                        ArrayList<String> values = new ArrayList<>();
+                        values.add(teamStandingModel.getConference().getName());
+                        values.add(teamStandingModel.getConference().getRank());
+                        values.add(teamStandingModel.getConference().getWin());
+                        values.add(teamStandingModel.getConference().getLoss());
+                        data.postValueSuccess(values);
+                    }
+
                 }
 
             }
 
             @Override
-            public void onFailure(Call<StandingsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<StandingsModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
 
             }
@@ -81,30 +88,33 @@ public class MainFragmentViewModel extends ViewModel {
         data.postValueLoading();
         repository.getStandings().enqueue(new Callback<StandingsModel>() {
             @Override
-            public void onResponse(Call<StandingsModel> call, Response<StandingsModel> response) {
+            public void onResponse(@NonNull Call<StandingsModel> call, @NonNull Response<StandingsModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
-                    return;
                 } else {
                     StandingsModel model = response.body();
-                    List<TeamStandingModel> teamStandingModel = model.getApi().getStandings();
-
-                    ArrayList<TeamStandingModel> temp_StandingModel = new ArrayList<>();
-                    for(TeamStandingModel teamModel : teamStandingModel) {
-                        if (teamModel.getConference().getName().equals(conference)) {
-                            temp_StandingModel.add(teamModel);
-                        }
+                    if(model == null) {
+                        data.postValueError(null);
                     }
+                    else {
+                        List<TeamStandingModel> teamStandingModel = model.getApi().getStandings();
 
-                    Collections.sort(temp_StandingModel, new Comparator<TeamStandingModel>() {
-                        public int compare(TeamStandingModel o1, TeamStandingModel o2) {
+                        ArrayList<TeamStandingModel> temp_StandingModel = new ArrayList<>();
+                        for(TeamStandingModel teamModel : teamStandingModel) {
+                            if (teamModel.getConference().getName().equals(conference)) {
+                                temp_StandingModel.add(teamModel);
+                            }
+                        }
+
+                        temp_StandingModel.sort((o1, o2) -> {
                             Integer rank1 = Integer.parseInt(o1.getConference().getRank());
                             Integer rank2 = Integer.parseInt(o2.getConference().getRank());
                             // compare two instance of `Score` and return `int` as result.
                             return rank1.compareTo(rank2);
-                        }
-                    });
-                    data.postValueSuccess(temp_StandingModel);
+                        });
+                        data.postValueSuccess(temp_StandingModel);
+                    }
+
 
 
                 }
@@ -112,7 +122,7 @@ public class MainFragmentViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<StandingsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<StandingsModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
 
             }

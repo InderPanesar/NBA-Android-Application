@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
@@ -52,92 +53,81 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         recyclerView.setHasFixedSize(true);
-        teamsAdapter = new TeamsAdapter(getContext(), new ArrayList<IndividualTeamsModel>(), this);
+        teamsAdapter = new TeamsAdapter(getContext(), new ArrayList<>(), this);
         recyclerView.setAdapter(teamsAdapter);
 
         //Set the ViewModel
+        AppConsts.verifyActivity(getActivity());
         teamsBaseViewModel = new ViewModelProvider(this.getActivity()).get(TeamsBaseViewModel.class);
 
 
         //Observer to show each individual team
-        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> individualTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<IndividualTeamsModel>> stateLiveData) {
-                switch (stateLiveData.getStatus()) {
-                    case SUCCESS:
-                        ArrayList<IndividualTeamsModel> data = stateLiveData.getData();
-                        teamsAdapter.setTeams(data);
-                        recyclerView.setVisibility(View.VISIBLE);
-                        UniversalErrorStateHandler.isSuccess(v);
-                        break;
-                    case ERROR:
-                        recyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isError(v);
-                        break;
-                    case LOADING:
-                        recyclerView.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isLoading(v);
-                        break;
-                }
+        Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> individualTeamObserver = stateLiveData -> {
+            switch (stateLiveData.getStatus()) {
+                case SUCCESS:
+                    ArrayList<IndividualTeamsModel> data = stateLiveData.getData();
+                    teamsAdapter.setTeams(data);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    UniversalErrorStateHandler.isSuccess(v);
+                    break;
+                case ERROR:
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isError(v);
+                    break;
+                case LOADING:
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isLoading(v);
+                    break;
             }
-
         };
 
         teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
-        MaterialButton easternConferenceButton = (MaterialButton) v.findViewById(R.id.east_conference_button);
-        MaterialButton westernConferenceButton = (MaterialButton) v.findViewById(R.id.west_conference_button);
+        MaterialButton easternConferenceButton = v.findViewById(R.id.east_conference_button);
+        MaterialButton westernConferenceButton = v.findViewById(R.id.west_conference_button);
 
+        AppConsts.verifyContext(getContext());
         Typeface fontSelected = ResourcesCompat.getFont(getContext(), R.font.asap_bold);
         Typeface fontUnSelected = ResourcesCompat.getFont(getContext(), R.font.asap_regular);
 
 
         //East button selected on top of screen
-        easternConferenceButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerView.setVisibility(View.GONE);
-                teamsBaseViewModel.currentConference = "east";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
+        easternConferenceButton.setOnClickListener(view -> {
+            recyclerView.setVisibility(View.GONE);
+            teamsBaseViewModel.currentConference = "east";
+            teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
-                easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
-                westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
+            easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
+            westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
 
-                easternConferenceButton.setTypeface(fontSelected);
-                westernConferenceButton.setTypeface(fontUnSelected);
+            easternConferenceButton.setTypeface(fontSelected);
+            westernConferenceButton.setTypeface(fontUnSelected);
 
-            }
         });
 
         //West button selected on top of screen
-        westernConferenceButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerView.setVisibility(View.GONE);
-                teamsBaseViewModel.currentConference = "west";
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
+        westernConferenceButton.setOnClickListener(view -> {
+            recyclerView.setVisibility(View.GONE);
+            teamsBaseViewModel.currentConference = "west";
+            teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
+            AppConsts.verifyContext(getContext());
+            easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
+            westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
 
-                easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
-                westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
-
-                easternConferenceButton.setTypeface(fontUnSelected);
-                westernConferenceButton.setTypeface(fontSelected);
-            }
+            easternConferenceButton.setTypeface(fontUnSelected);
+            westernConferenceButton.setTypeface(fontSelected);
         });
 
-        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
-            }
-        });
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(view -> teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver));
 
 
-        if(teamsBaseViewModel.currentConference == "east") {
+        if(teamsBaseViewModel.currentConference.equals("east")) {
+            AppConsts.verifyContext(getContext());
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
         }
         else {
+            AppConsts.verifyContext(getContext());
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
         }
@@ -149,11 +139,13 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
     @Override
     public void onResume() {
         super.onResume();
+        AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(true);
     }
 
     @Override
     public void cardClicked(View v, IndividualTeamsModel teamsModel) {
+        AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
         Bundle bundle = new Bundle();
         bundle.putString("teamId", teamsModel.getTeamId());

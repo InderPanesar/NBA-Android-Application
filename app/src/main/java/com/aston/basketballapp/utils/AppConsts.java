@@ -1,5 +1,9 @@
 package com.aston.basketballapp.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+
 //Contains values and methods which are used globally throughout the application
 public class AppConsts {
 
@@ -22,5 +26,27 @@ public class AppConsts {
         }
         return URL;
     }
+
+    //Used to verify activities.
+    public static void verifyActivity(Activity activity) {
+        if(null == activity) {
+            throw new IllegalStateException("Activity doesn't exist, check if fragment is attached to parent activity");
+        }
+    }
+
+    //Used to verify context
+    public static void verifyContext(Context context) {
+        if(null == context) {
+            throw new IllegalStateException("Context doesn't exist.");
+        }
+    }
+    //Used to verify context
+    public static void verifyArguments(Bundle bundle) {
+        if(null == bundle) {
+            throw new IllegalStateException("Arguments doesn't exist.");
+        }
+    }
+
+
 
 }

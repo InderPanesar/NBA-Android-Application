@@ -3,12 +3,11 @@ package com.aston.basketballapp.pages.home.main;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.standings.TeamStandingModel;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 
@@ -48,8 +45,9 @@ public class MainBaseFragment extends Fragment {
     public MainBaseFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        AppConsts.verifyActivity(getActivity());
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_landing_page, container, false);
@@ -62,40 +60,40 @@ public class MainBaseFragment extends Fragment {
         scheduleLayout = v.findViewById(R.id.schedule_statistics_table);
 
         //Observer for the favourite team.
-        Observer<LiveDataStateData<ArrayList<String>>> favouriteTeamObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
-                switch (stateLiveData.getStatus()) {
-                    case SUCCESS:
-                        //If Widgets Exists then set Visibility to true.
-                        favouriteTeamWidget.setVisibility(View.VISIBLE);
-                        ArrayList<String> data = stateLiveData.getData();
-                        UniversalErrorStateHandler.isSuccess(v);
+        Observer<LiveDataStateData<ArrayList<String>>> favouriteTeamObserver = stateLiveData -> {
+            switch (stateLiveData.getStatus()) {
+                case SUCCESS:
+                    //If Widgets Exists then set Visibility to true.
+                    favouriteTeamWidget.setVisibility(View.VISIBLE);
+                    ArrayList<String> data = stateLiveData.getData();
+                    UniversalErrorStateHandler.isSuccess(v);
 
-                        //Load all components.
-                        TextView favouriteTeamConference = v.findViewById(R.id.favourite_team_conference_ranking);
-                        TextView favouriteRecord = v.findViewById(R.id.favourite_team_record);
-                        TextView favouriteName = v.findViewById(R.id.favourite_team_name);
-                        ImageView imageView = v.findViewById(R.id.favourite_team_icon_image);
+                    AppConsts.verifyActivity(getActivity());
 
+                    //Load all components.
+                    TextView favouriteTeamConference = v.findViewById(R.id.favourite_team_conference_ranking);
+                    TextView favouriteRecord = v.findViewById(R.id.favourite_team_record);
+                    TextView favouriteName = v.findViewById(R.id.favourite_team_name);
+                    ImageView imageView = v.findViewById(R.id.favourite_team_icon_image);
+
+                    if(data != null) {
                         favouriteTeamConference.setText(mainFragmentViewModel.getConferenceString(data));
                         favouriteRecord.setText(mainFragmentViewModel.getRecordString(data));
-                        favouriteName.setText(mainFragmentViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
-                        //Load image from URL using Picasso.
-                        Picasso.get().load(mainFragmentViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
+                    }
+                    favouriteName.setText(mainFragmentViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
+                    //Load image from URL using Picasso.
+                    Picasso.get().load(mainFragmentViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
 
-                        break;
-                    case ERROR:
-                        favouriteTeamWidget.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isError(v);
-                        break;
-                    case LOADING:
-                        favouriteTeamWidget.setVisibility(View.INVISIBLE);
-                        UniversalErrorStateHandler.isLoading(v);
-                        break;
-                }
+                    break;
+                case ERROR:
+                    favouriteTeamWidget.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isError(v);
+                    break;
+                case LOADING:
+                    favouriteTeamWidget.setVisibility(View.INVISIBLE);
+                    UniversalErrorStateHandler.isLoading(v);
+                    break;
             }
-
         };
 
         //Get Favourite Team Information.
@@ -107,78 +105,62 @@ public class MainBaseFragment extends Fragment {
         MaterialButton errorButtonSchedule = v.findViewById(R.id.schedule_table_retry_button);
 
         //Observer for the Schedule of the team.
-        Observer<LiveDataStateData<ArrayList<TeamStandingModel>>> scheduleObserver = new Observer<LiveDataStateData<ArrayList<TeamStandingModel>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<TeamStandingModel>> stateLiveData) {
-                switch (stateLiveData.getStatus()) {
-                    case SUCCESS:
-                        scheduleLayout.removeAllViews();
-                        ArrayList<TeamStandingModel> data = stateLiveData.getData();
-                        setTable(v, data);
-                        bar.setVisibility(View.INVISIBLE);
-                        scheduleLayout.setVisibility(View.VISIBLE);
-                        errorStates.setVisibility(View.INVISIBLE);
-                        break;
-                    case ERROR:
-                        bar.setVisibility(View.INVISIBLE);
-                        scheduleLayout.setVisibility(View.INVISIBLE);
-                        errorStates.setVisibility(View.VISIBLE);
-                        break;
-                    case LOADING:
-                        bar.setVisibility(View.VISIBLE);
-                        scheduleLayout.setVisibility(View.INVISIBLE);
-                        errorStates.setVisibility(View.INVISIBLE);
-                        break;
-                }
+        Observer<LiveDataStateData<ArrayList<TeamStandingModel>>> scheduleObserver = stateLiveData -> {
+            switch (stateLiveData.getStatus()) {
+                case SUCCESS:
+                    scheduleLayout.removeAllViews();
+                    ArrayList<TeamStandingModel> data = stateLiveData.getData();
+                    if(data != null) {
+                        setTable(data);
+                    }
+                    bar.setVisibility(View.INVISIBLE);
+                    scheduleLayout.setVisibility(View.VISIBLE);
+                    errorStates.setVisibility(View.INVISIBLE);
+                    break;
+                case ERROR:
+                    bar.setVisibility(View.INVISIBLE);
+                    scheduleLayout.setVisibility(View.INVISIBLE);
+                    errorStates.setVisibility(View.VISIBLE);
+                    break;
+                case LOADING:
+                    bar.setVisibility(View.VISIBLE);
+                    scheduleLayout.setVisibility(View.INVISIBLE);
+                    errorStates.setVisibility(View.INVISIBLE);
+                    break;
             }
-
         };
 
         //Get Schedule Information.
         mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
 
-        MaterialButtonToggleGroup toggleGroup = v.findViewById(R.id.schedule_button_group);
-
         MaterialButton eastButton = v.findViewById(R.id.east_schedule_button);
         MaterialButton westButton = v.findViewById(R.id.west_schedule_button);
 
         //On East Button Click update Schedule
-        eastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainFragmentViewModel.conference = "east";
-                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
-            }
+        eastButton.setOnClickListener(v1 -> {
+            mainFragmentViewModel.conference = "east";
+            mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
         });
 
         //On East Button Click update Schedule
-        westButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainFragmentViewModel.conference = "west";
-                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
-            }
+        westButton.setOnClickListener(v12 -> {
+            mainFragmentViewModel.conference = "west";
+            mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
         });
 
         //Update Error State for Schedule
-        errorButtonSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
-            }
-        });
+        errorButtonSchedule.setOnClickListener(v13 -> mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver));
 
         //Update Error State for Favourite Team Fragment
-        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainFragmentViewModel.getFavouriteTeamInformation(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
-            }
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(v14 -> {
+            AppConsts.verifyActivity(getActivity());
+            mainFragmentViewModel.getFavouriteTeamInformation(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
         });
 
         TextView favouriteTeamTitle = v.findViewById(R.id.favourite_team_title);
         MaterialCardView favouriteTeamWidgetPage = v.findViewById(R.id.favourite_team_widget_landing_page);
 
+        AppConsts.verifyActivity(getActivity());
         //If Favourite team doesn't exist.
         if(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE)).equals("-1")) {
             favouriteTeamTitle.setVisibility(View.GONE);
@@ -189,7 +171,7 @@ public class MainBaseFragment extends Fragment {
     }
 
     //Set Table for the Schedule.
-    public void setTable (View v, ArrayList<TeamStandingModel> teams) {
+    public void setTable ( ArrayList<TeamStandingModel> teams) {
 
         if(teams.size() == 0) {
             scheduleLayout.setVisibility(View.INVISIBLE);
@@ -202,6 +184,7 @@ public class MainBaseFragment extends Fragment {
                 tv0.setPadding(10, 30, 10, 30);
                 tv0.setTextColor(Color.BLACK);
                 tv0.setGravity(Gravity.CENTER);
+                AppConsts.verifyContext(getContext());
                 tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
             }
@@ -217,6 +200,7 @@ public class MainBaseFragment extends Fragment {
 
                 tv.setTextColor(Color.BLACK);
                 tv.setGravity(Gravity.CENTER);
+                AppConsts.verifyContext(getContext());
                 tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                 tbrow.addView(tv);
 
@@ -257,5 +241,6 @@ public class MainBaseFragment extends Fragment {
         }
 
     }
+
 
 }

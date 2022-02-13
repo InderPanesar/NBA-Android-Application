@@ -2,19 +2,15 @@ package com.aston.basketballapp.pages.home.settings.customisationMenu;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-
 import com.aston.basketballapp.R;
+import com.aston.basketballapp.utils.AppConsts;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.common.collect.HashBiMap;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +38,7 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment.
         View v = inflater.inflate(R.layout.fragment_settings_customisation_settings_menu, container, false);
+        AppConsts.verifyContext(getActivity());
         viewModel = new ViewModelProvider(this.getActivity()).get(SettingsCustomisationSettingsMenuViewModel.class);
 
         // Adds sliders to the view.
@@ -60,24 +57,21 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
         for(int value : values) {
             if(value != -1) {
                 SwitchMaterial _switch = sliderList.inverse().get(value);
-                _switch.setChecked(true);
-                activeSwitches.add(_switch);
-
+                if(_switch != null) {
+                    _switch.setChecked(true);
+                    activeSwitches.add(_switch);
+                }
             }
         }
 
 
         for(SwitchMaterial _switch : sliderList.keySet()) {
-            _switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //Add switches if it is checked.
-                    if(isChecked) { activeSwitches.add(_switch); }
-                    //Remove switch if it is unchecked.
-                    else { activeSwitches.remove(_switch); }
-                    disableAllSwitches(activeSwitches.size(), false);
-                }
-
+            _switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                //Add switches if it is checked.
+                if(isChecked) { activeSwitches.add(_switch); }
+                //Remove switch if it is unchecked.
+                else { activeSwitches.remove(_switch); }
+                disableAllSwitches(activeSwitches.size(), false);
             });
         }
         disableAllSwitches(activeSwitches.size(), true);
@@ -107,6 +101,7 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
             for(SwitchMaterial _switch: activeSwitches) {
                 values.add(sliderList.get(_switch));
             }
+            AppConsts.verifyActivity(getActivity());
             viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE), values);
         }
     }

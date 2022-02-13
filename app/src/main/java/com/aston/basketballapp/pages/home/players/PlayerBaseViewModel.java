@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.players;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
@@ -23,7 +24,7 @@ public class PlayerBaseViewModel extends ViewModel {
     //Hold Players Locally for Filtering.
     ArrayList<IndividualPlayerModel> localTempPlayers = new ArrayList<>();
     //All Possible International Values
-    String[] internationalValues = {"All", "USA", "World"};
+    String[] internationalValues = {"All", "USA", "International"};
     //Player Filter Index Value.
     int playerFilter = 0;
 
@@ -40,7 +41,7 @@ public class PlayerBaseViewModel extends ViewModel {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override
-            public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
+            public void onResponse(@NonNull Call<PlayerModel> call, @NonNull Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -63,7 +64,7 @@ public class PlayerBaseViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlayerModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlayerModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

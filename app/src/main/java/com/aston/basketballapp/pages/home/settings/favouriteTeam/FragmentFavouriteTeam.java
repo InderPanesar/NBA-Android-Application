@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.aston.basketballapp.MainActivity;
 import com.aston.basketballapp.R;
+import com.aston.basketballapp.utils.AppConsts;
 import com.google.android.material.button.MaterialButton;
 
 
@@ -59,14 +60,12 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
         teamsRecyclerView.setAdapter(teamsAdapter);
 
         MaterialButton confirmButton = v.findViewById(R.id.favourite_team_confirm);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Set the shared preferences on confirm button press and pop back to previous fragment.
-                viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
-                ((MainActivity)getActivity()).updateNavigationMenuHeader();
-                FragmentFavouriteTeam.super.getActivity().onBackPressed();
-            }
+        confirmButton.setOnClickListener(v1 -> {
+            //Set the shared preferences on confirm button press and pop back to previous fragment.
+            AppConsts.verifyActivity(getActivity());
+            viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
+            ((MainActivity)getActivity()).updateNavigationMenuHeader();
+            FragmentFavouriteTeam.super.getActivity().onBackPressed();
         });
 
         return v;

@@ -13,14 +13,4 @@ public class SinglePlayerStatsAdapter {
         this.topics =_topics;
         this.attributes = _attributes;
     }
-
-    public List<String> getTopics() {
-        return topics;
-    }
-
-    public List<String> getAttributes() {
-        return attributes;
-    }
-
-
 }

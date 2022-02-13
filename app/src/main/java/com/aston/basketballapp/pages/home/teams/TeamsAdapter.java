@@ -28,7 +28,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.MyViewHolder
     public TeamsAdapter(Context ct, ArrayList<IndividualTeamsModel> _teams, TeamsCardClicked itemListener) {
         context = ct;
         teams = _teams;
-        this.itemListener = itemListener;
+        TeamsAdapter.itemListener = itemListener;
 
     }
 

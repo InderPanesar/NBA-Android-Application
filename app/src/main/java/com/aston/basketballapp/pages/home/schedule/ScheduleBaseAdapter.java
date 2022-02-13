@@ -76,38 +76,34 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         holder.view.setLayoutParams(params);
 
         //Handle the different states involved with each game.
-        if (status.equals("Scheduled")) {
-            holder.button.setVisibility(View.INVISIBLE);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH);
-            LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
-            holder.gameTimeStart.setText(outputFormatter.format(date));
-            holder.gameTimeStart.setVisibility(View.VISIBLE);
-            params.height = smallerHeight;
-            holder.view.setLayoutParams(params);
+        switch (status) {
+            case "Scheduled":
+                holder.button.setVisibility(View.INVISIBLE);
+                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH);
+                LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
+                holder.gameTimeStart.setText(outputFormatter.format(date));
+                holder.gameTimeStart.setVisibility(View.VISIBLE);
+                params.height = smallerHeight;
+                holder.view.setLayoutParams(params);
 
-        }
-        else if (status.equals("In Play")) {
-            if(isHalfTime.equals("1")) {
-                holder.gameTimeStart.setText("Half Time");
-            }
-            else {
-                holder.gameTimeStart.setText("Quarter: " + games.get(position).getCurrentPeriod());
-            }
-            holder.gameTimeStart.setVisibility(View.VISIBLE);
-        }
-        else if(status.equals("Finished")) {
-            holder.gameTimeStart.setVisibility(View.GONE);
-            holder.button.setVisibility(View.VISIBLE);
+                break;
+            case "In Play":
+                if (isHalfTime.equals("1")) {
+                    holder.gameTimeStart.setText("Half Time");
+                } else {
+                    holder.gameTimeStart.setText("Quarter: " + games.get(position).getCurrentPeriod());
+                }
+                holder.gameTimeStart.setVisibility(View.VISIBLE);
+                break;
+            case "Finished":
+                holder.gameTimeStart.setVisibility(View.GONE);
+                holder.button.setVisibility(View.VISIBLE);
+                break;
         }
 
 
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemListener.scheduleCardClicked(holder.itemView, model);
-            }
-        });
+        holder.button.setOnClickListener(v -> itemListener.scheduleCardClicked(holder.itemView, model));
     }
 
     @Override
@@ -120,7 +116,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         notifyDataSetChanged();
     }
 
-    public class ScheduleBaseAdapterViewHolder extends RecyclerView.ViewHolder  {
+    public static class ScheduleBaseAdapterViewHolder extends RecyclerView.ViewHolder  {
 
         View view;
 
