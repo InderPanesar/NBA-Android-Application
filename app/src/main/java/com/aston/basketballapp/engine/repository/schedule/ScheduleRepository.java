@@ -6,6 +6,7 @@ import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisti
 
 import retrofit2.Call;
 
+//Schedule Repository to make calls to the API
 public interface ScheduleRepository {
     Call<ScheduleModel> getGames(String conference);
     Call<GameModel> getGameDetails(String gameId);

@@ -169,11 +169,12 @@ public class PlayersDetailFragment extends Fragment {
 
         for(TableRow row : removeRows) {
             tableLayout.removeView(row);
-
         }
 
 
-        if(stats.size() == 0) {
+        if(stats == null) {
+            TextView header = v.findViewById(R.id.recent_game_header);
+            header.setVisibility(View.INVISIBLE);
             tableLayout.setVisibility(View.INVISIBLE);
         }
         else {

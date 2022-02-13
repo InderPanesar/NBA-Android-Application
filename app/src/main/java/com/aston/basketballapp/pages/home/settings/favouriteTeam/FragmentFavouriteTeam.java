@@ -83,7 +83,7 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
             @Override
             public void onClick(View v) {
                 viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
-                ((MainActivity)getActivity()).updateNavBar();
+                ((MainActivity)getActivity()).updateNavigationMenuHeader();
                 FragmentFavouriteTeam.super.getActivity().onBackPressed();
             }
         });

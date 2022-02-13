@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 
 public class Gyroscope {
 
+    //Interface to allow values of dx,dy and dz to be returned outside of this class.
     public interface GyroscopeListener {
         void onRotation(float dx, float dy, float dz);
     }
@@ -21,6 +22,7 @@ public class Gyroscope {
     private Sensor sensor;
     private SensorEventListener sensorEventListener;
 
+    //Constructor for Gyroscope
     public Gyroscope(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
@@ -40,10 +42,12 @@ public class Gyroscope {
         };
     }
 
+    //Register the Gyroscope
     public void register() {
         sensorManager.registerListener(sensorEventListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    //Remove the Gyroscope register
     public void unregister() {
         sensorManager.unregisterListener(sensorEventListener);
     }

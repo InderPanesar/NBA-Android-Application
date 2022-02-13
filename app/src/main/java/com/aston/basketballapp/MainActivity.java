@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
         MaterialCardView cardView = header.findViewById(R.id.user_favourite_team_card);
 
         setUpSharedPreferences();
-        updateNavBar();
+        updateNavigationMenuHeader();
 
         gyroscope = new Gyroscope(this);
 
@@ -96,14 +96,12 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
     @Override
     protected void onResume() {
         super.onResume();
-
         gyroscope.register();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         gyroscope.unregister();
     }
 
@@ -114,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
                 || super.onOptionsItemSelected(item);
     }
 
+    //Setup the shared preferences for the App and check if the values exist and if not set default values.
     public void setUpSharedPreferences() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
@@ -132,12 +131,14 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
         }
     }
 
+    //Get The players favourite team.
     public int readHeaderPreferences() {
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         return prefs.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
     }
 
-    public void updateNavBar() {
+    //Method to update the Navigation Menu Header when user changes their favourite team.
+    public void updateNavigationMenuHeader() {
         int headerValue = readHeaderPreferences();
         NavigationView navView = findViewById(R.id.nav_view);
         View header = navView.getHeaderView(0);
