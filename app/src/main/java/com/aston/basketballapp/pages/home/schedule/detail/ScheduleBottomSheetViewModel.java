@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.schedule.detail;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticModel;
@@ -26,6 +27,7 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Get the statistics for the specific game which more details have been requested for.
     StateMutableLiveData<ArrayList<String>> getGameStatistics(String gameID) {
 
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
@@ -33,7 +35,7 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
 
         repository.getGameStatisticDetails(gameID).enqueue(new Callback<GameStatisticModel>() {
             @Override
-            public void onResponse(Call<GameStatisticModel> call, Response<GameStatisticModel> response) {
+            public void onResponse(@NonNull Call<GameStatisticModel> call, @NonNull Response<GameStatisticModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -71,7 +73,7 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<GameStatisticModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<GameStatisticModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

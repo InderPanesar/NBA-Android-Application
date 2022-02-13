@@ -29,7 +29,7 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
     public SettingsTeamsAdapter(Context ct, ArrayList<TeamsRepo.LocalTeam> _teams, SettingsTeamClicked itemListener) {
         context = ct;
         teams = _teams;
-        this.itemListener = itemListener;
+        SettingsTeamsAdapter.itemListener = itemListener;
         for(int i = 0; i < teams.size(); i++) {
             if(teams.get(i).isSelected) {
                 ItemSelected = i;
@@ -76,6 +76,7 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
         }
 
 
+        //If Item is clicked then ensure to pass the value for whether the value is being added or removed.
         @Override
         public void onClick(View v) {
             int _valueSelected = getAdapterPosition();

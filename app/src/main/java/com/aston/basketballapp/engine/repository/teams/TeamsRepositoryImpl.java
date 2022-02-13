@@ -5,6 +5,7 @@ import com.aston.basketballapp.engine.model.teams.TeamsModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
+//Definition to make calls to get TeamsRepositoryAPI
 public class TeamsRepositoryImpl implements TeamsRepository {
 
     Retrofit retrofit;

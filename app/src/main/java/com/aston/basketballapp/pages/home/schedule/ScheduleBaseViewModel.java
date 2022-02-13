@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.schedule;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.schedule.GamesModel;
@@ -26,6 +27,7 @@ public class ScheduleBaseViewModel extends ViewModel  {
         repository = exampleRepository;
     }
 
+    //Return games on a specific date.
     StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
@@ -33,7 +35,7 @@ public class ScheduleBaseViewModel extends ViewModel  {
 
         repository.getGames(date).enqueue(new Callback<ScheduleModel>() {
             @Override
-            public void onResponse(Call<ScheduleModel> call, Response<ScheduleModel> response) {
+            public void onResponse(@NonNull Call<ScheduleModel> call, @NonNull Response<ScheduleModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -45,7 +47,7 @@ public class ScheduleBaseViewModel extends ViewModel  {
             }
 
             @Override
-            public void onFailure(Call<ScheduleModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<ScheduleModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

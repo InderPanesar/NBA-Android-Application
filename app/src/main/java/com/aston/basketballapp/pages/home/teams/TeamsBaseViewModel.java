@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.teams;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
 import com.aston.basketballapp.engine.model.teams.TeamsModel;
@@ -16,7 +17,9 @@ import retrofit2.Response;
 @HiltViewModel
 public class TeamsBaseViewModel extends ViewModel {
 
+    //TeamRepo to make API Calls
     TeamsRepository repository;
+    //Current Selected Conference.
     String currentConference = "east";
 
 
@@ -25,13 +28,13 @@ public class TeamsBaseViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Make call to API to get Teams.
     StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
-
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
             @Override
-            public void onResponse(Call<TeamsModel> call, Response<TeamsModel> response) {
+            public void onResponse(@NonNull Call<TeamsModel> call, @NonNull Response<TeamsModel> response) {
               if(!response.isSuccessful()) {
                   data.postValueError(null);
               }
@@ -50,8 +53,7 @@ public class TeamsBaseViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<TeamsModel> call, Throwable t) {
-                //Do Something here!
+            public void onFailure(@NonNull Call<TeamsModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

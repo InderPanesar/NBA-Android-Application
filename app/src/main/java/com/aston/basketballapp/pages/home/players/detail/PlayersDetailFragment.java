@@ -4,14 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,41 +19,34 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.pages.home.settings.favouriteTeam.TeamsRepo;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayersDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PlayersDetailFragment extends Fragment {
 
-
+    //ViewModel for Player Details.
     PlayersDetailViewModel viewModel;
-    TableLayout tableLayout;
+    //Player Stats table.
+    TableLayout playerStatsTable;
+    //Locally Contain TableRows to remove them onDestroy.
     ArrayList<TableRow> removeRows = new ArrayList<>();
 
 
     public PlayersDetailFragment() { }
 
-    public static PlayersDetailFragment newInstance(String param1, String param2) {
-        PlayersDetailFragment fragment = new PlayersDetailFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public static PlayersDetailFragment newInstance() {
+        return new PlayersDetailFragment();
     }
 
     @Override
     public void onDestroy() {
         for(TableRow row : removeRows) {
-            tableLayout.removeView(row);
+            playerStatsTable.removeView(row);
         }
         super.onDestroy();
     }
@@ -62,19 +54,23 @@ public class PlayersDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //Set Toolbar title to Player's Name.
+        AppConsts.verifyActivity(getActivity());
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        AppConsts.verifyArguments(getArguments());
         toolbar.setTitle(getArguments().getString("playerName"));
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        String playerAttributes[] = getArguments().getStringArray("playerAttributes");
+        AppConsts.verifyArguments(getArguments());
+        String[] playerAttributes = getArguments().getStringArray("playerAttributes");
         View v = inflater.inflate(R.layout.fragment_players_detail, container, false);
+        AppConsts.verifyActivity(getActivity());
         viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
 
+        //Set Overall Player Information to each specific data row.
         TextView textView =  v.findViewById(R.id.players_detail_years_pro);
         textView.setText(playerAttributes[0]);
         textView = v.findViewById(R.id.players_detail_college);
@@ -91,10 +87,8 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[6]);
         textView = v.findViewById(R.id.player_team_name);
 
-        tableLayout = v.findViewById(R.id.team_player_stats);
+        playerStatsTable = v.findViewById(R.id.team_player_stats);
 
-        //If attribute 7 doesn't exist and is null
-        Log.d("TAG", playerAttributes[7]);
         try {
             textView.setText(viewModel.teams.get(Integer.parseInt(playerAttributes[7])));
         }
@@ -112,6 +106,7 @@ public class PlayersDetailFragment extends Fragment {
         }
         else {
             textView.setText("Not Active");
+            AppConsts.verifyContext(getContext());
             textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
         }
 
@@ -121,7 +116,7 @@ public class PlayersDetailFragment extends Fragment {
             Picasso.get().load(viewModel.nbaLogoURL).fit().into(view);
         }
         else {
-            Integer teamID = Integer.parseInt(playerAttributes[7]);
+            int teamID = Integer.parseInt(playerAttributes[7]);
             for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
                 if(teamID == team.getId()) {
                     Picasso.get().load(team.getLogoURL()).fit().centerCrop().fit().into(view);
@@ -132,31 +127,22 @@ public class PlayersDetailFragment extends Fragment {
 
 
 
-        Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> recentGamesAdapterObserver = new Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>>() {
-            @Override
-            public void onChanged(LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>> stats) {
-                switch (stats.getStatus()) {
-                    case SUCCESS:
-                        if(stats == null) {
-                            TextView header = v.findViewById(R.id.recent_game_header);
-                            header.setVisibility(View.INVISIBLE);
-                        }
-                        else {
-                            setTable(v, stats.getData());
-                        }
-                        UniversalErrorStateHandler.isSuccess(v);
-                        break;
-                    case ERROR:
-                        UniversalErrorStateHandler.isError(v);
-                        break;
-                    case LOADING:
-                        UniversalErrorStateHandler.isLoading(v);
-                        break;
-                }
+        Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> recentGamesAdapterObserver = stats -> {
+            switch (stats.getStatus()) {
+                case SUCCESS:
+                    setTable(v, stats.getData());
+                    UniversalErrorStateHandler.isSuccess(v);
+                    break;
+                case ERROR:
+                    UniversalErrorStateHandler.isError(v);
+                    break;
+                case LOADING:
+                    UniversalErrorStateHandler.isLoading(v);
+                    break;
             }
-
         };
 
+        AppConsts.verifyActivity(getActivity());
         viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
 
 
@@ -165,16 +151,18 @@ public class PlayersDetailFragment extends Fragment {
     }
 
 
+    //Create Tables for the PlayerStats.
     public void setTable (View v, ArrayList<SinglePlayerStatsAdapter> stats) {
 
         for(TableRow row : removeRows) {
-            tableLayout.removeView(row);
-
+            playerStatsTable.removeView(row);
         }
 
 
-        if(stats.size() == 0) {
-            tableLayout.setVisibility(View.INVISIBLE);
+        if(stats == null) {
+            TextView header = v.findViewById(R.id.recent_game_header);
+            header.setVisibility(View.INVISIBLE);
+            playerStatsTable.setVisibility(View.INVISIBLE);
         }
         else {
             TableRow topRow = new TableRow(getContext());
@@ -184,11 +172,12 @@ public class PlayersDetailFragment extends Fragment {
                 tv0.setTextColor(Color.BLACK);
                 tv0.setGravity(Gravity.CENTER);
                 tv0.setPadding(5, 10, 5, 10);
+                AppConsts.verifyContext(getContext());
                 tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
                 removeRows.add(topRow);
             }
-            tableLayout.addView(topRow);
+            playerStatsTable.addView(topRow);
             for (SinglePlayerStatsAdapter _stats : stats) {
                 TableRow tbrow = new TableRow(getContext());
                 for(String value : _stats.attributes) {
@@ -198,11 +187,12 @@ public class PlayersDetailFragment extends Fragment {
                     tv.setTextColor(Color.BLACK);
                     tv.setGravity(Gravity.CENTER);
                     tv.setPadding(5, 10, 5, 10);
+                    AppConsts.verifyContext(getContext());
                     tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                     tbrow.addView(tv);
                     removeRows.add(tbrow);
                 }
-                tableLayout.addView(tbrow);
+                playerStatsTable.addView(tbrow);
 
 
             }
@@ -211,6 +201,5 @@ public class PlayersDetailFragment extends Fragment {
         }
 
     }
-
 
 }

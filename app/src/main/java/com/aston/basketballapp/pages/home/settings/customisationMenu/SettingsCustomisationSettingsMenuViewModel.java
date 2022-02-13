@@ -11,8 +11,7 @@ import java.util.List;
 
 public class SettingsCustomisationSettingsMenuViewModel extends ViewModel {
 
-
-
+    //Set Shared preferences for Recent Game Values.
     public void setSharedPreferences(SharedPreferences pref, List<Integer> values) {
         SharedPreferences.Editor editor = pref.edit();
         if(values.size() > 0) { editor.putInt(AppConsts.RECENT_GAMES_ONE, values.get(0)).apply(); }
@@ -31,6 +30,7 @@ public class SettingsCustomisationSettingsMenuViewModel extends ViewModel {
         editor.apply();
     }
 
+    //Get Shared preferences for Recent Game Values.
     public List<Integer> getSharedPreferences(SharedPreferences pref) {
         List<Integer> values = new ArrayList<>();
         values.add(pref.getInt(AppConsts.RECENT_GAMES_ONE, -1));

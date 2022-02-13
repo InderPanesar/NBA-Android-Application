@@ -58,18 +58,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment Stadiums.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static StadiumsBaseFragment newInstance() {
-        StadiumsBaseFragment fragment = new StadiumsBaseFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new StadiumsBaseFragment();
     }
 
     @Override
@@ -83,12 +74,12 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_stadiums, container, false);
 
-        mapView = (MapView) v.findViewById(R.id.map_view);
+        mapView = v.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
 
-        mapView = (MapView) v.findViewById(R.id.map_view);
+        mapView = v.findViewById(R.id.map_view);
 
         stadiumTextView =  v.findViewById(R.id.stadium_name);
         capacityTextView =  v.findViewById(R.id.stadium_capacity);
@@ -97,12 +88,8 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
         ticketButton.setEnabled(false);
 
-        ticketButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentURL)));
-            }
-        });
+        //Open Ticket Page in webpage for browser
+        ticketButton.setOnClickListener(v1 -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentURL))));
 
         return v;
     }
@@ -112,35 +99,38 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map = googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
 
+        //Get all information for the stadiums.
         ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
+        //Add all markers to map using Google Map API.
         for(int i = 0; i < bob.size(); i++) {
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(bob.get(i).getMapPosition())
                     .icon(bitmapDescriptorFromVector(getActivity(), bob.get(i).getVectorPointer())));
-            marker.setTag(i);
+            if(marker != null) {
+                marker.setTag(i);
+            }
 
         }
 
+        //Set Maps Camera initial position.
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.4634, -97.5151), 3));
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                int position = (int)(marker.getTag());
-                StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
-                stadiumTextView.setText(new StringBuilder().append("Stadium: ").append(stadiumInformation.stadiumName).toString());
-                capacityTextView.setText(new StringBuilder().append("Capacity: ").append(stadiumInformation.capacity).toString());
-                Picasso.get()
-                        .load(stadiumInformation.getStadiumURL())
-                        .fit()
-                        .into(stadiumImageView);
+        //What to do when a marker is clicked.
+        map.setOnMarkerClickListener(marker -> {
+            int position = (int)(marker.getTag());
+            StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
+            stadiumTextView.setText(new StringBuilder().append("Stadium: ").append(stadiumInformation.stadiumName).toString());
+            capacityTextView.setText(new StringBuilder().append("Capacity: ").append(stadiumInformation.capacity).toString());
+            Picasso.get()
+                    .load(stadiumInformation.getStadiumURL())
+                    .fit()
+                    .into(stadiumImageView);
 
 
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
 
-                currentURL = stadiumInformation.ticketsURL;
-                ticketButton.setEnabled(true);
-                return false;
-            }
+            currentURL = stadiumInformation.ticketsURL;
+            ticketButton.setEnabled(true);
+            return false;
         });
     }
 
@@ -163,7 +153,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
@@ -174,13 +164,17 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         mapView.onLowMemory();
     }
 
+    //Get Bitmap from each vector.
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
+        if(vectorDrawable != null) {
+            vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+            Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            vectorDrawable.draw(canvas);
+            return BitmapDescriptorFactory.fromBitmap(bitmap);
+        }
+        return null;
     }
 
 

@@ -10,9 +10,12 @@ import java.util.ArrayList;
 
 public class SettingsTeamPreferenceViewModel extends ViewModel {
 
+    //Collection of teams repo.
     TeamsRepo repo = new TeamsRepo();
+    //Selected Team Value
     int selectedValue = -1;
 
+    //Setting the preference for SharedPreferences
     public void setPref(SharedPreferences pref) {
         selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
         if(selectedValue > 0) {

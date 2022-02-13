@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import com.aston.basketballapp.R;
 
 
+//Locally Store the Stadium information as the information is not provided by the API.
 public class StadiumRepo {
 
     public static ArrayList<StadiumInformation> getStadiumsInfo() {
@@ -73,7 +74,7 @@ public class StadiumRepo {
                 "cavs",
                 "Rocket Mortgage FieldHouse",
                 "19,432",
-                "https://www.nba.com/cavs/tickets",
+                "https://www.nba.com/cavaliers/tickets",
                 "https://upload.wikimedia.org/wikipedia/commons/f/fd/Rocket_Mortgage_FieldHouse_%282%29.jpg",
                 41.4965f,
                 81.6881f,
@@ -179,7 +180,7 @@ public class StadiumRepo {
                 "grizzles",
                 "FedExForum",
                 "18,119",
-                "https://www.nba.com/grizzles/tickets",
+                "https://www.nba.com/grizzlies/tickets",
                 "https://upload.wikimedia.org/wikipedia/commons/3/37/FedExForum.jpg",
                 35.1381f,
                 90.0506f,
@@ -249,7 +250,7 @@ public class StadiumRepo {
                 "okc",
                 "Paycom Center",
                 "18,203",
-                "https://www.nba.com/okc/tickets",
+                "https://www.nba.com/thunder/tickets",
                 "https://3gz8cg829c.execute-api.us-west-2.amazonaws.com/prod/image-renderer/16x9/full/1015/center/80/53e25380-dfc0-4f2e-9c61-252abe29fa7b-large16x9_9.jpg",
                 35.4634f,
                 97.5151f,
@@ -273,7 +274,7 @@ public class StadiumRepo {
                 "76ers",
                 "Wells Fargo Center",
                 "19,500",
-                "https://www.nba.com/76ers/tickets",
+                "https://www.nba.com/sixers/tickets",
                 "https://upload.wikimedia.org/wikipedia/commons/6/61/Wells_Fargo_Center.jpg",
                 39.9012f,
                 75.1720f,
@@ -329,7 +330,7 @@ public class StadiumRepo {
                 "trail blazers",
                 "Moda Center",
                 "19,980",
-                "https://www.nba.com/trailblazers/tickets",
+                "https://www.nba.com/blazers/tickets",
                 "https://mediaim.expedia.com/destination/1/2f76b65ec13a0e93e33e2749e3e3223e.jpg?impolicy=fcrop&w=536&h=384&q=high",
                 45.5316f,
                 122.6668f,

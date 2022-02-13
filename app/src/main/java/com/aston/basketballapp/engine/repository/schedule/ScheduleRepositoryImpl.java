@@ -8,6 +8,7 @@ import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisti
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
+//Definition to make calls to get ScheduleAPI
 public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     Retrofit retrofit;

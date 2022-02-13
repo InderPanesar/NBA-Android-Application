@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.teams.dialog;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
@@ -26,13 +27,14 @@ public class TeamDialogViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Get All Players from API for specific team.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
 
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getPlayers(teamId).enqueue(new Callback<PlayerModel>() {
             @Override
-            public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
+            public void onResponse(@NonNull Call<PlayerModel> call, @NonNull Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                     return;
@@ -57,7 +59,7 @@ public class TeamDialogViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlayerModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlayerModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
 
             }

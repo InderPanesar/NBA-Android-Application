@@ -7,6 +7,7 @@ import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
+//Definition to make calls to get PlayersAPI
 public class PlayersRepositoryImpl implements PlayersRepository{
 
     Retrofit retrofit;

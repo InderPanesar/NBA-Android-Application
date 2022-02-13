@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.players;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
@@ -20,20 +21,27 @@ import retrofit2.Response;
 @HiltViewModel
 public class PlayerBaseViewModel extends ViewModel {
 
+    //Hold Players Locally for Filtering.
     ArrayList<IndividualPlayerModel> localTempPlayers = new ArrayList<>();
+    //All Possible International Values
+    String[] internationalValues = {"All", "USA", "International"};
+    //Player Filter Index Value.
     int playerFilter = 0;
 
+
+    //Create MainFragmentViewModel with PlayersRepository Injected.
     PlayersRepository repository;
     @Inject
     PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
     }
 
+    //Get All Players from API.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override
-            public void onResponse(Call<PlayerModel> call, Response<PlayerModel> response) {
+            public void onResponse(@NonNull Call<PlayerModel> call, @NonNull Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -56,7 +64,7 @@ public class PlayerBaseViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlayerModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlayerModel> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 
@@ -64,6 +72,7 @@ public class PlayerBaseViewModel extends ViewModel {
         return data;
     }
 
+    //Return filter for players depending on Nationality.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getInternationalFilterPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         ArrayList<IndividualPlayerModel> players = localTempPlayers;

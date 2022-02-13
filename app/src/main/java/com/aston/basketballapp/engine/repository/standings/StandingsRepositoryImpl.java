@@ -7,6 +7,7 @@ import com.aston.basketballapp.engine.model.standings.StandingsModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
+//Definition to make calls to get StandingsAPI
 public class StandingsRepositoryImpl implements StandingsRepository {
 
     Retrofit retrofit;
