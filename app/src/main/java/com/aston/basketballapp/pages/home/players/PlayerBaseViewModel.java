@@ -20,15 +20,22 @@ import retrofit2.Response;
 @HiltViewModel
 public class PlayerBaseViewModel extends ViewModel {
 
+    //Hold Players Locally for Filtering.
     ArrayList<IndividualPlayerModel> localTempPlayers = new ArrayList<>();
+    //All Possible International Values
+    String[] internationalValues = {"All", "USA", "World"};
+    //Player Filter Index Value.
     int playerFilter = 0;
 
+
+    //Create MainFragmentViewModel with PlayersRepository Injected.
     PlayersRepository repository;
     @Inject
     PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
     }
 
+    //Get All Players from API.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
@@ -64,6 +71,7 @@ public class PlayerBaseViewModel extends ViewModel {
         return data;
     }
 
+    //Return filter for players depending on Nationality.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getInternationalFilterPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         ArrayList<IndividualPlayerModel> players = localTempPlayers;

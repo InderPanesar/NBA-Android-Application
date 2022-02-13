@@ -39,6 +39,7 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
     public void onBindViewHolder(@NonNull PlayerBaseViewHolder holder, int position) {
 
 
+        //Set Players Holder cards
         if(!players.isEmpty()) {
             holder.playerJersey.setText(players.get(position).getLeagues().getNBADetails().getJersey());
             holder.playerName.setText(new StringBuilder().append(players.get(position).getFirstName()).append(" ").append(players.get(position).getLastName()).toString());
@@ -60,10 +61,7 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
     }
 
     public class PlayerBaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //ToDo: Implement Team Logos.
-
         TextView playerJersey, playerName, playerDescriptors, playerPosition;
-
 
         public PlayerBaseViewHolder(@NonNull View itemView) {
             super(itemView);

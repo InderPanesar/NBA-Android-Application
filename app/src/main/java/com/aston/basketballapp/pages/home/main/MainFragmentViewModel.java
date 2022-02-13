@@ -20,19 +20,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//HiltViewModel for MainBaseFragment
 @HiltViewModel
 public class MainFragmentViewModel extends ViewModel {
 
+    //Headers to the table
     List<String> headers = Arrays.asList("Seed", "Logo", "Team", "Record");
+    //State of the scheduleFragment
+    String conference = "east";
 
 
+
+    //Create MainFragmentViewModel with StandingsRepo Injected.
     StandingsRepository repository;
     @Inject
     public MainFragmentViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
         repository = standingsRepository;
     }
 
-    StateMutableLiveData<ArrayList<String>> getPlayers(String teamId) {
+    //Get Favourite Team information.
+    StateMutableLiveData<ArrayList<String>> getFavouriteTeamInformation(String teamId) {
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
@@ -68,7 +75,8 @@ public class MainFragmentViewModel extends ViewModel {
         return data;
     }
 
-    StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule(String conference) {
+    //Get the information for the schedule.
+    StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule() {
         StateMutableLiveData<ArrayList<TeamStandingModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getStandings().enqueue(new Callback<StandingsModel>() {
@@ -113,6 +121,7 @@ public class MainFragmentViewModel extends ViewModel {
         return data;
     }
 
+    //Get Favourite Team Image URL Link.
     public String getFavouriteTeamLink(SharedPreferences pref) {
         int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
         TeamsRepo repo = new TeamsRepo();
@@ -124,6 +133,7 @@ public class MainFragmentViewModel extends ViewModel {
         return "";
     }
 
+    //Get Favourite Team Name.
     public String getFavouriteTeamName(SharedPreferences pref) {
         int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
         TeamsRepo repo = new TeamsRepo();
@@ -135,11 +145,13 @@ public class MainFragmentViewModel extends ViewModel {
         return "";
     }
 
+    //Get Favourite Team ID.
     public String getFavouriteId(SharedPreferences pref) {
         int selectedValue = pref.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1);
         return selectedValue + "";
     }
 
+    //Get Team Name for specific TeamID
     public String getTeamName(String teamID) {
         TeamsRepo repo = new TeamsRepo();
         for(TeamsRepo.LocalTeam team :  repo.getTeamList()) {
@@ -150,6 +162,7 @@ public class MainFragmentViewModel extends ViewModel {
         return "";
     }
 
+    //Get Team Logo for specific TeamID
     public String getTeamLogo(String teamID) {
         TeamsRepo repo = new TeamsRepo();
         for(TeamsRepo.LocalTeam team :  repo.getTeamList()) {
@@ -158,6 +171,27 @@ public class MainFragmentViewModel extends ViewModel {
             }
         }
         return "";
+    }
+
+    //Get Conference String for Favourite Team
+    public String getConferenceString(ArrayList<String> data) {
+        String conferenceString = "";
+
+        if(data.get(0).equals("east")) {
+            conferenceString = conferenceString + "Eastern Conference : ";
+        }
+        else {
+            conferenceString = conferenceString + "Western Conference : ";
+        }
+        conferenceString = conferenceString + data.get(1);
+        return conferenceString;
+    }
+
+    //Get Record String for Favourite Team
+    public String getRecordString(ArrayList<String> data) {
+        String recordString = "Record : ";
+        recordString = recordString + data.get(2) + " - " + data.get(3);
+        return recordString;
     }
 
 

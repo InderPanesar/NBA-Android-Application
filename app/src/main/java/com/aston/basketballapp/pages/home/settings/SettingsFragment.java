@@ -13,31 +13,16 @@ import com.aston.basketballapp.R;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.google.android.material.card.MaterialCardView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SettingsFragment extends Fragment {
 
 
 
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
+    public SettingsFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new SettingsFragment();
     }
 
     @Override
@@ -58,8 +43,9 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        MaterialCardView cardView = v.findViewById(R.id.settings_customisation_settings);
-        cardView.setOnClickListener(new View.OnClickListener() {
+        // Set Interactions with Customisation Settings Page
+        MaterialCardView settingsCardView = v.findViewById(R.id.settings_customisation_settings);
+        settingsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
@@ -67,8 +53,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        cardView = v.findViewById(R.id.settings_change_favourite_team);
-        cardView.setOnClickListener(new View.OnClickListener() {
+        // Set Interactions with Favourite Teams customisation page.
+        settingsCardView = v.findViewById(R.id.settings_change_favourite_team);
+        settingsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);

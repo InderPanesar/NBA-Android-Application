@@ -18,32 +18,18 @@ import com.google.common.collect.HashBiMap;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsCustomisationSettingsMenu#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingsCustomisationSettingsMenu extends Fragment {
 
-
     SettingsCustomisationSettingsMenuViewModel viewModel;
+    //Using a hashBiMap to allow for Switches to be obtained from Integer number
     HashBiMap<SwitchMaterial, Integer> sliderList = HashBiMap.create();
     ArrayList<SwitchMaterial> activeSwitches = new ArrayList<> ();
 
-    public SettingsCustomisationSettingsMenu() {
-        // Required empty public constructor
-    }
+    public SettingsCustomisationSettingsMenu() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment settingsCustomisationSettingsMenu.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static SettingsCustomisationSettingsMenu newInstance() {
-        SettingsCustomisationSettingsMenu fragment = new SettingsCustomisationSettingsMenu();
-        return fragment;
+        return new SettingsCustomisationSettingsMenu();
     }
 
     @Override
@@ -85,7 +71,9 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
             _switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    //Add switches if it is checked.
                     if(isChecked) { activeSwitches.add(_switch); }
+                    //Remove switch if it is unchecked.
                     else { activeSwitches.remove(_switch); }
                     disableAllSwitches(activeSwitches.size(), false);
                 }
@@ -97,6 +85,7 @@ public class SettingsCustomisationSettingsMenu extends Fragment {
         return v;
     }
 
+    //Disable all switches if the number of active is 4 and if it is not the initialisation save the new values.
     private void disableAllSwitches (int switchesActive, boolean initialRun) {
         if(switchesActive == 4) {
             for(SwitchMaterial s : sliderList.keySet()) {

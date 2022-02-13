@@ -16,7 +16,9 @@ import retrofit2.Response;
 @HiltViewModel
 public class TeamsBaseViewModel extends ViewModel {
 
+    //TeamRepo to make API Calls
     TeamsRepository repository;
+    //Current Selected Conference.
     String currentConference = "east";
 
 
@@ -25,8 +27,8 @@ public class TeamsBaseViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Make call to API to get Teams.
     StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
-
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
@@ -51,7 +53,6 @@ public class TeamsBaseViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<TeamsModel> call, Throwable t) {
-                //Do Something here!
                 data.postValueError(t);
             }
 

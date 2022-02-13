@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.aston.basketballapp.databinding.FragmentScheduleBottomSheetBinding;
+import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -37,18 +38,10 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
     ScheduleBottomSheetViewModel scheduleBottomSheetViewModel;
     TableLayout tableLayout;
 
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentScheduleBottomSheetBinding binding;
 
-    // TODO: Customize parameters
-    public static ScheduleBottomSheetFragment newInstance(int itemCount) {
-        final ScheduleBottomSheetFragment fragment = new ScheduleBottomSheetFragment();
-        final Bundle args = new Bundle();
-        args.putInt(ARG_ITEM_COUNT, itemCount);
-        fragment.setArguments(args);
-        return fragment;
+    public static ScheduleBottomSheetFragment newInstance() {
+        return new ScheduleBottomSheetFragment();
     }
 
     @Nullable
@@ -59,12 +52,14 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
         binding = FragmentScheduleBottomSheetBinding.inflate(inflater, container, false);
         scheduleBottomSheetViewModel = new ViewModelProvider(this.getActivity()).get(ScheduleBottomSheetViewModel.class);
 
+        //Create a table layout and load.
         tableLayout = binding.getRoot().findViewById(R.id.schedule_statistics_table);
 
+        //Load each teams image
         ImageView iv = binding.getRoot().findViewById(R.id.home_team_image);
-        Picasso.get().load(getArguments().getString("homeTeamLogo")).into(iv);
+        Picasso.get().load(AppConsts.URLImageCorrector(getArguments().getString("homeTeamLogo"))).into(iv);
         iv = binding.getRoot().findViewById(R.id.away_team_image);
-        Picasso.get().load(getArguments().getString("awayTeamLogo")).into(iv);
+        Picasso.get().load(AppConsts.URLImageCorrector(getArguments().getString("awayTeamLogo"))).into(iv);
 
         TextView textView = binding.getRoot().findViewById(R.id.home_team_score);
         textView.setText(getArguments().getString("homeTeamScore", ""));
@@ -86,6 +81,7 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
                         View v = binding.getRoot();
                         TextView view;
 
+                        //Set Data for each team in the right rows in the table.
                         view = v.findViewById(R.id.table_team1_fbp);
                         view.setText(data.get(0));
                         view = v.findViewById(R.id.table_team1_pip);

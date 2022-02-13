@@ -35,7 +35,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     MaterialButton scheduleButton;
     DatePickerDialog datePickerDialog;
     ScheduleBaseViewModel scheduleBaseViewModel;
-    RecyclerView recyclerView;
+    RecyclerView scheduleRecyclerView;
     ScheduleBaseAdapter scheduleBaseAdapter;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Calendar c;
@@ -50,7 +50,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     }
 
 
-    public static ScheduleBaseFragment newInstance(String param1, String param2) {
+    public static ScheduleBaseFragment newInstance() {
         ScheduleBaseFragment fragment = new ScheduleBaseFragment();
         return fragment;
     }
@@ -69,6 +69,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
+        //Create all the data involved with Calendar Data.
         c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH) + 1;
@@ -84,35 +85,37 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
             }
         });
 
-        recyclerView = v.findViewById(R.id.schedule_recycler_view);
+        scheduleRecyclerView = v.findViewById(R.id.schedule_recycler_view);
         //TODO: Implement Loading State
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setHasFixedSize(false);
+        scheduleRecyclerView.setLayoutManager(linearLayoutManager);
+        scheduleRecyclerView.setNestedScrollingEnabled(false);
+        scheduleRecyclerView.setHasFixedSize(false);
+
+        //Pass the Density of the current screen to ensure schedule widget scales correctly.
         Float value = getContext().getResources().getDisplayMetrics().density;
         scheduleBaseAdapter = new ScheduleBaseAdapter(getContext(), games, this, value);
-        recyclerView.setAdapter(scheduleBaseAdapter);
+        scheduleRecyclerView.setAdapter(scheduleBaseAdapter);
 
 
-        //Observer
+        //Observer for the game schedule.
         gameScheduleObserver = new Observer<LiveDataStateData<ArrayList<GamesModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<GamesModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
                     case SUCCESS:
                         games = stateLiveData.getData();
-                        recyclerView.setVisibility(View.VISIBLE);
+                        scheduleRecyclerView.setVisibility(View.VISIBLE);
                         scheduleBaseAdapter.setGames(games);
                         UniversalErrorStateHandler.isSuccess(v);
                         break;
                     case ERROR:
-                        recyclerView.setVisibility(View.INVISIBLE);
+                        scheduleRecyclerView.setVisibility(View.INVISIBLE);
                         UniversalErrorStateHandler.isError(v);
                         break;
                     case LOADING:
-                        recyclerView.setVisibility(View.INVISIBLE);
+                        scheduleRecyclerView.setVisibility(View.INVISIBLE);
                         UniversalErrorStateHandler.isLoading(v);
                         break;
                 }
@@ -133,14 +136,15 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         return v;
     }
 
+    //On Date Set create update calendar, UI Text and update schedules shown.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         c.set(year, month, dayOfMonth);
         scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month + 1).append("/").append(year).toString());
         scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
-
     }
 
+    //Send Information to Bottom Sheet through the Bundle.
     private void showBottomSheetDialog(View v, GamesModel gamesModel) {
         Bundle b = new Bundle();
         b.putString("homeTeamLogo", gamesModel.gethTeam().getLogo());
@@ -158,6 +162,7 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
 
     }
 
+    //Show Bottom Sheet with fragment information when Box Score button clicked.
     @Override
     public void scheduleCardClicked(View v, GamesModel gamesModel) {
         showBottomSheetDialog(getView(), gamesModel);

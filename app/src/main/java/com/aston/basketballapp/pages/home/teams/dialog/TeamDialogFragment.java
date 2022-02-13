@@ -30,25 +30,13 @@ import java.util.ArrayList;
 public class TeamDialogFragment extends DialogFragment {
 
 
-    RecyclerView recyclerView;
+    RecyclerView teamPlayersRecyclerView;
     PlayersAdapter playersAdapter;
-    ProgressBar bar;
-
     private TeamDialogViewModel teamDialogViewModel;
-    ArrayList<IndividualPlayerModel> players = new ArrayList<IndividualPlayerModel>();
 
 
-    public TeamDialogFragment() {
-        // Required empty public constructor
-    }
+    public TeamDialogFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment TeamDialogFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TeamDialogFragment newInstance() {
         TeamDialogFragment fragment = new TeamDialogFragment();
         return fragment;
@@ -71,15 +59,14 @@ public class TeamDialogFragment extends DialogFragment {
         teamDialogViewModel = new ViewModelProvider(this.getActivity()).get(TeamDialogViewModel.class);
 
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.players_recycler_view);
-        //TODO: Implement Loading State
+        teamPlayersRecyclerView = v.findViewById(R.id.players_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setHasFixedSize(false);
-        playersAdapter = new PlayersAdapter(getContext(), players);
-        recyclerView.setAdapter(playersAdapter);
+        teamPlayersRecyclerView.setLayoutManager(linearLayoutManager);
+        teamPlayersRecyclerView.setNestedScrollingEnabled(false);
+        teamPlayersRecyclerView.setHasFixedSize(false);
+        playersAdapter = new PlayersAdapter(getContext(), new ArrayList<IndividualPlayerModel>());
+        teamPlayersRecyclerView.setAdapter(playersAdapter);
 
 
         //Observer
@@ -90,21 +77,22 @@ public class TeamDialogFragment extends DialogFragment {
                     case SUCCESS:
                         ArrayList<IndividualPlayerModel> data = stateLiveData.getData();
                         playersAdapter.setPlayers(data);
-                        recyclerView.setVisibility(View.VISIBLE);
+                        teamPlayersRecyclerView.setVisibility(View.VISIBLE);
                         UniversalErrorStateHandler.isSuccess(v);
                         break;
                     case ERROR:
-                        recyclerView.setVisibility(View.INVISIBLE);
+                        teamPlayersRecyclerView.setVisibility(View.INVISIBLE);
                         UniversalErrorStateHandler.isError(v);
                         break;
                     case LOADING:
-                        recyclerView.setVisibility(View.INVISIBLE);
+                        teamPlayersRecyclerView.setVisibility(View.INVISIBLE);
                         UniversalErrorStateHandler.isLoading(v);
                         break;
                 }
             }
         };
 
+        //Get All Players on Specific Team
         teamDialogViewModel.getPlayers(getArguments().getString("teamId")).observe(getViewLifecycleOwner(), playersOnTeamObserver);;
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {

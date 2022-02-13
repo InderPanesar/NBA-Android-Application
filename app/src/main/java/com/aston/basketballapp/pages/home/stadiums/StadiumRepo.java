@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import com.aston.basketballapp.R;
 
 
+//Locally Store the Stadium information as the information is not provided by the API.
 public class StadiumRepo {
 
     public static ArrayList<StadiumInformation> getStadiumsInfo() {

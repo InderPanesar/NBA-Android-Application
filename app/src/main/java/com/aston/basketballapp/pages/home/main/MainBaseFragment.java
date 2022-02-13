@@ -37,12 +37,15 @@ import java.util.ArrayList;
  */
 public class MainBaseFragment extends Fragment {
 
+    //Favourite Team Widget
     private LinearLayout favouriteTeamWidget;
+    //ViewModel for this fragment
     private MainFragmentViewModel mainFragmentViewModel;
-    private TableLayout tableLayout;
-    private String conference = "east";
+    //TableLayout for the schedule
+    private TableLayout scheduleLayout;
 
-    public MainBaseFragment() { }
+    //Empty Constructor For MainBaseFragment
+    public MainBaseFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,35 +59,30 @@ public class MainBaseFragment extends Fragment {
 
         //Set the ViewModel
         mainFragmentViewModel = new ViewModelProvider(getActivity()).get(MainFragmentViewModel.class);
-        tableLayout = v.findViewById(R.id.schedule_statistics_table);
+        scheduleLayout = v.findViewById(R.id.schedule_statistics_table);
 
+        //Observer for the favourite team.
         Observer<LiveDataStateData<ArrayList<String>>> favouriteTeamObserver = new Observer<LiveDataStateData<ArrayList<String>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<String>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
                     case SUCCESS:
+                        //If Widgets Exists then set Visibility to true.
                         favouriteTeamWidget.setVisibility(View.VISIBLE);
                         ArrayList<String> data = stateLiveData.getData();
                         UniversalErrorStateHandler.isSuccess(v);
-                        String conferenceString = "";
 
-                        if(data.get(0).equals("east")) { conferenceString = conferenceString + "Eastern Conference : "; }
-                        else { conferenceString = conferenceString + "Western Conference : "; }
-                        conferenceString = conferenceString + data.get(1);
+                        //Load all components.
                         TextView favouriteTeamConference = v.findViewById(R.id.favourite_team_conference_ranking);
-                        favouriteTeamConference.setText(conferenceString);
-
-                        String recordString = "Record : ";
-                        recordString = recordString + data.get(2) + " - " + data.get(3);
                         TextView favouriteRecord = v.findViewById(R.id.favourite_team_record);
-                        favouriteRecord.setText(recordString);
-
                         TextView favouriteName = v.findViewById(R.id.favourite_team_name);
-                        favouriteName.setText(mainFragmentViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
-
                         ImageView imageView = v.findViewById(R.id.favourite_team_icon_image);
-                        Picasso.get().load(mainFragmentViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
 
+                        favouriteTeamConference.setText(mainFragmentViewModel.getConferenceString(data));
+                        favouriteRecord.setText(mainFragmentViewModel.getRecordString(data));
+                        favouriteName.setText(mainFragmentViewModel.getFavouriteTeamName(getActivity().getPreferences(Context.MODE_PRIVATE)));
+                        //Load image from URL using Picasso.
+                        Picasso.get().load(mainFragmentViewModel.getFavouriteTeamLink(getActivity().getPreferences(Context.MODE_PRIVATE))).into(imageView);
 
                         break;
                     case ERROR:
@@ -100,33 +98,35 @@ public class MainBaseFragment extends Fragment {
 
         };
 
-        mainFragmentViewModel.getPlayers(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
+        //Get Favourite Team Information.
+        mainFragmentViewModel.getFavouriteTeamInformation(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
 
+        //Additional ProgressBar,ErrorStates and ErrorButton for the Schedule.
         ProgressBar bar = v.findViewById(R.id.schedule_table_progress_bar);
         LinearLayout errorStates = v.findViewById(R.id.schedule_table_error_state);
         MaterialButton errorButtonSchedule = v.findViewById(R.id.schedule_table_retry_button);
 
+        //Observer for the Schedule of the team.
         Observer<LiveDataStateData<ArrayList<TeamStandingModel>>> scheduleObserver = new Observer<LiveDataStateData<ArrayList<TeamStandingModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<TeamStandingModel>> stateLiveData) {
                 switch (stateLiveData.getStatus()) {
                     case SUCCESS:
-                        tableLayout.removeAllViews();
+                        scheduleLayout.removeAllViews();
                         ArrayList<TeamStandingModel> data = stateLiveData.getData();
                         setTable(v, data);
-
                         bar.setVisibility(View.INVISIBLE);
-                        tableLayout.setVisibility(View.VISIBLE);
+                        scheduleLayout.setVisibility(View.VISIBLE);
                         errorStates.setVisibility(View.INVISIBLE);
                         break;
                     case ERROR:
                         bar.setVisibility(View.INVISIBLE);
-                        tableLayout.setVisibility(View.INVISIBLE);
+                        scheduleLayout.setVisibility(View.INVISIBLE);
                         errorStates.setVisibility(View.VISIBLE);
                         break;
                     case LOADING:
                         bar.setVisibility(View.VISIBLE);
-                        tableLayout.setVisibility(View.INVISIBLE);
+                        scheduleLayout.setVisibility(View.INVISIBLE);
                         errorStates.setVisibility(View.INVISIBLE);
                         break;
                 }
@@ -134,48 +134,52 @@ public class MainBaseFragment extends Fragment {
 
         };
 
-        mainFragmentViewModel.getSchedule("east").observe(getViewLifecycleOwner(), scheduleObserver);
+        //Get Schedule Information.
+        mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
 
         MaterialButtonToggleGroup toggleGroup = v.findViewById(R.id.schedule_button_group);
 
         MaterialButton eastButton = v.findViewById(R.id.east_schedule_button);
         MaterialButton westButton = v.findViewById(R.id.west_schedule_button);
 
+        //On East Button Click update Schedule
         eastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conference = "east";
-
-                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+                mainFragmentViewModel.conference = "east";
+                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
+        //On East Button Click update Schedule
         westButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conference = "west";
-                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+                mainFragmentViewModel.conference = "west";
+                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
+        //Update Error State for Schedule
         errorButtonSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainFragmentViewModel.getSchedule(conference).observe(getViewLifecycleOwner(), scheduleObserver);
+                mainFragmentViewModel.getSchedule().observe(getViewLifecycleOwner(), scheduleObserver);
             }
         });
 
+        //Update Error State for Favourite Team Fragment
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainFragmentViewModel.getPlayers(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
+                mainFragmentViewModel.getFavouriteTeamInformation(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE))).observe(getViewLifecycleOwner(), favouriteTeamObserver);
             }
         });
 
         TextView favouriteTeamTitle = v.findViewById(R.id.favourite_team_title);
         MaterialCardView favouriteTeamWidgetPage = v.findViewById(R.id.favourite_team_widget_landing_page);
 
-
+        //If Favourite team doesn't exist.
         if(mainFragmentViewModel.getFavouriteId(getActivity().getPreferences(Context.MODE_PRIVATE)).equals("-1")) {
             favouriteTeamTitle.setVisibility(View.GONE);
             favouriteTeamWidgetPage.setVisibility(View.GONE);
@@ -184,10 +188,11 @@ public class MainBaseFragment extends Fragment {
         return v;
     }
 
+    //Set Table for the Schedule.
     public void setTable (View v, ArrayList<TeamStandingModel> teams) {
 
         if(teams.size() == 0) {
-            tableLayout.setVisibility(View.INVISIBLE);
+            scheduleLayout.setVisibility(View.INVISIBLE);
         }
         else {
             TableRow topRow = new TableRow(getContext());
@@ -200,7 +205,7 @@ public class MainBaseFragment extends Fragment {
                 tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
                 topRow.addView(tv0);
             }
-            tableLayout.addView(topRow);
+            scheduleLayout.addView(topRow);
             for (TeamStandingModel team : teams) {
                 TableRow tbrow = new TableRow(getContext());
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -243,7 +248,7 @@ public class MainBaseFragment extends Fragment {
                 tbrow.addView(tv);
 
 
-                tableLayout.addView(tbrow);
+                scheduleLayout.addView(tbrow);
 
 
             }

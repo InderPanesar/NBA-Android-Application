@@ -44,6 +44,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.teamCity.setText(teams.get(position).getCity());
         holder.teamName.setText(teams.get(position).getNickname());
+        //Load ImageURL into teams.
         Picasso.get().load(AppConsts.URLImageCorrector(teams.get(position).getLogo())).into(holder.logo);
     }
 

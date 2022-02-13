@@ -26,6 +26,7 @@ public class ScheduleBaseViewModel extends ViewModel  {
         repository = exampleRepository;
     }
 
+    //Return games on a specific date.
     StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();

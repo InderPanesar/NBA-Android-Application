@@ -76,6 +76,7 @@ public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdap
         }
 
 
+        //If Item is clicked then ensure to pass the value for whether the value is being added or removed.
         @Override
         public void onClick(View v) {
             int _valueSelected = getAdapterPosition();

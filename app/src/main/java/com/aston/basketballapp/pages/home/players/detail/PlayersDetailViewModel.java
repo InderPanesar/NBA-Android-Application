@@ -27,18 +27,21 @@ import retrofit2.Response;
 @HiltViewModel
 public class PlayersDetailViewModel extends ViewModel {
 
+    //Generic Nba Logo URL
+    final String nbaLogoURL = "https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png";
+    //Statistics for each player.
     ArrayList<SinglePlayerStatsAdapter> statistics = new ArrayList<>();
-    String nbaLogoURL = "https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png";
-
+    //Hold an Integer and String map for each team.
     Map<Integer, String> teams;
-    PlayersRepository repository;
 
+    PlayersRepository repository;
     @Inject
     PlayersDetailViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
         addTeamsToHashMap();
     }
 
+    //Get a players data using the Id and the settings defined for how many and what attributes should be shown.
     StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> getPlayerGameStats(String playerId, SharedPreferences pref) {
         statistics = new ArrayList<>();
         List<Integer> integers = getSharedPreferences(pref);
@@ -107,6 +110,7 @@ public class PlayersDetailViewModel extends ViewModel {
         return data;
     }
 
+    //Get Each of the values in shared preferences
     public List<Integer> getSharedPreferences(SharedPreferences pref) {
         List<Integer> values = new ArrayList<>();
         values.add(pref.getInt(AppConsts.RECENT_GAMES_ONE, -1));
@@ -116,6 +120,7 @@ public class PlayersDetailViewModel extends ViewModel {
         return values;
     }
 
+    //Get corrosponding statistic for each shared preference values.
     public String returnStatistic(int categoryValue, PlayerStatistics statistics) {
         if(categoryValue == 1) { return statistics.getPoints(); }
         if(categoryValue == 2) { return statistics.getAssists(); }
@@ -129,6 +134,7 @@ public class PlayersDetailViewModel extends ViewModel {
         return "n/a";
     }
 
+    //Return Topic Header for each categoryValue
     public String returnStatisticTopic(int categoryValue) {
         if(categoryValue == 1) { return "PPG"; }
         if(categoryValue == 2) { return "APG"; }
@@ -142,6 +148,7 @@ public class PlayersDetailViewModel extends ViewModel {
         return "n/a";
     }
 
+    //Create Local TeamID and Name HashMap.
     public void addTeamsToHashMap() {
         teams = new HashMap<Integer, String>();
         teams.put(1, "Atlanta Hawks");

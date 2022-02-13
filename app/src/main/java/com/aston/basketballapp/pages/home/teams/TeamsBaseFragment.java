@@ -2,7 +2,6 @@ package com.aston.basketballapp.pages.home.teams;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -11,56 +10,29 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
-
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TeamsBaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
 
     RecyclerView recyclerView;
     TeamsAdapter teamsAdapter;
 
-
-    ArrayList<IndividualTeamsModel> teams = new ArrayList<IndividualTeamsModel>();
     private TeamsBaseViewModel teamsBaseViewModel;
 
-    private static final String TeamName = "";
-    private static final String TeamID = "";
+    public TeamsBaseFragment() { }
 
-    public TeamsBaseFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Teams.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TeamsBaseFragment newInstance(String param1, String param2) {
-        TeamsBaseFragment fragment = new TeamsBaseFragment();
-
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public static TeamsBaseFragment newInstance() {
+        return new TeamsBaseFragment();
     }
 
     @Override
@@ -80,14 +52,14 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         recyclerView.setHasFixedSize(true);
-        teamsAdapter = new TeamsAdapter(getContext(), teams, this);
+        teamsAdapter = new TeamsAdapter(getContext(), new ArrayList<IndividualTeamsModel>(), this);
         recyclerView.setAdapter(teamsAdapter);
 
         //Set the ViewModel
         teamsBaseViewModel = new ViewModelProvider(this.getActivity()).get(TeamsBaseViewModel.class);
 
 
-        //Observer
+        //Observer to show each individual team
         Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>> individualTeamObserver = new Observer<LiveDataStateData<ArrayList<IndividualTeamsModel>>>() {
             @Override
             public void onChanged(LiveDataStateData<ArrayList<IndividualTeamsModel>> stateLiveData) {
@@ -120,6 +92,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         Typeface fontUnSelected = ResourcesCompat.getFont(getContext(), R.font.asap_regular);
 
 
+        //East button selected on top of screen
         easternConferenceButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +109,7 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             }
         });
 
+        //West button selected on top of screen
         westernConferenceButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

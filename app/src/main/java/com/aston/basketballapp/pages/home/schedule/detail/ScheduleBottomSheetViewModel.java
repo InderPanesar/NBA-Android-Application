@@ -26,6 +26,7 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Get the statistics for the specific game which more details have been requested for.
     StateMutableLiveData<ArrayList<String>> getGameStatistics(String gameID) {
 
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();

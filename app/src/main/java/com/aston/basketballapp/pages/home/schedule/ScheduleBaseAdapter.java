@@ -23,10 +23,12 @@ import java.util.Locale;
 
 public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapter.ScheduleBaseAdapterViewHolder> {
 
+    //ScheduleCard when box is pressed.
     private static ScheduleCardClicked itemListener;
 
     ArrayList<GamesModel> games;
     Context context;
+    //Used to scale the height of the schedule cards properly when set programmatically.
     float dpScale;
 
 
@@ -73,6 +75,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         params.height = normalHeight;
         holder.view.setLayoutParams(params);
 
+        //Handle the different states involved with each game.
         if (status.equals("Scheduled")) {
             holder.button.setVisibility(View.INVISIBLE);
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
@@ -96,8 +99,6 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         else if(status.equals("Finished")) {
             holder.gameTimeStart.setVisibility(View.GONE);
             holder.button.setVisibility(View.VISIBLE);
-
-
         }
 
 

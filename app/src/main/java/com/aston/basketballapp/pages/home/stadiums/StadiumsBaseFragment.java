@@ -58,17 +58,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment Stadiums.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static StadiumsBaseFragment newInstance() {
         StadiumsBaseFragment fragment = new StadiumsBaseFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -112,7 +104,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map = googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
 
+        //Get all information for the stadiums.
         ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
+        //Add all markers to map using Google Map API.
         for(int i = 0; i < bob.size(); i++) {
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(bob.get(i).getMapPosition())
@@ -121,7 +115,9 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
         }
 
+        //Set Maps Camera initial position.
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.4634, -97.5151), 3));
+        //What to do when a marker is clicked.
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -174,6 +170,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         mapView.onLowMemory();
     }
 
+    //Get Bitmap from each vector.
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());

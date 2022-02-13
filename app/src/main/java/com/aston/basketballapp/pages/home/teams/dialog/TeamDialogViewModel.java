@@ -26,6 +26,7 @@ public class TeamDialogViewModel extends ViewModel {
         repository = exampleRepository;
     }
 
+    //Get All Players from API for specific team.
     StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
 
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();

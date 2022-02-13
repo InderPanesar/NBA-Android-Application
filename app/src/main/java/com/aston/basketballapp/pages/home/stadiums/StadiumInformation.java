@@ -2,6 +2,7 @@ package com.aston.basketballapp.pages.home.stadiums;
 
 import com.google.android.gms.maps.model.LatLng;
 
+//Used to store information about the stadiums of each team.
 public class StadiumInformation {
 
     String teamName;
@@ -51,11 +52,9 @@ public class StadiumInformation {
     public String getTicketsURL() {
         return ticketsURL;
     }
-
     public LatLng getMapPosition() {
        return new LatLng(latitude, -longitude);
     }
-
     public int getVectorPointer() {
         return vectorPointer;
     }

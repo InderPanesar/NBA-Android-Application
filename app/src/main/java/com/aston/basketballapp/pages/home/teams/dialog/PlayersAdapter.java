@@ -33,10 +33,6 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
     @Override
     public void onBindViewHolder(@NonNull PlayerViewHolder holder, int position) {
-        //holder.teamCity.setText(teams.get(position).getCity());
-        //holder.teamName.setText(teams.get(position).getNickname());
-        //Picasso.get().load(teams.get(position).getLogo()).into(holder.logo);
-
         if(!players.isEmpty()) {
             holder.playerJersey.setText(players.get(position).getLeagues().getNBADetails().getJersey());
             holder.playerName.setText(new StringBuilder().append(players.get(position).getFirstName()).append(" ").append(players.get(position).getLastName()).toString());

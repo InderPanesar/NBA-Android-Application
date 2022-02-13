@@ -29,16 +29,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayersDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PlayersDetailFragment extends Fragment {
 
-
+    //ViewModel for Player Details.
     PlayersDetailViewModel viewModel;
-    TableLayout tableLayout;
+    //Player Stats table.
+    TableLayout playerStatsTable;
+    //Locally Contain TableRows to remove them onDestroy.
     ArrayList<TableRow> removeRows = new ArrayList<>();
 
 
@@ -54,7 +51,7 @@ public class PlayersDetailFragment extends Fragment {
     @Override
     public void onDestroy() {
         for(TableRow row : removeRows) {
-            tableLayout.removeView(row);
+            playerStatsTable.removeView(row);
         }
         super.onDestroy();
     }
@@ -62,9 +59,9 @@ public class PlayersDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //Set Toolbar title to Player's Name.
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(getArguments().getString("playerName"));
-
     }
 
     @Override
@@ -75,6 +72,7 @@ public class PlayersDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_players_detail, container, false);
         viewModel = new ViewModelProvider(this.getActivity()).get(PlayersDetailViewModel.class);
 
+        //Set Overall Player Information to each specific data row.
         TextView textView =  v.findViewById(R.id.players_detail_years_pro);
         textView.setText(playerAttributes[0]);
         textView = v.findViewById(R.id.players_detail_college);
@@ -91,10 +89,8 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[6]);
         textView = v.findViewById(R.id.player_team_name);
 
-        tableLayout = v.findViewById(R.id.team_player_stats);
+        playerStatsTable = v.findViewById(R.id.team_player_stats);
 
-        //If attribute 7 doesn't exist and is null
-        Log.d("TAG", playerAttributes[7]);
         try {
             textView.setText(viewModel.teams.get(Integer.parseInt(playerAttributes[7])));
         }
@@ -165,17 +161,18 @@ public class PlayersDetailFragment extends Fragment {
     }
 
 
+    //Create Tables for the PlayerStats.
     public void setTable (View v, ArrayList<SinglePlayerStatsAdapter> stats) {
 
         for(TableRow row : removeRows) {
-            tableLayout.removeView(row);
+            playerStatsTable.removeView(row);
         }
 
 
         if(stats == null) {
             TextView header = v.findViewById(R.id.recent_game_header);
             header.setVisibility(View.INVISIBLE);
-            tableLayout.setVisibility(View.INVISIBLE);
+            playerStatsTable.setVisibility(View.INVISIBLE);
         }
         else {
             TableRow topRow = new TableRow(getContext());
@@ -189,7 +186,7 @@ public class PlayersDetailFragment extends Fragment {
                 topRow.addView(tv0);
                 removeRows.add(topRow);
             }
-            tableLayout.addView(topRow);
+            playerStatsTable.addView(topRow);
             for (SinglePlayerStatsAdapter _stats : stats) {
                 TableRow tbrow = new TableRow(getContext());
                 for(String value : _stats.attributes) {
@@ -203,7 +200,7 @@ public class PlayersDetailFragment extends Fragment {
                     tbrow.addView(tv);
                     removeRows.add(tbrow);
                 }
-                tableLayout.addView(tbrow);
+                playerStatsTable.addView(tbrow);
 
 
             }

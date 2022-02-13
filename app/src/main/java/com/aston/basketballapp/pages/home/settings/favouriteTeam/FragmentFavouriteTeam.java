@@ -18,14 +18,10 @@ import com.aston.basketballapp.MainActivity;
 import com.aston.basketballapp.R;
 import com.google.android.material.button.MaterialButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentFavouriteTeam#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClicked {
 
-    RecyclerView recyclerView;
+    RecyclerView teamsRecyclerView;
     SettingsTeamsAdapter teamsAdapter;
     SettingsTeamPreferenceViewModel viewModel;
 
@@ -33,32 +29,16 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragmentFavouriteTeam.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentFavouriteTeam newInstance(String param1, String param2) {
-        FragmentFavouriteTeam fragment = new FragmentFavouriteTeam();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+
+    public static FragmentFavouriteTeam newInstance() {
+        return new FragmentFavouriteTeam();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         View actionBar = (getActivity()).findViewById(R.id.main_app_bar_layout);
         actionBar.setBackground(new ColorDrawable(Color.parseColor("#FFA834")));
-
-
-
     }
 
     @Override
@@ -71,30 +51,29 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_favourite_team, container, false);
         //recyclerView setup
-        recyclerView = v.findViewById(R.id.favourite_team_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        recyclerView.setHasFixedSize(true);
+        teamsRecyclerView = v.findViewById(R.id.favourite_team_recycler_view);
+        teamsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        teamsRecyclerView.setHasFixedSize(true);
 
         teamsAdapter = new SettingsTeamsAdapter(getContext(), viewModel.getTeams(), this);
-        recyclerView.setAdapter(teamsAdapter);
+        teamsRecyclerView.setAdapter(teamsAdapter);
 
-        MaterialButton b = v.findViewById(R.id.favourite_team_confirm);
-        b.setOnClickListener(new View.OnClickListener() {
+        MaterialButton confirmButton = v.findViewById(R.id.favourite_team_confirm);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Set the shared preferences on confirm button press and pop back to previous fragment.
                 viewModel.setSharedPreferences(getActivity().getPreferences(Context.MODE_PRIVATE));
                 ((MainActivity)getActivity()).updateNavigationMenuHeader();
                 FragmentFavouriteTeam.super.getActivity().onBackPressed();
             }
         });
 
-
-
-
         return v;
     }
 
 
+    //When card click add preference or remove team preference.
     @Override
     public void cardClicked(TeamsRepo.LocalTeam team, Boolean isRemoved) {
         if(!isRemoved) {
