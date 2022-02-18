@@ -23,12 +23,12 @@ public class ScheduleBaseViewModel extends ViewModel  {
 
     ScheduleRepository repository;
     @Inject
-    ScheduleBaseViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
+    public ScheduleBaseViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Return games on a specific date.
-    StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
+    public StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();

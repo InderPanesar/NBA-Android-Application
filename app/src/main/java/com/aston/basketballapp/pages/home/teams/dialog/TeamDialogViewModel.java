@@ -23,12 +23,12 @@ public class TeamDialogViewModel extends ViewModel {
 
     PlayersRepository repository;
     @Inject
-    TeamDialogViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
+    public TeamDialogViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Get All Players from API for specific team.
-    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
+    public StateMutableLiveData<ArrayList<IndividualPlayerModel>> getPlayers(String teamId) {
 
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();

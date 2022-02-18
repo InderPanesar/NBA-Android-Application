@@ -13,16 +13,20 @@ import com.aston.basketballapp.pages.home.settings.customisationMenu.SettingsCus
 import com.aston.basketballapp.pages.home.settings.customisationMenu.SettingsCustomisationSettingsMenuViewModel;
 import com.aston.basketballapp.utils.AppConsts;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
+import org.mockito.quality.Strictness;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class SettingsCustomisationSettingsMenuViewModelUnitTest {
 
 
@@ -32,6 +36,9 @@ public class SettingsCustomisationSettingsMenuViewModelUnitTest {
     SharedPreferences mockPrefs;
     @Mock
     SharedPreferences.Editor mockEditor;
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule().strictness(Strictness.LENIENT);
 
     @Before
     public void before() throws Exception {

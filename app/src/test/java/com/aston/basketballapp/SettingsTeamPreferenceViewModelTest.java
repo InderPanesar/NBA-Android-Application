@@ -12,14 +12,18 @@ import com.aston.basketballapp.pages.home.settings.favouriteTeam.SettingsTeamPre
 import com.aston.basketballapp.utils.AppConsts;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
+import org.mockito.quality.Strictness;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class SettingsTeamPreferenceViewModelTest {
 
     @Mock
@@ -28,6 +32,9 @@ public class SettingsTeamPreferenceViewModelTest {
     SharedPreferences mockPrefs;
     @Mock
     SharedPreferences.Editor mockEditor;
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule().strictness(Strictness.LENIENT);
 
 
 

@@ -32,12 +32,12 @@ public class PlayerBaseViewModel extends ViewModel {
     //Create MainFragmentViewModel with PlayersRepository Injected.
     PlayersRepository repository;
     @Inject
-    PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
+    public PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Get All Players from API.
-    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
+    public StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override

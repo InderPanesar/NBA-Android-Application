@@ -23,12 +23,12 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
 
     ScheduleRepository repository;
     @Inject
-    ScheduleBottomSheetViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
+    public ScheduleBottomSheetViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Get the statistics for the specific game which more details have been requested for.
-    StateMutableLiveData<ArrayList<String>> getGameStatistics(String gameID) {
+    public StateMutableLiveData<ArrayList<String>> getGameStatistics(String gameID) {
 
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
         data.postValueLoading();

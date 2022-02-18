@@ -24,12 +24,12 @@ public class TeamsBaseViewModel extends ViewModel {
 
 
     @Inject
-    TeamsBaseViewModel(@Named("TeamsRepository") TeamsRepository exampleRepository) {
+    public TeamsBaseViewModel(@Named("TeamsRepository") TeamsRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Make call to API to get Teams.
-    StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
+    public StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
