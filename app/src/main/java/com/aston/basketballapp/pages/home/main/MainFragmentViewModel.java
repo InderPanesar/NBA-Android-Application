@@ -41,7 +41,7 @@ public class MainFragmentViewModel extends ViewModel {
     }
 
     //Get Favourite Team information.
-    StateMutableLiveData<ArrayList<String>> getFavouriteTeamInformation(String teamId) {
+    public StateMutableLiveData<ArrayList<String>> getFavouriteTeamInformation(String teamId) {
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
@@ -83,7 +83,7 @@ public class MainFragmentViewModel extends ViewModel {
     }
 
     //Get the information for the schedule.
-    StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule() {
+    public StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule() {
         StateMutableLiveData<ArrayList<TeamStandingModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getStandings().enqueue(new Callback<StandingsModel>() {

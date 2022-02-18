@@ -29,12 +29,13 @@ public class SettingsTeamPreferenceViewModelTest {
     @Mock
     SharedPreferences.Editor mockEditor;
 
+
+
     @Before
     public void before() throws Exception {
         Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt())).thenReturn(mockPrefs);
         Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt()).edit()).thenReturn(mockEditor);
         Mockito.when(mockContext.getSharedPreferences(anyString(), anyInt()).edit()).thenReturn(mockEditor);
-
         Mockito.when(mockPrefs.getInt(AppConsts.TEAM_FAVOURITE_KEY, -1)).thenReturn(2);
     }
 
@@ -51,5 +52,7 @@ public class SettingsTeamPreferenceViewModelTest {
         viewModel.setPref(mockPrefs);
         assertNotEquals(viewModel.getSelectedValue(), 4);
     }
+
+
 
 }
