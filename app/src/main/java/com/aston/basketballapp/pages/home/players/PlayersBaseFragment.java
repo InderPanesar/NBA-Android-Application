@@ -1,21 +1,17 @@
 package com.aston.basketballapp.pages.home.players;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
 import com.aston.basketballapp.utils.AppConsts;
@@ -25,11 +21,6 @@ import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayersBaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PlayersBaseFragment extends Fragment implements PlayersCardClicked {
 
 
@@ -155,7 +146,7 @@ public class PlayersBaseFragment extends Fragment implements PlayersCardClicked 
             playerModel.getPlayerId(),
             playerModel.getStartNBA(),
             playerModel.getHeightInMetres() + "m",
-            playerModel.getWeightInKilometers() + "kg",
+            playerModel.getWeightInKilograms() + "kg",
             playerModel.getTeamId(),
             "#" + playerModel.getLeagues().getNBADetails().getJersey(),
             "Position: " + playerModel.getLeagues().getNBADetails().getPos(),

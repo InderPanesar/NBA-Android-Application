@@ -51,7 +51,7 @@ public class PlayerBaseViewModel extends ViewModel {
                     for(IndividualPlayerModel player : players) {
                         if(player.getLeagues() != null) {
                             if(player.getLeagues().getNBADetails() != null) {
-                                if(!player.getHeightInMetres().equals("") || !player.getWeightInKilometers().equals("")) {
+                                if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
                                     filteredPlayers.add(player);
                                 }
                             }

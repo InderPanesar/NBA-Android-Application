@@ -1,7 +1,6 @@
 package com.aston.basketballapp.pages.home.main;
 
 import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import com.aston.basketballapp.engine.model.standings.StandingsModel;
@@ -12,8 +11,6 @@ import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -202,6 +199,10 @@ public class MainFragmentViewModel extends ViewModel {
         String recordString = "Record : ";
         recordString = recordString + data.get(2) + " - " + data.get(3);
         return recordString;
+    }
+
+    public String getRecordStringForTeam(TeamStandingModel team) {
+        return team.getConference().getWin() + " - " + team.getConference().getLoss();
     }
 
 

@@ -224,7 +224,7 @@ public class MainBaseFragment extends Fragment {
                 tbrow.addView(tv);
 
                 tv = new TextView(getContext());
-                tv.setText(new StringBuilder().append(team.getConference().getWin()).append(" - ").append(team.getConference().getLoss()).toString());
+                tv.setText(mainFragmentViewModel.getRecordStringForTeam(team));
                 tv.setTextColor(Color.BLACK);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(10, 30, 10, 30);

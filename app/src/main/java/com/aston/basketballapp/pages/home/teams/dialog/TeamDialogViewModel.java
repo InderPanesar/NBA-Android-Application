@@ -37,7 +37,6 @@ public class TeamDialogViewModel extends ViewModel {
             public void onResponse(@NonNull Call<PlayerModel> call, @NonNull Response<PlayerModel> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
-                    return;
                 } else {
                     PlayerModel model = response.body();
                     ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
@@ -46,7 +45,7 @@ public class TeamDialogViewModel extends ViewModel {
                         if(player.getLeagues() != null) {
                             if(player.getLeagues().getNBADetails() != null) {
                                 if(player.getLeagues().getNBADetails().getActive().equals("1")) {
-                                    if(!player.getHeightInMetres().equals("") || !player.getWeightInKilometers().equals("")) {
+                                    if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
                                         filteredPlayers.add(player);
                                     }
                                 }

@@ -47,7 +47,7 @@ public class IndividualPlayerModel {
     public String getHeightInMetres() {
         return heightInMeters;
     }
-    public String getWeightInKilometers() {
+    public String getWeightInKilograms() {
         return weightInKilograms;
     }
     public PlayerStandardModel getLeagues() {
