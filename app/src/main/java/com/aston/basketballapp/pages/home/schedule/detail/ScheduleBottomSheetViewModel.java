@@ -39,6 +39,10 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
+                    if(response.body() == null) {
+                        data.postValueError(null);
+                        return;
+                    }
                     GameStatisticModelAPI model = response.body().getApi();
                     if(model.getStatistics().size() < 2) {
                         data.postValueError(new Throwable());

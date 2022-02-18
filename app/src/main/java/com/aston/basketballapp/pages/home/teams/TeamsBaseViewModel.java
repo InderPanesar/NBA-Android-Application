@@ -40,14 +40,16 @@ public class TeamsBaseViewModel extends ViewModel {
               }
               else {
                   TeamsModel model = response.body();
-                  ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
-                  ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
-                  for(IndividualTeamsModel team : teams) {
-                      if(team.getNbaFranchise().equals("1") && !team.getLogo().equals("")) {
-                          filteredTeams.add(team);
+                  if(model != null) {
+                      ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
+                      ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
+                      for(IndividualTeamsModel team : teams) {
+                          if(team.getNbaFranchise().equals("1") && !team.getLogo().equals("")) {
+                              filteredTeams.add(team);
+                          }
                       }
+                      data.postValueSuccess(filteredTeams);
                   }
-                  data.postValueSuccess(filteredTeams);
               }
 
             }

@@ -74,4 +74,9 @@
     <string name="players_menu">Players</string>
     <string name="stadiums_menu">Stadiums</string>
     <string name="settings_menu">Settings</string>
+    <string name="InformationNotaAvaliablePlayerCard">Infomation Not Available</string>
+    <string name="PlayerIsActive">Active</string>
+    <string name="PlayerIsNotActive">Not Active</string>
+    <string name="halfTimeStringValue">Half Time</string>
+    <string name="QuarterStringValueScheduleCard">\"Quarter: \"</string>
 </resources>

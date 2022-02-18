@@ -93,7 +93,7 @@ public class PlayersDetailFragment extends Fragment {
             textView.setText(viewModel.teams.get(Integer.parseInt(playerAttributes[7])));
         }
         catch (NumberFormatException e) {
-            textView.setText("Infomation Not Available");
+            textView.setText(R.string.InformationNotaAvaliablePlayerCard);
         }
 
         textView = v.findViewById(R.id.player_team_jersey);
@@ -102,10 +102,10 @@ public class PlayersDetailFragment extends Fragment {
         textView.setText(playerAttributes[9]);
         textView = v.findViewById(R.id.player_team_status_title);
         if(playerAttributes[10].equals("1")) {
-            textView.setText("Active");
+            textView.setText(R.string.PlayerIsActive);
         }
         else {
-            textView.setText("Not Active");
+            textView.setText(R.string.PlayerIsNotActive);
             AppConsts.verifyContext(getContext());
             textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
         }
@@ -143,6 +143,7 @@ public class PlayersDetailFragment extends Fragment {
         };
 
         AppConsts.verifyActivity(getActivity());
+        AppConsts.verifyArguments(getArguments());
         viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
 
 

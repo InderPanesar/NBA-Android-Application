@@ -46,8 +46,11 @@ public class ScheduleBaseViewModel extends ViewModel  {
                     data.postValueError(null);
                 } else {
                     ScheduleModel model = response.body();
-                    ArrayList<GamesModel> games = model.getApi().getGames();
-                    data.postValueSuccess(games);
+                    if(model != null) {
+                        ArrayList<GamesModel> games = model.getApi().getGames();
+                        data.postValueSuccess(games);
+                    }
+
                 }
 
             }

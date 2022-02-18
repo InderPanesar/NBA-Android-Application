@@ -117,13 +117,9 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
 
-        int numberOfGames = prefs.getInt("numberOfGames", -1);
-        if(numberOfGames == -1) {
-            editor.putInt("numberOfGames", 5).apply();
-        }
-
-        int recentGamesPlayerProfileOne = prefs.getInt("recentGamesPlayerProfileOne",-1);
-        if(recentGamesPlayerProfileOne == -1) {
+        boolean correctValue = prefs.getBoolean(AppConsts.VALUES_SET, false);
+        if(!correctValue) {
+            editor.putBoolean(AppConsts.VALUES_SET, true);
             editor.putInt(AppConsts.RECENT_GAMES_ONE, 1);
             editor.putInt(AppConsts.RECENT_GAMES_TWO, 3);
             editor.putInt(AppConsts.RECENT_GAMES_THREE, 4);

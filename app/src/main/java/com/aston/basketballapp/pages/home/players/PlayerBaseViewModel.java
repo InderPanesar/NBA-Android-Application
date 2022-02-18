@@ -46,19 +46,22 @@ public class PlayerBaseViewModel extends ViewModel {
                     data.postValueError(null);
                 } else {
                     PlayerModel model = response.body();
-                    ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
-                    ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
-                    for(IndividualPlayerModel player : players) {
-                        if(player.getLeagues() != null) {
-                            if(player.getLeagues().getNBADetails() != null) {
-                                if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
-                                    filteredPlayers.add(player);
+                    if(model != null) {
+                        ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
+                        ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
+                        for(IndividualPlayerModel player : players) {
+                            if(player.getLeagues() != null) {
+                                if(player.getLeagues().getNBADetails() != null) {
+                                    if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
+                                        filteredPlayers.add(player);
+                                    }
                                 }
                             }
                         }
+                        localTempPlayers = filteredPlayers;
+                        data.postValueSuccess(filteredPlayers);
                     }
-                    localTempPlayers = filteredPlayers;
-                    data.postValueSuccess(filteredPlayers);
+
                 }
 
             }
