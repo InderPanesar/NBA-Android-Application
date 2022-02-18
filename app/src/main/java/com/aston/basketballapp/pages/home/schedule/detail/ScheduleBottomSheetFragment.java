@@ -70,46 +70,50 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
                     View v = binding.getRoot();
                     TextView view;
 
-                    //Set Data for each team in the right rows in the table.
-                    view = v.findViewById(R.id.table_team1_fbp);
-                    view.setText(data.get(0));
-                    view = v.findViewById(R.id.table_team1_pip);
-                    view.setText(data.get(1));
-                    view = v.findViewById(R.id.table_team1_bl);
-                    view.setText(data.get(2));
-                    view = v.findViewById(R.id.table_team1_pot);
-                    view.setText(data.get(3));
-                    view = v.findViewById(R.id.table_team1_FTP);
-                    view.setText(data.get(4));
-                    view = v.findViewById(R.id.table_team1_or);
-                    view.setText(data.get(5));
-                    view = v.findViewById(R.id.table_team1_dr);
-                    view.setText(data.get(6));
-                    view = v.findViewById(R.id.table_team1_assists);
-                    view.setText(data.get(7));
-                    view = v.findViewById(R.id.table_team1_plus_minus);
-                    view.setText(data.get(8));
+                    if(data != null) {
+                        //Set Data for each team in the right rows in the table.
+                        view = v.findViewById(R.id.table_team1_fbp);
+                        view.setText(data.get(0));
+                        view = v.findViewById(R.id.table_team1_pip);
+                        view.setText(data.get(1));
+                        view = v.findViewById(R.id.table_team1_bl);
+                        view.setText(data.get(2));
+                        view = v.findViewById(R.id.table_team1_pot);
+                        view.setText(data.get(3));
+                        view = v.findViewById(R.id.table_team1_FTP);
+                        view.setText(data.get(4));
+                        view = v.findViewById(R.id.table_team1_or);
+                        view.setText(data.get(5));
+                        view = v.findViewById(R.id.table_team1_dr);
+                        view.setText(data.get(6));
+                        view = v.findViewById(R.id.table_team1_assists);
+                        view.setText(data.get(7));
+                        view = v.findViewById(R.id.table_team1_plus_minus);
+                        view.setText(data.get(8));
 
-                    view = v.findViewById(R.id.table_team2_fbp);
-                    view.setText(data.get(9));
-                    view = v.findViewById(R.id.table_team2_pip);
-                    view.setText(data.get(10));
-                    view = v.findViewById(R.id.table_team2_bl);
-                    view.setText(data.get(11));
-                    view = v.findViewById(R.id.table_team2_pot);
-                    view.setText(data.get(12));
-                    view = v.findViewById(R.id.table_team2_FTP);
-                    view.setText(data.get(13));
-                    view = v.findViewById(R.id.table_team2_or);
-                    view.setText(data.get(14));
-                    view = v.findViewById(R.id.table_team2_dr);
-                    view.setText(data.get(15));
-                    view = v.findViewById(R.id.table_team2_assists);
-                    view.setText(data.get(16));
-                    view = v.findViewById(R.id.table_team2_plus_minus);
-                    view.setText(data.get(17));
+                        view = v.findViewById(R.id.table_team2_fbp);
+                        view.setText(data.get(9));
+                        view = v.findViewById(R.id.table_team2_pip);
+                        view.setText(data.get(10));
+                        view = v.findViewById(R.id.table_team2_bl);
+                        view.setText(data.get(11));
+                        view = v.findViewById(R.id.table_team2_pot);
+                        view.setText(data.get(12));
+                        view = v.findViewById(R.id.table_team2_FTP);
+                        view.setText(data.get(13));
+                        view = v.findViewById(R.id.table_team2_or);
+                        view.setText(data.get(14));
+                        view = v.findViewById(R.id.table_team2_dr);
+                        view.setText(data.get(15));
+                        view = v.findViewById(R.id.table_team2_assists);
+                        view.setText(data.get(16));
+                        view = v.findViewById(R.id.table_team2_plus_minus);
+                        view.setText(data.get(17));
 
-                    UniversalErrorStateHandler.isSuccess(binding.getRoot());
+                        UniversalErrorStateHandler.isSuccess(binding.getRoot());
+                    }
+
+
                     break;
                 case ERROR:
                     tableLayout.setVisibility(View.INVISIBLE);

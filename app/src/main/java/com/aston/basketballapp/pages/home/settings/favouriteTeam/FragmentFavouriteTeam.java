@@ -38,6 +38,7 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppConsts.verifyActivity(getActivity());
         View actionBar = (getActivity()).findViewById(R.id.main_app_bar_layout);
         actionBar.setBackground(new ColorDrawable(Color.parseColor("#FFA834")));
     }
@@ -46,6 +47,7 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        AppConsts.verifyActivity(getActivity());
         viewModel = new ViewModelProvider(this.getActivity()).get(SettingsTeamPreferenceViewModel.class);
         viewModel.setPref(getActivity().getPreferences(Context.MODE_PRIVATE));
 
@@ -84,6 +86,7 @@ public class FragmentFavouriteTeam extends Fragment implements SettingsTeamClick
 
     @Override
     public void onDestroy() {
+        AppConsts.verifyActivity(getActivity());
         View actionBar = (getActivity()).findViewById(R.id.main_app_bar_layout);
         actionBar.setBackground(new ColorDrawable(Color.parseColor("#FFFFFF")));
         super.onDestroy();

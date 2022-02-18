@@ -2,19 +2,15 @@ package com.aston.basketballapp.pages.home.settings.favouriteTeam;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.aston.basketballapp.R;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class SettingsTeamsAdapter extends RecyclerView.Adapter<SettingsTeamsAdapter.SettingsTeamsAdapterViewHolder> {

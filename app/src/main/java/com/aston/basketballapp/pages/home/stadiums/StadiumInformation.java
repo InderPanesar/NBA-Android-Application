@@ -36,21 +36,8 @@ public class StadiumInformation {
 
     }
 
-
-    public String getTeamName() {
-        return teamName;
-    }
-    public String getStadiumName() {
-        return stadiumName;
-    }
     public String getStadiumURL() {
         return stadiumURL;
-    }
-    public String getCapacity() {
-        return capacity;
-    }
-    public String getTicketsURL() {
-        return ticketsURL;
     }
     public LatLng getMapPosition() {
        return new LatLng(latitude, -longitude);

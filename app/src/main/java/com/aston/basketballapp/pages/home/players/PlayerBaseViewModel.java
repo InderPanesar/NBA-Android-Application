@@ -32,12 +32,12 @@ public class PlayerBaseViewModel extends ViewModel {
     //Create MainFragmentViewModel with PlayersRepository Injected.
     PlayersRepository repository;
     @Inject
-    PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
+    public PlayerBaseViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Get All Players from API.
-    StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
+    public StateMutableLiveData<ArrayList<IndividualPlayerModel>> getAllPlayers() {
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         repository.getAllPlayers().enqueue(new Callback<PlayerModel>() {
             @Override
@@ -46,19 +46,22 @@ public class PlayerBaseViewModel extends ViewModel {
                     data.postValueError(null);
                 } else {
                     PlayerModel model = response.body();
-                    ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
-                    ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
-                    for(IndividualPlayerModel player : players) {
-                        if(player.getLeagues() != null) {
-                            if(player.getLeagues().getNBADetails() != null) {
-                                if(!player.getHeightInMetres().equals("") || !player.getWeightInKilometers().equals("")) {
-                                    filteredPlayers.add(player);
+                    if(model != null) {
+                        ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
+                        ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
+                        for(IndividualPlayerModel player : players) {
+                            if(player.getLeagues() != null) {
+                                if(player.getLeagues().getNBADetails() != null) {
+                                    if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
+                                        filteredPlayers.add(player);
+                                    }
                                 }
                             }
                         }
+                        localTempPlayers = filteredPlayers;
+                        data.postValueSuccess(filteredPlayers);
                     }
-                    localTempPlayers = filteredPlayers;
-                    data.postValueSuccess(filteredPlayers);
+
                 }
 
             }

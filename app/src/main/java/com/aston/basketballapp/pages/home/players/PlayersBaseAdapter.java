@@ -37,17 +37,21 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PlayerBaseViewHolder holder, int position) {
-
-
         //Set Players Holder cards
         if(!players.isEmpty()) {
             holder.playerJersey.setText(players.get(position).getLeagues().getNBADetails().getJersey());
-            holder.playerName.setText(new StringBuilder().append(players.get(position).getFirstName()).append(" ").append(players.get(position).getLastName()).toString());
-            holder.playerDescriptors.setText(new StringBuilder().append("Height: ").append(players.get(position).getHeightInMetres()).append("m ").append("Weight: ").append(players.get(position).getWeightInKilometers()).append("kg").toString());
+            holder.playerName.setText(getName(position));
+            holder.playerDescriptors.setText(getPlayerDescriptors(position));
             holder.playerPosition.setText(players.get(position).getLeagues().getNBADetails().getPos());
         }
+    }
 
+    public String getName(int position) {
+        return players.get(position).getFirstName() + " " + players.get(position).getLastName();
+    }
 
+    public String getPlayerDescriptors(int position) {
+        return "Height: " + players.get(position).getHeightInMetres() + "m " + "Weight: " + players.get(position).getWeightInKilograms();
     }
 
     @Override

@@ -116,22 +116,32 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.4634, -97.5151), 3));
         //What to do when a marker is clicked.
         map.setOnMarkerClickListener(marker -> {
-            int position = (int)(marker.getTag());
-            StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
-            stadiumTextView.setText(new StringBuilder().append("Stadium: ").append(stadiumInformation.stadiumName).toString());
-            capacityTextView.setText(new StringBuilder().append("Capacity: ").append(stadiumInformation.capacity).toString());
-            Picasso.get()
-                    .load(stadiumInformation.getStadiumURL())
-                    .fit()
-                    .into(stadiumImageView);
+            if(marker.getTag() != null) {
+                int position = (int)(marker.getTag());
+                StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
+                stadiumTextView.setText(getStadiumInformation(stadiumInformation));
+                capacityTextView.setText(getStadiumCapacity(stadiumInformation));
+                Picasso.get()
+                        .load(stadiumInformation.getStadiumURL())
+                        .fit()
+                        .into(stadiumImageView);
 
 
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(map.getCameraPosition().target, 15));
 
-            currentURL = stadiumInformation.ticketsURL;
-            ticketButton.setEnabled(true);
+                currentURL = stadiumInformation.ticketsURL;
+                ticketButton.setEnabled(true);
+            }
             return false;
         });
+    }
+
+    String getStadiumInformation(StadiumInformation information) {
+        return "Stadium: " + information.stadiumName;
+    }
+
+    String getStadiumCapacity(StadiumInformation information) {
+        return "Capacity: " + information.capacity;
     }
 
     @Override

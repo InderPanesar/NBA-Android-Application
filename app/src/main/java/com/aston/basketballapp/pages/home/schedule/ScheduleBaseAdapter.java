@@ -90,9 +90,9 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
                 break;
             case "In Play":
                 if (isHalfTime.equals("1")) {
-                    holder.gameTimeStart.setText("Half Time");
+                    holder.gameTimeStart.setText(R.string.halfTimeStringValue);
                 } else {
-                    holder.gameTimeStart.setText("Quarter: " + games.get(position).getCurrentPeriod());
+                    holder.gameTimeStart.setText(getScheduleString(position));
                 }
                 holder.gameTimeStart.setVisibility(View.VISIBLE);
                 break;
@@ -104,6 +104,10 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
 
 
         holder.button.setOnClickListener(v -> itemListener.scheduleCardClicked(holder.itemView, model));
+    }
+
+    public String getScheduleString(int position) {
+        return R.string.QuarterStringValueScheduleCard + games.get(position).getCurrentPeriod();
     }
 
     @Override

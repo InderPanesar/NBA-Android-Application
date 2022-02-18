@@ -24,12 +24,12 @@ public class TeamsBaseViewModel extends ViewModel {
 
 
     @Inject
-    TeamsBaseViewModel(@Named("TeamsRepository") TeamsRepository exampleRepository) {
+    public TeamsBaseViewModel(@Named("TeamsRepository") TeamsRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Make call to API to get Teams.
-    StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
+    public StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
         repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
@@ -40,14 +40,16 @@ public class TeamsBaseViewModel extends ViewModel {
               }
               else {
                   TeamsModel model = response.body();
-                  ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
-                  ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
-                  for(IndividualTeamsModel team : teams) {
-                      if(team.getNbaFranchise().equals("1") && !team.getLogo().equals("")) {
-                          filteredTeams.add(team);
+                  if(model != null) {
+                      ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
+                      ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
+                      for(IndividualTeamsModel team : teams) {
+                          if(team.getNbaFranchise().equals("1") && !team.getLogo().equals("")) {
+                              filteredTeams.add(team);
+                          }
                       }
+                      data.postValueSuccess(filteredTeams);
                   }
-                  data.postValueSuccess(filteredTeams);
               }
 
             }

@@ -8,7 +8,10 @@ import com.aston.basketballapp.engine.model.schedule.ScheduleModel;
 import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,14 +24,17 @@ import retrofit2.Response;
 @HiltViewModel
 public class ScheduleBaseViewModel extends ViewModel  {
 
+    Calendar c;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
     ScheduleRepository repository;
     @Inject
-    ScheduleBaseViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
+    public ScheduleBaseViewModel(@Named("ScheduleRepository") ScheduleRepository exampleRepository) {
         repository = exampleRepository;
     }
 
     //Return games on a specific date.
-    StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
+    public StateMutableLiveData<ArrayList<GamesModel>> getGamesOnDate(String date) {
 
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
@@ -40,8 +46,11 @@ public class ScheduleBaseViewModel extends ViewModel  {
                     data.postValueError(null);
                 } else {
                     ScheduleModel model = response.body();
-                    ArrayList<GamesModel> games = model.getApi().getGames();
-                    data.postValueSuccess(games);
+                    if(model != null) {
+                        ArrayList<GamesModel> games = model.getApi().getGames();
+                        data.postValueSuccess(games);
+                    }
+
                 }
 
             }
@@ -53,5 +62,17 @@ public class ScheduleBaseViewModel extends ViewModel  {
 
         });
         return data;
+    }
+
+    String getCurrentDayString() {
+        c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH) + 1;
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        return "Date: " + mDay + "/" + mMonth + "/" + mYear;
+    }
+
+    public String getDateString(int dayOfMonth, int month, int year) {
+        return "Date: " + dayOfMonth + "/" + (month) + "/" + (year);
     }
 }

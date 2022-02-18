@@ -2,35 +2,25 @@ package com.aston.basketballapp.pages.home.schedule;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.schedule.GamesModel;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import com.google.android.material.button.MaterialButton;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ScheduleBaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.OnDateSetListener, ScheduleCardClicked {
 
     MaterialButton scheduleButton;
@@ -38,8 +28,6 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     ScheduleBaseViewModel scheduleBaseViewModel;
     RecyclerView scheduleRecyclerView;
     ScheduleBaseAdapter scheduleBaseAdapter;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    Calendar c;
 
     ArrayList<GamesModel> games = new ArrayList<>();
 
@@ -71,14 +59,11 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         //Create all the data involved with Calendar Data.
-        c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH) + 1;
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
 
         scheduleButton = v.findViewById(R.id.schedule_date_picker_button);
-        scheduleButton.setText(new StringBuilder().append("Date: ").append(mDay).append("/").append(mMonth).append("/").append(mYear).toString());
-        datePickerDialog = new DatePickerDialog(getContext(), this, mYear, mMonth - 1, mDay);
+        scheduleButton.setText(scheduleBaseViewModel.getCurrentDayString());
+        datePickerDialog = new DatePickerDialog(getContext(), this, scheduleBaseViewModel.c.get(Calendar.YEAR), scheduleBaseViewModel.c.get(Calendar.MONTH), scheduleBaseViewModel.c.get(Calendar.DAY_OF_MONTH));
         scheduleButton.setOnClickListener(v1 -> datePickerDialog.show());
 
         scheduleRecyclerView = v.findViewById(R.id.schedule_recycler_view);
@@ -116,10 +101,10 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
             }
         };
 
-        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
+        scheduleBaseViewModel.getGamesOnDate(scheduleBaseViewModel.dateFormat.format(scheduleBaseViewModel.c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(v12 ->
-                scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver)
+                scheduleBaseViewModel.getGamesOnDate(scheduleBaseViewModel.dateFormat.format(scheduleBaseViewModel.c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver)
         );
 
         return v;
@@ -128,9 +113,9 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     //On Date Set create update calendar, UI Text and update schedules shown.
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        c.set(year, month, dayOfMonth);
-        scheduleButton.setText(new StringBuilder().append("Date: ").append(dayOfMonth).append("/").append(month + 1).append("/").append(year).toString());
-        scheduleBaseViewModel.getGamesOnDate(dateFormat.format(c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
+        scheduleBaseViewModel.c.set(year, month, dayOfMonth);
+        scheduleButton.setText(scheduleBaseViewModel.getDateString(dayOfMonth, (month + 1), year));
+        scheduleBaseViewModel.getGamesOnDate(scheduleBaseViewModel.dateFormat.format(scheduleBaseViewModel.c.getTime())).observe(getViewLifecycleOwner(), gameScheduleObserver);
     }
 
     //Send Information to Bottom Sheet through the Bundle.
