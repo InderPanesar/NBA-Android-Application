@@ -207,7 +207,7 @@ public class MainBaseFragment extends Fragment {
                 ImageView view = new ImageView(getContext());
                 view.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                 Picasso.get()
-                        .load(mainFragmentViewModel.getTeamLogo(team.getTeamId()))
+                        .load(mainFragmentViewModel.getTeamLogo(team.getTeam().getId() + ""))
                         .into(view);
                 view.setLayoutParams(new TableRow.LayoutParams(
                         111,
@@ -216,7 +216,7 @@ public class MainBaseFragment extends Fragment {
                 tbrow.addView(view);
 
                 tv = new TextView(getContext());
-                tv.setText(mainFragmentViewModel.getTeamName(team.getTeamId()));
+                tv.setText(mainFragmentViewModel.getTeamName(team.getTeam().getId() + ""));
                 tv.setTextColor(Color.BLACK);
                 tv.setGravity(Gravity.CENTER);
                 tv.setPadding(10, 30, 10, 30);

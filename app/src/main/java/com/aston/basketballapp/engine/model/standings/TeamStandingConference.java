@@ -1,29 +1,23 @@
 package com.aston.basketballapp.engine.model.standings;
-
-public class TeamDivisionModel {
+public class TeamStandingConference {
     String name;
-    String rank;
-    String win;
-    String loss;
-    String gamesBehind;
+    int rank;
+    int win;
+    int loss;
 
     public String getName() {
         return name;
     }
 
     public String getRank() {
-        return rank;
+        return rank + "";
     }
 
     public String getWin() {
-        return win;
+        return win + "";
     }
 
     public String getLoss() {
-        return loss;
-    }
-
-    public String getGamesBehind() {
-        return gamesBehind;
+        return loss + "";
     }
 }

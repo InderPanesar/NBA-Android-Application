@@ -3,7 +3,8 @@ package com.aston.basketballapp.pages.home.main;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
-import com.aston.basketballapp.engine.model.standings.StandingsModel;
+
+import com.aston.basketballapp.engine.model.standings.StandingsModelApi;
 import com.aston.basketballapp.engine.model.standings.TeamStandingModel;
 import com.aston.basketballapp.engine.repository.standings.StandingsRepository;
 import com.aston.basketballapp.pages.home.settings.favouriteTeam.TeamsRepo;
@@ -41,28 +42,44 @@ public class MainFragmentViewModel extends ViewModel {
     public StateMutableLiveData<ArrayList<String>> getFavouriteTeamInformation(String teamId) {
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
         data.postValueLoading();
-        repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModel>() {
+        repository.getSpecificTeamStandings(teamId).enqueue(new Callback<StandingsModelApi>() {
             @Override
-            public void onResponse(@NonNull Call<StandingsModel> call, @NonNull Response<StandingsModel> response) {
+            public void onResponse(@NonNull Call<StandingsModelApi> call, @NonNull Response<StandingsModelApi> response) {
                 if(teamId.equals("-1")) {
+                    System.out.println("CALL RESPONSE: " + response.body());
                     data.postValueError(null);
                     return;
                 }
                 if (!response.isSuccessful()) {
+                    System.out.println("CALL RESPONSE: " + response.body());
                     data.postValueError(null);
                 } else {
-                    StandingsModel model = response.body();
+                    StandingsModelApi model = response.body();
+                    System.out.println("CALL RESPONSE: " + response.toString());
+
                     if(model == null) {
+                        System.out.println("HIT ONE");
                         data.postValueError(null);
                     }
                     else {
-                        TeamStandingModel teamStandingModel = model.getApi().getStandings().get(0);
-                        ArrayList<String> values = new ArrayList<>();
-                        values.add(teamStandingModel.getConference().getName());
-                        values.add(teamStandingModel.getConference().getRank());
-                        values.add(teamStandingModel.getConference().getWin());
-                        values.add(teamStandingModel.getConference().getLoss());
-                        data.postValueSuccess(values);
+                        if(model.getStandings().size() > 0) {
+                            TeamStandingModel teamStandingModel = model.getStandings().get(0);
+                            if (teamStandingModel != null) {
+                                ArrayList<String> values = new ArrayList<>();
+                                values.add(teamStandingModel.getConference().getName());
+                                values.add(teamStandingModel.getConference().getRank() + "");
+                                values.add(teamStandingModel.getConference().getWin() + "");
+                                values.add(teamStandingModel.getConference().getLoss() + "");
+                                data.postValueSuccess(values);
+                            }
+                            else {
+                                data.postValueError(null);
+                            }
+                        }
+                        else {
+                            data.postValueError(null);
+                        }
+
                     }
 
                 }
@@ -70,7 +87,8 @@ public class MainFragmentViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<StandingsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<StandingsModelApi> call, @NonNull Throwable t) {
+                System.out.println("CALL RESPONSE: " + t.getMessage());
                 data.postValueError(t);
 
             }
@@ -83,18 +101,18 @@ public class MainFragmentViewModel extends ViewModel {
     public StateMutableLiveData<ArrayList<TeamStandingModel>> getSchedule() {
         StateMutableLiveData<ArrayList<TeamStandingModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
-        repository.getStandings().enqueue(new Callback<StandingsModel>() {
+        repository.getStandings().enqueue(new Callback<StandingsModelApi>() {
             @Override
-            public void onResponse(@NonNull Call<StandingsModel> call, @NonNull Response<StandingsModel> response) {
+            public void onResponse(@NonNull Call<StandingsModelApi> call, @NonNull Response<StandingsModelApi> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
-                    StandingsModel model = response.body();
+                    StandingsModelApi model = response.body();
                     if(model == null) {
                         data.postValueError(null);
                     }
                     else {
-                        List<TeamStandingModel> teamStandingModel = model.getApi().getStandings();
+                        List<TeamStandingModel> teamStandingModel = model.getStandings();
 
                         ArrayList<TeamStandingModel> temp_StandingModel = new ArrayList<>();
                         for(TeamStandingModel teamModel : teamStandingModel) {
@@ -119,7 +137,8 @@ public class MainFragmentViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<StandingsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<StandingsModelApi> call, @NonNull Throwable t) {
+                System.out.println("CALL RESPONSE: " + t.getMessage());
                 data.postValueError(t);
 
             }

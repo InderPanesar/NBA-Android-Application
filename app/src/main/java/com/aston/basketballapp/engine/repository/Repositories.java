@@ -30,7 +30,7 @@ public class Repositories {
     //API Host value
     private final String HOST = "api-nba-v1.p.rapidapi.com";
     //API Key Value
-    private final String KEY = "5dbbf11d63msh76c8d4afa6cd3c7p16cdfejsn136e72230424";
+    private final String KEY = "2b04cff4d0msh00f7790a390ccc6p1960c5jsn58bf811f373c";
 
     //Creates a retrofit model to make API calls to the API-NBA-V1 API (rapidAPI)
     @Singleton

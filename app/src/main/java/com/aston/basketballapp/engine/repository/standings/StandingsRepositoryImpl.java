@@ -2,7 +2,7 @@ package com.aston.basketballapp.engine.repository.standings;
 
 
 import com.aston.basketballapp.engine.comms.api.standings.StandingsAPI;
-import com.aston.basketballapp.engine.model.standings.StandingsModel;
+import com.aston.basketballapp.engine.model.standings.StandingsModelApi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -17,14 +17,14 @@ public class StandingsRepositoryImpl implements StandingsRepository {
     }
 
     @Override
-    public Call<StandingsModel> getStandings() {
+    public Call<StandingsModelApi> getStandings() {
         StandingsAPI api = retrofit.create(StandingsAPI.class);
-        return api.getStandings();
+        return api.getStandings("standard", "2021");
     }
 
     @Override
-    public Call<StandingsModel> getSpecificTeamStandings(String teamId) {
+    public Call<StandingsModelApi> getSpecificTeamStandings(String teamId) {
         StandingsAPI api = retrofit.create(StandingsAPI.class);
-        return api.getStandingForTeam(teamId);
+        return api.getStandingForTeam("standard", "2021", teamId);
     }
 }
