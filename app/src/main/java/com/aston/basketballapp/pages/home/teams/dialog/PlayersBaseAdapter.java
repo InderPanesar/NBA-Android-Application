@@ -1,4 +1,4 @@
-package com.aston.basketballapp.pages.home.players;
+package com.aston.basketballapp.pages.home.teams.dialog;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -39,19 +39,19 @@ public class PlayersBaseAdapter extends RecyclerView.Adapter<PlayersBaseAdapter.
     public void onBindViewHolder(@NonNull PlayerBaseViewHolder holder, int position) {
         //Set Players Holder cards
         if(!players.isEmpty()) {
-            holder.playerJersey.setText(players.get(position).getLeagues().getNBADetails().getJersey());
+            holder.playerJersey.setText(players.get(position).getLeagues().getStandard().getJersey());
             holder.playerName.setText(getName(position));
             holder.playerDescriptors.setText(getPlayerDescriptors(position));
-            holder.playerPosition.setText(players.get(position).getLeagues().getNBADetails().getPos());
+            holder.playerPosition.setText(players.get(position).getLeagues().getStandard().getPos());
         }
     }
 
     public String getName(int position) {
-        return players.get(position).getFirstName() + " " + players.get(position).getLastName();
+        return players.get(position).getFirstname() + " " + players.get(position).getLastname();
     }
 
     public String getPlayerDescriptors(int position) {
-        return "Height: " + players.get(position).getHeightInMetres() + "m " + "Weight: " + players.get(position).getWeightInKilograms();
+        return "Height: " + players.get(position).getHeight().getMeters() + "m " + "Weight: " + players.get(position).getWeight().getKilograms() + "kg";
     }
 
     @Override

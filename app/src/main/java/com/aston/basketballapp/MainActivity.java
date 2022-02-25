@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
                 R.id.landingPage,
                 R.id.teams,
                 R.id.schedule,
-                R.id.players,
                 R.id.stadiums,
                 R.id.settings
         ).setOpenableLayout(drawerLayout).build();

@@ -46,19 +46,15 @@ public class MainFragmentViewModel extends ViewModel {
             @Override
             public void onResponse(@NonNull Call<StandingsModelApi> call, @NonNull Response<StandingsModelApi> response) {
                 if(teamId.equals("-1")) {
-                    System.out.println("CALL RESPONSE: " + response.body());
                     data.postValueError(null);
                     return;
                 }
                 if (!response.isSuccessful()) {
-                    System.out.println("CALL RESPONSE: " + response.body());
                     data.postValueError(null);
                 } else {
                     StandingsModelApi model = response.body();
-                    System.out.println("CALL RESPONSE: " + response.toString());
 
                     if(model == null) {
-                        System.out.println("HIT ONE");
                         data.postValueError(null);
                     }
                     else {

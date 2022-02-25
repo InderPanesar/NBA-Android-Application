@@ -1,58 +1,57 @@
 package com.aston.basketballapp.engine.model.player;
 
+import com.google.gson.annotations.SerializedName;
+
 public class IndividualPlayerModel {
-
-    String firstName;
-    String lastName;
-    String teamId;
-    String yearsPro;
-    String collegeName;
-    String country;
-    String playerId;
-    String dateOfBirth;
+    int id;
+    String firstname;
+    String lastname;
+    PlayerModelBirth birth;
+    PlayerModelNba nba;
+    @SerializedName("height")
+    Height height;
+    Weight weight;
+    String college;
     String affiliation;
-    String startNba;
-    String heightInMeters;
-    String weightInKilograms;
-    PlayerStandardModel leagues;
+    PlayerModelLeagues leagues;
 
-    public String getFirstName() {
-        return firstName;
+    public int getId() {
+        return id;
     }
-    public String getLastName() {
-        return lastName;
+
+    public String getFirstname() {
+        return firstname;
     }
-    public String getTeamId() {
-        return teamId;
+
+    public String getLastname() {
+        return lastname;
     }
-    public String getYearsPro() {
-        return yearsPro;
+
+    public PlayerModelBirth getBirth() {
+        return birth;
     }
-    public String getCollegeName() {
-        return collegeName;
+
+    public PlayerModelNba getNba() {
+        return nba;
     }
-    public String getCountry() { return country; }
-    public String getPlayerId() {
-        return playerId;
+
+    public Height getHeight() {
+        return height;
     }
-    public String getDateOfBirth() {
-        return dateOfBirth;
+
+    public Weight getWeight() {
+        return weight;
     }
-    public String getAffilation() {
+
+    public String getCollege() {
+        return college;
+    }
+
+    public String getAffiliation() {
         return affiliation;
     }
-    public String getStartNBA() {
-        return startNba;
-    }
-    public String getHeightInMetres() {
-        return heightInMeters;
-    }
-    public String getWeightInKilograms() {
-        return weightInKilograms;
-    }
-    public PlayerStandardModel getLeagues() {
+
+    public PlayerModelLeagues getLeagues() {
         return leagues;
     }
-
-
 }

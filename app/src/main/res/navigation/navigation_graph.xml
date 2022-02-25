@@ -31,15 +31,6 @@
             app:destination="@id/scheduleBottomSheetFragment" />
     </fragment>
     <fragment
-        android:id="@+id/players"
-        android:name="com.aston.basketballapp.pages.home.players.PlayersBaseFragment"
-        android:label="Players"
-        tools:layout="@layout/fragment_players">
-        <action
-            android:id="@+id/action_players_to_playersDetailFragment"
-            app:destination="@id/playersDetailFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/stadiums"
         android:name="com.aston.basketballapp.pages.home.stadiums.StadiumsBaseFragment"
         android:label="Stadiums"
@@ -48,7 +39,11 @@
         android:id="@+id/teamDialogFragment"
         android:name="com.aston.basketballapp.pages.home.teams.dialog.TeamDialogFragment"
         android:label="fragment_team_dialog"
-        tools:layout="@layout/fragment_team_dialog" />
+        tools:layout="@layout/fragment_team_dialog" >
+        <action
+            android:id="@+id/action_teamDialogFragment_to_playersDetailFragment"
+            app:destination="@id/playersDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/playersDetailFragment"
         android:name="com.aston.basketballapp.pages.home.players.detail.PlayersDetailFragment"

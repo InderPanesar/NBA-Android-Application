@@ -101,7 +101,7 @@ public class PlayersDetailFragment extends Fragment {
         textView = v.findViewById(R.id.player_team_position);
         textView.setText(playerAttributes[9]);
         textView = v.findViewById(R.id.player_team_status_title);
-        if(playerAttributes[10].equals("1")) {
+        if(playerAttributes[10].equals("true")) {
             textView.setText(R.string.PlayerIsActive);
         }
         else {

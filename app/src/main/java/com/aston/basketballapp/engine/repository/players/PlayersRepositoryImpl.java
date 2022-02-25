@@ -1,8 +1,8 @@
 package com.aston.basketballapp.engine.repository.players;
 
 import com.aston.basketballapp.engine.comms.api.players.PlayersAPI;
-import com.aston.basketballapp.engine.model.player.PlayerModel;
-import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModel;
+import com.aston.basketballapp.engine.model.player.PlayerModelApi;
+import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModelApi;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -17,27 +17,27 @@ public class PlayersRepositoryImpl implements PlayersRepository{
     }
 
     @Override
-    public Call<PlayerModel> getPlayers(String teamId) {
+    public Call<PlayerModelApi> getPlayers(String teamId) {
         PlayersAPI api = retrofit.create(PlayersAPI.class);
-        return api.getTeamsOfPlayers(teamId);
+        return api.getTeamsOfPlayers("2021", teamId);
     }
 
     @Override
-    public Call<PlayerModel> getPlayer(String playerId) {
+    public Call<PlayerModelApi> getPlayer(String playerId) {
         PlayersAPI api = retrofit.create(PlayersAPI.class);
         return api.getPlayer(playerId);
     }
 
     @Override
-    public Call<PlayerModel> getAllPlayers() {
+    public Call<PlayerModelApi> getAllPlayers() {
         PlayersAPI api = retrofit.create(PlayersAPI.class);
-        return api.getAllPlayer();
+        return api.getTeamsOfPlayers("2021", "1");
     }
 
     @Override
-    public Call<PlayerStatsModel> getPlayerStats(String playerId) {
+    public Call<PlayerStatsModelApi> getPlayerStats(String playerId) {
         PlayersAPI api = retrofit.create(PlayersAPI.class);
-        return api.getPlayerStats(playerId);
+        return api.getPlayerStats(playerId, "2021");
     }
 
 

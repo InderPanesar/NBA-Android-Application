@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.stats.PlayerStatistics;
-import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModel;
+import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModelApi;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
@@ -64,14 +64,20 @@ public class PlayersDetailViewModel extends ViewModel {
             return data;
         }
 
-        repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModel>() {
+        repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModelApi>() {
             @Override
-            public void onResponse(@NonNull Call<PlayerStatsModel> call, @NonNull Response<PlayerStatsModel> response) {
+            public void onResponse(@NonNull Call<PlayerStatsModelApi> call, @NonNull Response<PlayerStatsModelApi> response) {
+                System.out.println("Call request " + call.request().toString());
+                System.out.println("Response raw " + String.valueOf(response.raw().body()));
+                System.out.println("Response code " + String.valueOf(response.code()));
+
                 if (!response.isSuccessful()) {
+                    System.out.println(response.raw().message());
+                    System.out.println(response.raw().body());
                     data.postValueError(null);
                 } else {
-                    PlayerStatsModel model = response.body();
-                    ArrayList<PlayerStatistics> _statistics = model.getApi().getStatistics();
+                    PlayerStatsModelApi model = response.body();
+                    ArrayList<PlayerStatistics> _statistics = model.getStatistics();
                     Collections.reverse(_statistics);
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
@@ -102,7 +108,8 @@ public class PlayersDetailViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<PlayerStatsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<PlayerStatsModelApi> call, @NonNull Throwable t) {
+                System.out.println(t.getLocalizedMessage());
                 data.postValueError(t);
 
             }

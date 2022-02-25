@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
-import com.aston.basketballapp.engine.model.player.PlayerModel;
+import com.aston.basketballapp.engine.model.player.PlayerModelApi;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
@@ -32,21 +32,24 @@ public class TeamDialogViewModel extends ViewModel {
 
         StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
-        repository.getPlayers(teamId).enqueue(new Callback<PlayerModel>() {
+        repository.getPlayers(teamId).enqueue(new Callback<PlayerModelApi>() {
             @Override
-            public void onResponse(@NonNull Call<PlayerModel> call, @NonNull Response<PlayerModel> response) {
+            public void onResponse(@NonNull Call<PlayerModelApi> call, @NonNull Response<PlayerModelApi> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
-                    PlayerModel model = response.body();
+                    PlayerModelApi model = response.body();
+
                     if(model != null) {
-                        ArrayList<IndividualPlayerModel> players = model.getApi().getPlayers();
+                        ArrayList<IndividualPlayerModel> players = model.getPlayers();
+                        System.out.println("HIT! " + players.size());
+
                         ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
                         for(IndividualPlayerModel player : players) {
                             if(player.getLeagues() != null) {
-                                if(player.getLeagues().getNBADetails() != null) {
-                                    if(player.getLeagues().getNBADetails().getActive().equals("1")) {
-                                        if(!player.getHeightInMetres().equals("") || !player.getWeightInKilograms().equals("")) {
+                                if(player.getLeagues().getStandard() != null) {
+                                    if (!player.getLeagues().getStandard().getPos().equals("")) {
+                                        if (!player.getHeight().getMeters().equals("") || !player.getWeight().getKilograms().equals("")) {
                                             filteredPlayers.add(player);
                                         }
                                     }
@@ -61,7 +64,7 @@ public class TeamDialogViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<PlayerModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<PlayerModelApi> call, @NonNull Throwable t) {
                 data.postValueError(t);
 
             }

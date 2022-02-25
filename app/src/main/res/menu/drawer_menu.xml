@@ -20,11 +20,6 @@
             android:iconTint="@color/black"
             android:title="@string/schedule_menu" />
         <item
-            android:id="@+id/players"
-            android:icon="@drawable/ic_person"
-            android:iconTint="@color/black"
-            android:title="@string/players_menu" />
-        <item
             android:id="@+id/stadiums"
             android:icon="@drawable/ic_place"
             android:iconTint="@color/black"

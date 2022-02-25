@@ -4,25 +4,19 @@ import java.util.ArrayList;
 
 public class PlayerStatsModelApi {
 
-    int status;
-    String message;
+    String get;
     int results;
-    ArrayList<String> filters = new ArrayList<>();
-    ArrayList<PlayerStatistics> statistics = new ArrayList<>();
-
-    public float getStatus() {
-        return status;
-    }
+    ArrayList<PlayerStatistics> response = new ArrayList<>();
 
     public String getMessage() {
-        return message;
+        return get;
     }
 
-    public float getResults() {
+    public int getResults() {
         return results;
     }
 
     public ArrayList<PlayerStatistics> getStatistics() {
-        return statistics;
+        return response;
     }
 }

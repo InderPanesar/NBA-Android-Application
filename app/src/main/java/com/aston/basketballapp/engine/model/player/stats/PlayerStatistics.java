@@ -1,8 +1,9 @@
 package com.aston.basketballapp.engine.model.player.stats;
 
 public class PlayerStatistics {
-    String gameId;
-    String teamId;
+    PlayerStatisticsPlayerModel player;
+    PlayerStatisticsTeamModel team;
+    PlayerStatisticsGameModel game;
     String points = "0";
     String pos = "0";
     String min = "0";
@@ -24,10 +25,9 @@ public class PlayerStatistics {
     String turnovers = "0";
     String blocks = "0";
     String plusMinus = "0";
-    String playerId = "0";
 
-    public String getGameId()  { return gameId; }
-    public String getTeamId() { return teamId; }
+    public String getGameId()  { return game.id + ""; }
+    public String getTeamId() { return team.id + ""; }
     public String getPoints() { return points; }
     public String getPos() { return pos; }
     public String getMin() { return min; }
@@ -49,5 +49,5 @@ public class PlayerStatistics {
     public String getTurnovers() { return turnovers; }
     public String getBlocks() { return blocks; }
     public String getPlusMinus() { return plusMinus; }
-    public String getPlayerId() { return playerId; }
+    public String getPlayerId() { return player.id + ""; }
 }
