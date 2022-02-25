@@ -1,28 +1,29 @@
 package com.aston.basketballapp.engine.model.teams;
 
+import com.aston.basketballapp.engine.model.standings.TeamStandingModel;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeamsModelAPI {
 
-    int status;
-    String message;
+    String get;
     int results;
-    ArrayList<String> filters = new ArrayList<String>();;
-    ArrayList<IndividualTeamsModel> teams = new ArrayList<IndividualTeamsModel>();
-
-    public float getStatus() {
-        return status;
-    }
+    ArrayList<IndividualTeamsModel> response;
 
     public String getMessage() {
-        return message;
+        return get;
     }
 
-    public float getResults() {
+    public int getResults() {
         return results;
     }
 
     public ArrayList<IndividualTeamsModel> getTeams() {
-        return teams;
+        return response;
     }
+
+
+
+
 }
