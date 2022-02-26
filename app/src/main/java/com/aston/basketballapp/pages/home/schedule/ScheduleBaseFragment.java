@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import com.aston.basketballapp.R;
-import com.aston.basketballapp.engine.model.schedule.GamesModel;
+import com.aston.basketballapp.engine.model.schedule.schedule.GamesModel;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
@@ -122,11 +122,11 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
     private void showBottomSheetDialog(View v, GamesModel gamesModel) {
         Bundle b = new Bundle();
         b.putString("homeTeamLogo", gamesModel.gethTeam().getLogo());
-        b.putString("homeTeamScore", gamesModel.gethTeam().getScore().getPoints());
+        b.putString("homeTeamScore", gamesModel.gethTeamScore());
         b.putString("homeTeamNickName", gamesModel.gethTeam().getNickName());
 
         b.putString("awayTeamLogo", gamesModel.getvTeam().getLogo());
-        b.putString("awayTeamScore", gamesModel.getvTeam().getScore().getPoints());
+        b.putString("awayTeamScore", gamesModel.getvTeamScore());
         b.putString("awayTeamNickName", gamesModel.getvTeam().getNickName());
 
         b.putString("gameId", gamesModel.getGameId());

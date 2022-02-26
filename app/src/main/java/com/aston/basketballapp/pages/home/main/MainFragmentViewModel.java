@@ -64,8 +64,8 @@ public class MainFragmentViewModel extends ViewModel {
                                 ArrayList<String> values = new ArrayList<>();
                                 values.add(teamStandingModel.getConference().getName());
                                 values.add(teamStandingModel.getConference().getRank() + "");
-                                values.add(teamStandingModel.getConference().getWin() + "");
-                                values.add(teamStandingModel.getConference().getLoss() + "");
+                                values.add(teamStandingModel.getWin().totalWins()+ "");
+                                values.add(teamStandingModel.getLoss().totalWins() + "");
                                 data.postValueSuccess(values);
                             }
                             else {
@@ -84,9 +84,7 @@ public class MainFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<StandingsModelApi> call, @NonNull Throwable t) {
-                System.out.println("CALL RESPONSE: " + t.getMessage());
                 data.postValueError(t);
-
             }
 
         });
@@ -134,7 +132,6 @@ public class MainFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<StandingsModelApi> call, @NonNull Throwable t) {
-                System.out.println("CALL RESPONSE: " + t.getMessage());
                 data.postValueError(t);
 
             }
@@ -217,7 +214,7 @@ public class MainFragmentViewModel extends ViewModel {
     }
 
     public String getRecordStringForTeam(TeamStandingModel team) {
-        return team.getConference().getWin() + " - " + team.getConference().getLoss();
+        return team.getWin().totalWins() + " - " + team.getLoss().totalWins();
     }
 
 

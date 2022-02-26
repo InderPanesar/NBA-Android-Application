@@ -1,4 +1,4 @@
-package com.aston.basketballapp.engine.model.schedule;
+package com.aston.basketballapp.engine.model.schedule.schedule;
 
 public class ScoreModel {
     String points;

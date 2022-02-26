@@ -67,13 +67,7 @@ public class PlayersDetailViewModel extends ViewModel {
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModelApi>() {
             @Override
             public void onResponse(@NonNull Call<PlayerStatsModelApi> call, @NonNull Response<PlayerStatsModelApi> response) {
-                System.out.println("Call request " + call.request().toString());
-                System.out.println("Response raw " + String.valueOf(response.raw().body()));
-                System.out.println("Response code " + String.valueOf(response.code()));
-
                 if (!response.isSuccessful()) {
-                    System.out.println(response.raw().message());
-                    System.out.println(response.raw().body());
                     data.postValueError(null);
                 } else {
                     PlayerStatsModelApi model = response.body();
@@ -109,9 +103,7 @@ public class PlayersDetailViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<PlayerStatsModelApi> call, @NonNull Throwable t) {
-                System.out.println(t.getLocalizedMessage());
                 data.postValueError(t);
-
             }
 
         });

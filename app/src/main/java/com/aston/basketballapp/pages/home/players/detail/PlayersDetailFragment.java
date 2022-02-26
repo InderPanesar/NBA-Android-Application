@@ -146,6 +146,9 @@ public class PlayersDetailFragment extends Fragment {
         AppConsts.verifyArguments(getArguments());
         viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
 
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(view1 ->
+                viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver)
+        );
 
 
         return v;

@@ -42,8 +42,6 @@ public class TeamDialogViewModel extends ViewModel {
 
                     if(model != null) {
                         ArrayList<IndividualPlayerModel> players = model.getPlayers();
-                        System.out.println("HIT! " + players.size());
-
                         ArrayList<IndividualPlayerModel> filteredPlayers = new ArrayList<>();
                         for(IndividualPlayerModel player : players) {
                             if(player.getLeagues() != null) {

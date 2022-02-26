@@ -5,4 +5,8 @@ public class TeamStandingWin {
     int total;
     String percentage;
     int lastTen;
+
+    public String totalWins() {
+        return total + "";
+    }
 }

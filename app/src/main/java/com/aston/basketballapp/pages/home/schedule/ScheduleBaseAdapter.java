@@ -1,6 +1,7 @@
 package com.aston.basketballapp.pages.home.schedule;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aston.basketballapp.R;
-import com.aston.basketballapp.engine.model.schedule.GamesModel;
+import com.aston.basketballapp.engine.model.schedule.schedule.GamesModel;
 import com.aston.basketballapp.utils.AppConsts;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
@@ -30,6 +31,8 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
     Context context;
     //Used to scale the height of the schedule cards properly when set programmatically.
     float dpScale;
+
+    int ItemSelected = -1;
 
 
 
@@ -55,12 +58,13 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
     public void onBindViewHolder(@NonNull ScheduleBaseAdapterViewHolder holder, int position) {
         GamesModel model = games.get(position);
         Picasso.get().load(AppConsts.URLImageCorrector(games.get(position).gethTeam().getLogo())).into(holder.homeTeamLogo);
-        holder.homeTeamScore.setText(games.get(position).gethTeam().getScore().getPoints());
+        holder.homeTeamScore.setText(games.get(position).gethTeamScore());
         holder.homeTeamText.setText(games.get(position).gethTeam().getNickName());
 
         Picasso.get().load(AppConsts.URLImageCorrector(games.get(position).getvTeam().getLogo())).into(holder.awayTeamLogo);
-        holder.awayTeamScore.setText(games.get(position).getvTeam().getScore().getPoints());
+        holder.awayTeamScore.setText(games.get(position).getvTeamScore());
         holder.awayTeamText.setText(games.get(position).getvTeam().getNickName());
+
 
         String status = games.get(position).getStatusGame();
         String isHalfTime = games.get(position).getHalftime();
@@ -84,6 +88,8 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
                 LocalDateTime date = LocalDateTime.parse(games.get(position).getStartTimeUTC(), inputFormatter);
                 holder.gameTimeStart.setText(outputFormatter.format(date));
                 holder.gameTimeStart.setVisibility(View.VISIBLE);
+                holder.awayTeamScore.setVisibility(View.INVISIBLE);
+                holder.homeTeamScore.setVisibility(View.INVISIBLE);
                 params.height = smallerHeight;
                 holder.view.setLayoutParams(params);
 
@@ -95,10 +101,15 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
                     holder.gameTimeStart.setText(getScheduleString(position));
                 }
                 holder.gameTimeStart.setVisibility(View.VISIBLE);
+                holder.awayTeamScore.setVisibility(View.VISIBLE);
+                holder.button.setVisibility(View.VISIBLE);
+                holder.homeTeamScore.setVisibility(View.VISIBLE);
                 break;
             case "Finished":
                 holder.gameTimeStart.setVisibility(View.GONE);
                 holder.button.setVisibility(View.VISIBLE);
+                holder.awayTeamScore.setVisibility(View.VISIBLE);
+                holder.homeTeamScore.setVisibility(View.VISIBLE);
                 break;
         }
 
@@ -107,7 +118,7 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
     }
 
     public String getScheduleString(int position) {
-        return R.string.QuarterStringValueScheduleCard + games.get(position).getCurrentPeriod();
+        return "Quarter: " + games.get(position).getCurrentPeriod();
     }
 
     @Override
@@ -136,6 +147,8 @@ public class ScheduleBaseAdapter extends RecyclerView.Adapter<ScheduleBaseAdapte
         TextView gameTimeStart;
 
         MaterialButton button;
+
+
 
         public ScheduleBaseAdapterViewHolder(@NonNull View itemView) {
             super(itemView);

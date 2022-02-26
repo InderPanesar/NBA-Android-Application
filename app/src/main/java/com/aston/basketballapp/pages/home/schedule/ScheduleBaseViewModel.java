@@ -3,8 +3,8 @@ package com.aston.basketballapp.pages.home.schedule;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.aston.basketballapp.engine.model.schedule.GamesModel;
-import com.aston.basketballapp.engine.model.schedule.ScheduleModel;
+import com.aston.basketballapp.engine.model.schedule.schedule.GamesModel;
+import com.aston.basketballapp.engine.model.schedule.schedule.ScheduleModelApi;
 import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
@@ -39,15 +39,15 @@ public class ScheduleBaseViewModel extends ViewModel  {
         StateMutableLiveData<ArrayList<GamesModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
 
-        repository.getGames(date).enqueue(new Callback<ScheduleModel>() {
+        repository.getGames(date).enqueue(new Callback<ScheduleModelApi>() {
             @Override
-            public void onResponse(@NonNull Call<ScheduleModel> call, @NonNull Response<ScheduleModel> response) {
+            public void onResponse(@NonNull Call<ScheduleModelApi> call, @NonNull Response<ScheduleModelApi> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
-                    ScheduleModel model = response.body();
+                    ScheduleModelApi model = response.body();
                     if(model != null) {
-                        ArrayList<GamesModel> games = model.getApi().getGames();
+                        ArrayList<GamesModel> games = model.getGames();
                         data.postValueSuccess(games);
                     }
 
@@ -56,7 +56,7 @@ public class ScheduleBaseViewModel extends ViewModel  {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ScheduleModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ScheduleModelApi> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 
