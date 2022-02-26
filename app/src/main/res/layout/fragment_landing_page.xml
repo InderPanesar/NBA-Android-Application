@@ -22,7 +22,7 @@
             android:textSize="26sp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Favourite Team">
+            android:text="@string/favourite_team">
         </TextView>
 
         <include
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:layout_marginBottom="16dp"
-            android:text="Schedule">
+            android:text="@string/standings_text">
         </TextView>
 
 

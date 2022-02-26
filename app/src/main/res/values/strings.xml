@@ -79,5 +79,7 @@
     <string name="PlayerIsNotActive">Not Active</string>
     <string name="halfTimeStringValue">Half Time</string>
     <string name="QuarterStringValueScheduleCard">\"Quarter: \"</string>
+    <string name="standings_text">Standings</string>
+    <string name="favourite_team">Favourite Team</string>
 
 </resources>
