@@ -25,7 +25,7 @@ public class Gyroscope {
     //Constructor for Gyroscope
     public Gyroscope(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         sensorEventListener = new SensorEventListener() {
             @Override

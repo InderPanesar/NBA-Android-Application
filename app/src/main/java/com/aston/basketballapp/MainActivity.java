@@ -30,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity implements DrawerLayoutControl {
 
     private Gyroscope gyroscope;
+    private boolean enabledDrawerMenu = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +79,18 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
         gyroscope.setGyroscopeListener(new Gyroscope.GyroscopeListener() {
             @Override
             public void onRotation(float dx, float dy, float dz) {
-                if(dx > 2) {
+                System.out.println(" (" + dx + ", " + dy + ", " + dz + " )");
+
+                if(dz > 0.5f) {
+                    if(enabledDrawerMenu) {
+                        drawerLayout.open();
+                    }
+                } else if(dz < -0.5f) {
                     if(drawerLayout.isOpen()) {
                         drawerLayout.close();
                     }
-                    else {
-                        drawerLayout.open();
-                    }
                 }
+
             }
         });
 
@@ -169,5 +174,6 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
             DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
+        this.enabledDrawerMenu = enabled;
     }
 }
