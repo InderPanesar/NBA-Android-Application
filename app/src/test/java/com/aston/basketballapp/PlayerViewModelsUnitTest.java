@@ -7,13 +7,9 @@ import android.content.SharedPreferences;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
-import com.aston.basketballapp.engine.model.player.PlayerModel;
-import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModel;
-import com.aston.basketballapp.engine.model.standings.StandingsModel;
+import com.aston.basketballapp.engine.model.player.PlayerModelApi;
+import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModelApi;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
-import com.aston.basketballapp.engine.repository.standings.StandingsRepository;
-import com.aston.basketballapp.pages.home.main.MainFragmentViewModel;
-import com.aston.basketballapp.pages.home.players.PlayerBaseViewModel;
 import com.aston.basketballapp.pages.home.players.detail.PlayersDetailViewModel;
 import com.aston.basketballapp.pages.home.players.detail.SinglePlayerStatsAdapter;
 import com.aston.basketballapp.utils.AppConsts;
@@ -49,9 +45,8 @@ public class PlayerViewModelsUnitTest {
     @Rule
     public TestRule rule = new InstantTaskExecutorRule();
 
-    String getPlayerJson = "{\"api\":{\"status\":200,\"message\":\"GET players\\/playerId\\/1\",\"results\":1,\"filters\":[\"playerId\",\"teamId\",\"league\",\"country\",\"lastName\",\"firstName\"],\"players\":[{\"firstName\":\"Alex\",\"lastName\":\"Abrines\",\"teamId\":null,\"yearsPro\":\"0\",\"collegeName\":\"\",\"country\":\"Spain\",\"playerId\":\"1\",\"dateOfBirth\":\"1993-08-01\",\"affiliation\":\"Spain\\/Spain\",\"startNba\":\"2016\",\"heightInMeters\":\"\",\"weightInKilograms\":\"\",\"leagues\":{\"standard\":{\"jersey\":\"8\",\"active\":\"0\",\"pos\":\"\"}}}]}}";
-    String getPlayerStatsJson = "{\"api\":{\"status\":200,\"message\":\"GET statistics/players/playerId/1\",\"results\":222,\"filters\":[\"gameId\",\"playerId\"],\"statistics\":[{\"gameId\":\"1431\",\"teamId\":\"25\",\"points\":\"12\",\"pos\":\"\",\"min\":\"25:04\",\"fgm\":\"4\",\"fga\":\"5\",\"fgp\":\"80.0\",\"ftm\":\"0\",\"fta\":\"0\",\"ftp\":\"0.0\",\"tpm\":\"4\",\"tpa\":\"5\",\"tpp\":\"80.0\",\"offReb\":\"1\",\"defReb\":\"0\",\"totReb\":\"1\",\"assists\":\"0\",\"pFouls\":\"3\",\"steals\":\"0\",\"turnovers\":\"0\",\"blocks\":\"0\",\"plusMinus\":\"-1\",\"playerId\":\"1\"}]}}";
-
+    String getPlayerJson = "{\"get\":\"players\\/\",\"parameters\":{\"id\":\"1\"},\"errors\":[],\"results\":1,\"response\":[{\"id\":1,\"firstname\":\"Alex\",\"lastname\":\"Abrines\",\"birth\":{\"date\":\"1993-08-01\",\"country\":\"Spain\"},\"nba\":{\"start\":2016,\"pro\":0},\"height\":{\"feets\":null,\"inches\":null,\"meters\":null},\"weight\":{\"pounds\":null,\"kilograms\":null},\"college\":null,\"affiliation\":\"Spain\\/Spain\",\"leagues\":{\"standard\":{\"jersey\":8,\"active\":false,\"pos\":null}}}]}";
+    String getPlayerStatsJson = "{\"get\":\"players\\/statistics\",\"parameters\":{\"season\":\"2021\",\"id\":\"236\"},\"errors\":[],\"results\":62,\"response\":[{\"player\":{\"id\":236,\"firstname\":\"Buddy\",\"lastname\":\"Hield\"},\"team\":{\"id\":15,\"name\":\"Indiana Pacers\",\"nickname\":\"Pacers\",\"code\":\"IND\",\"logo\":\"https:\\/\\/upload.wikimedia.org\\/wikipedia\\/fr\\/thumb\\/c\\/cf\\/Pacers_de_l%27Indiana_logo.svg\\/1180px-Pacers_de_l%27Indiana_logo.svg.png\"},\"game\":{\"id\":10441},\"points\":15,\"pos\":\"SG\",\"min\":\"39:29\",\"fgm\":5,\"fga\":12,\"fgp\":\"41.7\",\"ftm\":4,\"fta\":4,\"ftp\":\"100\",\"tpm\":1,\"tpa\":5,\"tpp\":\"20.0\",\"offReb\":0,\"defReb\":5,\"totReb\":5,\"assists\":7,\"pFouls\":1,\"steals\":0,\"turnovers\":1,\"blocks\":1,\"plusMinus\":\"12\",\"comment\":null}]}";
 
     @Before
     public void before() {
@@ -62,38 +57,30 @@ public class PlayerViewModelsUnitTest {
         Mockito.when(repository.getPlayerStats("playerId")).thenReturn(mockAPIGetPlayerStats());
     }
 
-    Call<PlayerModel> mockAPIGetAllPlayers() {
+    Call<PlayerModelApi> mockAPIGetAllPlayers() {
         Gson gson = new Gson();
-        PlayerModel model = gson.fromJson(getPlayerJson, PlayerModel.class);
+        PlayerModelApi model = gson.fromJson(getPlayerJson, PlayerModelApi.class);
         return Calls.response(Response.success(model));
     }
 
-    Call<PlayerModel> mockAPIGetPlayer() {
+    Call<PlayerModelApi> mockAPIGetPlayer() {
         Gson gson = new Gson();
-        PlayerModel model = gson.fromJson(getPlayerJson, PlayerModel.class);
+        PlayerModelApi model = gson.fromJson(getPlayerJson, PlayerModelApi.class);
         return Calls.response(Response.success(model));
     }
 
-    Call<PlayerModel> mockAPIGetPlayers() {
+    Call<PlayerModelApi> mockAPIGetPlayers() {
         Gson gson = new Gson();
-        PlayerModel model = gson.fromJson(getPlayerJson, PlayerModel.class);
+        PlayerModelApi model = gson.fromJson(getPlayerJson, PlayerModelApi.class);
         return Calls.response(Response.success(model));
     }
 
-    Call<PlayerStatsModel> mockAPIGetPlayerStats() {
+    Call<PlayerStatsModelApi> mockAPIGetPlayerStats() {
         Gson gson = new Gson();
-        PlayerStatsModel model = gson.fromJson(getPlayerStatsJson, PlayerStatsModel.class);
+        PlayerStatsModelApi model = gson.fromJson(getPlayerStatsJson, PlayerStatsModelApi.class);
         return Calls.response(Response.success(model));
     }
 
-    @Test
-    public void mockAPICallForGetAllPlayers() {
-        PlayerBaseViewModel viewModel = new PlayerBaseViewModel(repository);
-        StateMutableLiveData<ArrayList<IndividualPlayerModel>> data = viewModel.getAllPlayers();
-        if(data.getValue() == null) {
-            fail("API CALL for Get All Players Failed");
-        }
-    }
 
     @Test
     public void mockAPICallForGetPlayerStats() {

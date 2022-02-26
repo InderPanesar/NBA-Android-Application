@@ -3,8 +3,9 @@ package com.aston.basketballapp.pages.home.schedule.detail;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticModel;
 import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticModelAPI;
+import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticsTeam;
+import com.aston.basketballapp.engine.model.schedule.gameStatistics.StatisticsModel;
 import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
@@ -33,9 +34,9 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
         StateMutableLiveData<ArrayList<String>> data = new StateMutableLiveData<>();
         data.postValueLoading();
 
-        repository.getGameStatisticDetails(gameID).enqueue(new Callback<GameStatisticModel>() {
+        repository.getGameStatisticDetails(gameID).enqueue(new Callback<GameStatisticModelAPI>() {
             @Override
-            public void onResponse(@NonNull Call<GameStatisticModel> call, @NonNull Response<GameStatisticModel> response) {
+            public void onResponse(@NonNull Call<GameStatisticModelAPI> call, @NonNull Response<GameStatisticModelAPI> response) {
                 if (!response.isSuccessful()) {
                     data.postValueError(null);
                 } else {
@@ -43,7 +44,8 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
                         data.postValueError(null);
                         return;
                     }
-                    GameStatisticModelAPI model = response.body().getApi();
+                    GameStatisticModelAPI model = response.body();
+
                     if(model.getStatistics().size() < 2) {
                         data.postValueError(new Throwable());
                     }
@@ -77,7 +79,7 @@ public class ScheduleBottomSheetViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<GameStatisticModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<GameStatisticModelAPI> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

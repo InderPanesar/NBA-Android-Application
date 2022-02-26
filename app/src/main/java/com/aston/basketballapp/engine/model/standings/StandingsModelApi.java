@@ -1,32 +1,24 @@
 package com.aston.basketballapp.engine.model.standings;
 
+import com.aston.basketballapp.engine.repository.standings.StandingsRepository;
+
 import java.util.List;
 
 public class StandingsModelApi {
 
-    int status;
-    String message;
+    String get;
     int results;
-    List<String> filters;
-    List<TeamStandingModel> standings;
-
-    public int getStatus() {
-        return status;
-    }
+    List<TeamStandingModel> response;
 
     public String getMessage() {
-        return message;
+        return get;
     }
 
     public int getResults() {
         return results;
     }
 
-    public List<String> getFilters() {
-        return filters;
-    }
-
     public List<TeamStandingModel> getStandings() {
-        return standings;
+        return response;
     }
 }

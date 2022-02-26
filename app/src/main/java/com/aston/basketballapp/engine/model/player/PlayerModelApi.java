@@ -1,27 +1,25 @@
 package com.aston.basketballapp.engine.model.player;
 
+import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
+
 import java.util.ArrayList;
 
 public class PlayerModelApi {
-    int status;
-    String message;
-    int results;
-    ArrayList<String> filters = new ArrayList<>();
-    ArrayList<IndividualPlayerModel> players = new ArrayList<>();
 
-    public float getStatus() {
-        return status;
-    }
+    String get;
+    int results;
+    ArrayList<IndividualPlayerModel> response;
 
     public String getMessage() {
-        return message;
+        return get;
     }
 
-    public float getResults() {
+    public int getResults() {
         return results;
     }
 
     public ArrayList<IndividualPlayerModel> getPlayers() {
-        return players;
+        return response;
     }
+
 }

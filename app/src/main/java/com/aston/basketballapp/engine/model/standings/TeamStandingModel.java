@@ -1,38 +1,42 @@
 package com.aston.basketballapp.engine.model.standings;
-
 public class TeamStandingModel {
-
     String league;
-    String teamId;
-    String win;
-    String loss;
+    int season;
+    StandingTeamModel team;
+    TeamStandingConference conference;
+    TeamStandingDivision division;
+    TeamStandingWin win;
+    TeamStandingWin loss;
     String gamesBehind;
-    String lastTenWin;
-    String lastTenLoss;
-    String streak;
-    String seasonYear;
-    TeamConferenceModel conference;
-    TeamDivisionModel division;
-    String winPercentage;
-    String lossPercentage;
-    TeamDetailsModel home;
-    TeamDetailsModel away;
-    String winStreak;
+    int streak;
+    boolean winStreak;
     String tieBreakerPoints;
 
     public String getLeague() {
         return league;
     }
 
-    public String getTeamId() {
-        return teamId;
+    public int getSeason() {
+        return season;
     }
 
-    public String getWin() {
+    public StandingTeamModel getTeam() {
+        return team;
+    }
+
+    public TeamStandingConference getConference() {
+        return conference;
+    }
+
+    public TeamStandingDivision getDivision() {
+        return division;
+    }
+
+    public TeamStandingWin getWin() {
         return win;
     }
 
-    public String getLoss() {
+    public TeamStandingWin getLoss() {
         return loss;
     }
 
@@ -40,51 +44,11 @@ public class TeamStandingModel {
         return gamesBehind;
     }
 
-    public String getLastTenWin() {
-        return lastTenWin;
-    }
-
-    public String getLastTenLoss() {
-        return lastTenLoss;
-    }
-
-    public String getStreak() {
+    public int getStreak() {
         return streak;
     }
 
-    public String getSeasonYear() {
-        return seasonYear;
-    }
-
-    public TeamConferenceModel getConference() {
-        return conference;
-    }
-
-    public TeamDivisionModel getDivision() {
-        return division;
-    }
-
-    public String getWinPercentage() {
-        return winPercentage;
-    }
-
-    public String getLossPercentage() {
-        return lossPercentage;
-    }
-
-    public TeamDetailsModel getHome() {
-        return home;
-    }
-
-    public TeamDetailsModel getAway() {
-        return away;
-    }
-
-    public String getWinStreak() {
+    public boolean isWinStreak() {
         return winStreak;
-    }
-
-    public String getTieBreakerPoints() {
-        return tieBreakerPoints;
     }
 }

@@ -1,144 +1,111 @@
 package com.aston.basketballapp.engine.model.schedule.gameStatistics;
 
-public class StatisticsModel {
-    String gameId;
-    String teamId;
-    String fastBreakPoints;
-    String pointsInPaint;
-    String biggestLead;
-    String secondChancePoints;
-    String pointsOffTurnovers;
-    String longestRun;
-    String points;
-    String fgm;
-    String fga;
-    String fgp;
-    String ftm;
-    String fta;
-    String ftp;
-    String tpm;
-    String tpa;
-    String tpp;
-    String offReb;
-    String defReb;
-    String totReb;
-    String assists;
-    String pFouls;
-    String steals;
-    String turnovers;
-    String blocks;
-    String plusMinus;
-    String min;
+import java.util.List;
 
-    public String getGameId() {
-        return gameId;
-    }
+public class StatisticsModel {
+
+    GameStatisticsTeam team;
+    List<GameStatisticsAttributes> statistics;
 
     public String getTeamId() {
-        return teamId;
+        return team.id + "";
     }
 
     public String getFastBreakPoints() {
-        return fastBreakPoints;
+        return statistics.get(0).fastBreakPoints + "";
     }
 
     public String getPointsInPaint() {
-        return pointsInPaint;
+        return statistics.get(0).pointsInPaint+ "";
     }
 
     public String getBiggestLead() {
-        return biggestLead;
+        return statistics.get(0).biggestLead+ "";
     }
 
     public String getSecondChancePoints() {
-        return secondChancePoints;
+        return statistics.get(0).secondChancePoints+ "";
     }
 
-    public String getPointsOffTurnovers() {
-        return pointsOffTurnovers;
-    }
+    public String getPointsOffTurnovers() { return statistics.get(0).pointsOffTurnovers+ ""; }
 
     public String getLongestRun() {
-        return longestRun;
+        return statistics.get(0).longestRun+ "";
     }
 
     public String getPoints() {
-        return points;
+        return statistics.get(0).points+ "";
     }
 
     public String getFgm() {
-        return fgm;
+        return statistics.get(0).fgm+ "";
     }
 
     public String getFga() {
-        return fga;
-    }
-
-    public String getFgp() {
-        return fgp;
+        return statistics.get(0).fga+ "";
     }
 
     public String getFtm() {
-        return ftm;
+        return statistics.get(0).ftm+ "";
     }
 
     public String getFta() {
-        return fta;
+        return statistics.get(0).fta+ "";
     }
 
     public String getFtp() {
-        return ftp;
+        return statistics.get(0).ftp;
     }
 
     public String getTpm() {
-        return tpm;
+        return statistics.get(0).tpm+ "";
     }
 
     public String getTpa() {
-        return tpa;
+        return statistics.get(0).tpa+ "";
     }
 
     public String getTpp() {
-        return tpp;
+        return statistics.get(0).tpp;
     }
 
     public String getOffReb() {
-        return offReb;
+        return statistics.get(0).offReb+ "";
     }
 
     public String getDefReb() {
-        return defReb;
+        return statistics.get(0).defReb+ "";
     }
 
     public String getTotReb() {
-        return totReb;
+        return statistics.get(0).totReb+ "";
     }
 
     public String getAssists() {
-        return assists;
+        return statistics.get(0).assists+ "";
     }
 
     public String getpFouls() {
-        return pFouls;
+        return statistics.get(0).pFouls+ "";
     }
 
     public String getSteals() {
-        return steals;
+        return statistics.get(0).steals+ "";
     }
 
     public String getTurnovers() {
-        return turnovers;
+        return statistics.get(0).turnovers+ "";
     }
 
     public String getBlocks() {
-        return blocks;
+        return statistics.get(0).blocks+ "";
     }
 
     public String getPlusMinus() {
-        return plusMinus;
+        return statistics.get(0).plusMinus;
     }
 
     public String getMin() {
-        return min;
+        return statistics.get(0).min;
     }
 }

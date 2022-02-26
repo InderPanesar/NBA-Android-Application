@@ -42,6 +42,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemTextColor="@drawable/menu_selector"
+        app:itemShapeFillColor="@drawable/menu_tab_selector"
         app:headerLayout="@layout/nav_header"
         app:itemTextAppearance="@style/global_text_font"
 

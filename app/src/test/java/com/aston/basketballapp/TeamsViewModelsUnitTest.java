@@ -5,16 +5,11 @@ import static org.junit.Assert.fail;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
-import com.aston.basketballapp.engine.model.player.PlayerModel;
-import com.aston.basketballapp.engine.model.schedule.GamesModel;
-import com.aston.basketballapp.engine.model.schedule.ScheduleModel;
-import com.aston.basketballapp.engine.model.schedule.game.GameModel;
+import com.aston.basketballapp.engine.model.player.PlayerModelApi;
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
-import com.aston.basketballapp.engine.model.teams.TeamsModel;
+import com.aston.basketballapp.engine.model.teams.TeamsModelAPI;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
-import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.engine.repository.teams.TeamsRepository;
-import com.aston.basketballapp.pages.home.schedule.ScheduleBaseViewModel;
 import com.aston.basketballapp.pages.home.teams.TeamsBaseViewModel;
 import com.aston.basketballapp.pages.home.teams.dialog.TeamDialogViewModel;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
@@ -48,9 +43,8 @@ public class TeamsViewModelsUnitTest {
     public TestRule rule = new InstantTaskExecutorRule();
 
 
-    String getTeamsJson = "{\"api\":{\"status\":200,\"message\":\"GET teams/confName/east\",\"results\":20,\"filters\":[\"teamId\",\"league\",\"city\",\"shortName\",\"nickName\",\"confName\",\"divName\"],\"teams\":[{\"city\":\"Atlanta\",\"fullName\":\"Atlanta Hawks\",\"teamId\":\"1\",\"nickname\":\"Hawks\",\"logo\":\"https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png\",\"shortName\":\"ATL\",\"allStar\":\"0\",\"nbaFranchise\":\"1\",\"leagues\":{\"standard\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"vegas\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"utah\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"sacramento\":{\"confName\":\"East\",\"divName\":\"Southeast\"}}}]}}";
-    String getTeamJson = "{\"api\":{\"status\":200,\"message\":\"GET teams\\/teamId\\/1\",\"results\":1,\"filters\":[\"teamId\",\"league\",\"city\",\"shortName\",\"nickName\",\"confName\",\"divName\"],\"teams\":[{\"city\":\"Atlanta\",\"fullName\":\"Atlanta Hawks\",\"teamId\":\"1\",\"nickname\":\"Hawks\",\"logo\":\"https:\\/\\/upload.wikimedia.org\\/wikipedia\\/fr\\/e\\/ee\\/Hawks_2016.png\",\"shortName\":\"ATL\",\"allStar\":\"0\",\"nbaFranchise\":\"1\",\"leagues\":{\"standard\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"vegas\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"utah\":{\"confName\":\"East\",\"divName\":\"Southeast\"},\"sacramento\":{\"confName\":\"East\",\"divName\":\"Southeast\"}}}]}}";
-    String getPlayerJson = "{\"api\":{\"status\":200,\"message\":\"GET players\\/playerId\\/1\",\"results\":1,\"filters\":[\"playerId\",\"teamId\",\"league\",\"country\",\"lastName\",\"firstName\"],\"players\":[{\"firstName\":\"Alex\",\"lastName\":\"Abrines\",\"teamId\":null,\"yearsPro\":\"0\",\"collegeName\":\"\",\"country\":\"Spain\",\"playerId\":\"1\",\"dateOfBirth\":\"1993-08-01\",\"affiliation\":\"Spain\\/Spain\",\"startNba\":\"2016\",\"heightInMeters\":\"\",\"weightInKilograms\":\"\",\"leagues\":{\"standard\":{\"jersey\":\"8\",\"active\":\"0\",\"pos\":\"\"}}}]}}";
+    String getTeamJson = "{\"get\":\"teams\\/\",\"parameters\":{\"id\":\"1\"},\"errors\":[],\"results\":1,\"response\":[{\"id\":1,\"name\":\"Atlanta Hawks\",\"nickname\":\"Hawks\",\"code\":\"ATL\",\"city\":\"Atlanta\",\"logo\":\"https:\\/\\/upload.wikimedia.org\\/wikipedia\\/fr\\/e\\/ee\\/Hawks_2016.png\",\"allStar\":false,\"nbaFranchise\":true,\"leagues\":{\"standard\":{\"conference\":\"East\",\"division\":\"Southeast\"},\"vegas\":{\"conference\":\"East\",\"division\":\"Southeast\"},\"utah\":{\"conference\":\"East\",\"division\":\"Southeast\"},\"sacramento\":{\"conference\":\"East\",\"division\":\"Southeast\"}}}]}";
+    String getPlayerJson = "{\"get\":\"players\\/\",\"parameters\":{\"id\":\"1\"},\"errors\":[],\"results\":1,\"response\":[{\"id\":1,\"firstname\":\"Alex\",\"lastname\":\"Abrines\",\"birth\":{\"date\":\"1993-08-01\",\"country\":\"Spain\"},\"nba\":{\"start\":2016,\"pro\":0},\"height\":{\"feets\":null,\"inches\":null,\"meters\":null},\"weight\":{\"pounds\":null,\"kilograms\":null},\"college\":null,\"affiliation\":\"Spain\\/Spain\",\"leagues\":{\"standard\":{\"jersey\":8,\"active\":false,\"pos\":null}}}]}";
 
 
     @Before
@@ -63,21 +57,21 @@ public class TeamsViewModelsUnitTest {
         Mockito.when(playersRepository.getPlayers("teamID")).thenReturn(mockAPIGetPlayers());
     }
 
-    Call<TeamsModel> mockAPIGetTeams() {
+    Call<TeamsModelAPI> mockAPIGetTeams() {
         Gson gson = new Gson();
-        TeamsModel model = gson.fromJson(getTeamsJson, TeamsModel.class);
+        TeamsModelAPI model = gson.fromJson(getTeamJson, TeamsModelAPI.class);
         return Calls.response(Response.success(model));
     }
 
-    Call<TeamsModel> mockAPIGetTeam() {
+    Call<TeamsModelAPI> mockAPIGetTeam() {
         Gson gson = new Gson();
-        TeamsModel model = gson.fromJson(getTeamJson, TeamsModel.class);
+        TeamsModelAPI model = gson.fromJson(getTeamJson, TeamsModelAPI.class);
         return Calls.response(Response.success(model));
     }
 
-    Call<PlayerModel> mockAPIGetPlayers() {
+    Call<PlayerModelApi> mockAPIGetPlayers() {
         Gson gson = new Gson();
-        PlayerModel model = gson.fromJson(getPlayerJson, PlayerModel.class);
+        PlayerModelApi model = gson.fromJson(getPlayerJson, PlayerModelApi.class);
         return Calls.response(Response.success(model));
     }
 

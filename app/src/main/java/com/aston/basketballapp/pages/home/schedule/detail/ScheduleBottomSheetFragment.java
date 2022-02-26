@@ -112,8 +112,6 @@ public class ScheduleBottomSheetFragment extends BottomSheetDialogFragment {
 
                         UniversalErrorStateHandler.isSuccess(binding.getRoot());
                     }
-
-
                     break;
                 case ERROR:
                     tableLayout.setVisibility(View.INVISIBLE);

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,15 +14,16 @@ import android.view.ViewGroup;
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
 import com.aston.basketballapp.utils.AppConsts;
+import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
 import java.util.ArrayList;
 
-public class TeamDialogFragment extends DialogFragment {
+public class TeamDialogFragment extends DialogFragment implements PlayersCardClicked {
 
 
     RecyclerView teamPlayersRecyclerView;
-    PlayersAdapter playersAdapter;
+    PlayersBaseAdapter playersAdapter;
     private TeamDialogViewModel teamDialogViewModel;
 
 
@@ -35,6 +37,15 @@ public class TeamDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppConsts.verifyArguments(getArguments());
+        AppConsts.verifyActivity(getActivity());
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(getArguments().getString("teamName"));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         AppConsts.verifyArguments(getArguments());
         AppConsts.verifyActivity(getActivity());
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
@@ -57,7 +68,7 @@ public class TeamDialogFragment extends DialogFragment {
         teamPlayersRecyclerView.setLayoutManager(linearLayoutManager);
         teamPlayersRecyclerView.setNestedScrollingEnabled(false);
         teamPlayersRecyclerView.setHasFixedSize(false);
-        playersAdapter = new PlayersAdapter(getContext(), new ArrayList<>());
+        playersAdapter = new PlayersBaseAdapter(getContext(), new ArrayList<>(), this);
         teamPlayersRecyclerView.setAdapter(playersAdapter);
 
 
@@ -92,5 +103,35 @@ public class TeamDialogFragment extends DialogFragment {
 
 
         return v;
+    }
+
+    @Override
+    public void cardClicked(View v, IndividualPlayerModel playerModel) {
+        AppConsts.verifyActivity(getActivity());
+        ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
+
+        AppConsts.verifyArguments(getArguments());
+        String teamID = getArguments().getString("teamId");
+
+        //Pass all bundle information to PlayersDetailFragment.
+        Bundle bundle = new Bundle();
+        String[] playerAttributes = {
+                String.valueOf(playerModel.getNba().getPro()),
+                playerModel.getCollege(),
+                playerModel.getBirth().getCountry(),
+                String.valueOf(playerModel.getId()),
+                String.valueOf(playerModel.getNba().getStart()),
+                playerModel.getHeight().getMeters() + "m",
+                playerModel.getWeight().getKilograms() + "kg",
+                teamID,
+                "#" + playerModel.getLeagues().getStandard().getJersey(),
+                "Position: " + playerModel.getLeagues().getStandard().getPos(),
+                String.valueOf(playerModel.getLeagues().getStandard().isActive())
+        };
+        bundle.putString("playerId", String.valueOf(playerModel.getId()));
+        bundle.putString("playerName", playerModel.getFirstname() + " " + playerModel.getLastname());
+        bundle.putStringArray("playerAttributes",playerAttributes);
+
+        Navigation.findNavController(v).navigate(R.id.action_teamDialogFragment_to_playersDetailFragment, bundle);
     }
 }

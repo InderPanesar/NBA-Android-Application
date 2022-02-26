@@ -148,8 +148,8 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         AppConsts.verifyActivity(getActivity());
         ((DrawerLayoutControl) getActivity()).setDrawerEnabled(false);
         Bundle bundle = new Bundle();
-        bundle.putString("teamId", teamsModel.getTeamId());
-        bundle.putString("teamName", teamsModel.getFullName());
+        bundle.putString("teamId", teamsModel.getId()+"");
+        bundle.putString("teamName", teamsModel.getName());
         Navigation.findNavController(v).navigate(R.id.action_teams_to_teamDialogFragment, bundle);
     }
 }

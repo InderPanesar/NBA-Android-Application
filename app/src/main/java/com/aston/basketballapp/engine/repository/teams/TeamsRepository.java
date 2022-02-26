@@ -1,11 +1,12 @@
 package com.aston.basketballapp.engine.repository.teams;
 
-import com.aston.basketballapp.engine.model.teams.TeamsModel;
+import com.aston.basketballapp.engine.model.teams.TeamsModelAPI;
+
 import retrofit2.Call;
 
 //Teams Repository to make calls to the API
 public interface TeamsRepository {
-    Call<TeamsModel> getTeams(String conference);
-    Call<TeamsModel> getTeam(String teamId);
+    Call<TeamsModelAPI> getTeams(String conference);
+    Call<TeamsModelAPI> getTeam(String teamId);
 
 }

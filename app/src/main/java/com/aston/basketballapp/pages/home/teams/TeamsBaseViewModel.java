@@ -2,8 +2,9 @@ package com.aston.basketballapp.pages.home.teams;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
+
 import com.aston.basketballapp.engine.model.teams.IndividualTeamsModel;
-import com.aston.basketballapp.engine.model.teams.TeamsModel;
+import com.aston.basketballapp.engine.model.teams.TeamsModelAPI;
 import com.aston.basketballapp.engine.repository.teams.TeamsRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 import java.util.ArrayList;
@@ -32,19 +33,19 @@ public class TeamsBaseViewModel extends ViewModel {
     public StateMutableLiveData<ArrayList<IndividualTeamsModel>> getTeams() {
         StateMutableLiveData<ArrayList<IndividualTeamsModel>> data = new StateMutableLiveData<>();
         data.postValueLoading();
-        repository.getTeams(currentConference).enqueue(new Callback<TeamsModel>() {
+        repository.getTeams(currentConference).enqueue(new Callback<TeamsModelAPI>() {
             @Override
-            public void onResponse(@NonNull Call<TeamsModel> call, @NonNull Response<TeamsModel> response) {
+            public void onResponse(@NonNull Call<TeamsModelAPI> call, @NonNull Response<TeamsModelAPI> response) {
               if(!response.isSuccessful()) {
                   data.postValueError(null);
               }
               else {
-                  TeamsModel model = response.body();
+                  TeamsModelAPI model = response.body();
                   if(model != null) {
-                      ArrayList<IndividualTeamsModel> teams = model.getApi().getTeams();
+                      ArrayList<IndividualTeamsModel> teams = model.getTeams();
                       ArrayList<IndividualTeamsModel> filteredTeams = new ArrayList<>();
                       for(IndividualTeamsModel team : teams) {
-                          if(team.getNbaFranchise().equals("1") && !team.getLogo().equals("")) {
+                          if(team.isNbaFranchise() && !team.getLogo().equals("")) {
                               filteredTeams.add(team);
                           }
                       }
@@ -55,7 +56,7 @@ public class TeamsBaseViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(@NonNull Call<TeamsModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<TeamsModelAPI> call, @NonNull Throwable t) {
                 data.postValueError(t);
             }
 

@@ -101,7 +101,7 @@ public class PlayersDetailFragment extends Fragment {
         textView = v.findViewById(R.id.player_team_position);
         textView.setText(playerAttributes[9]);
         textView = v.findViewById(R.id.player_team_status_title);
-        if(playerAttributes[10].equals("1")) {
+        if(playerAttributes[10].equals("true")) {
             textView.setText(R.string.PlayerIsActive);
         }
         else {
@@ -146,6 +146,9 @@ public class PlayersDetailFragment extends Fragment {
         AppConsts.verifyArguments(getArguments());
         viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
 
+        UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(view1 ->
+                viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver)
+        );
 
 
         return v;

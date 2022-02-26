@@ -3,29 +3,19 @@ package com.aston.basketballapp.engine.model.schedule.gameStatistics;
 import java.util.List;
 
 public class GameStatisticModelAPI {
-    int status;
-    String message;
+    String get;
     int results;
-    List<String> filters;
-    List<StatisticsModel> statistics;
-
-    public int getStatus() {
-        return status;
-    }
+    List<StatisticsModel> response;
 
     public String getMessage() {
-        return message;
+        return get;
     }
 
     public int getResults() {
         return results;
     }
 
-    public List<String> getFilters() {
-        return filters;
-    }
-
     public List<StatisticsModel> getStatistics() {
-        return statistics;
+        return response;
     }
 }
