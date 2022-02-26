@@ -7,28 +7,28 @@
         <item
             android:id="@+id/landingPage"
             android:icon="@drawable/ic_home"
-            android:iconTint="@color/black"
+            android:iconTint="@drawable/menu_selector"
             android:title="@string/home_menu" />
         <item
             android:id="@+id/teams"
             android:icon="@drawable/ic_team"
-            android:iconTint="@color/black"
+            android:iconTint="@drawable/menu_selector"
             android:title="@string/teams_menu" />
         <item
             android:id="@+id/schedule"
             android:icon="@drawable/ic_calendar"
-            android:iconTint="@color/black"
+            android:iconTint="@drawable/menu_selector"
             android:title="@string/schedule_menu" />
         <item
             android:id="@+id/stadiums"
             android:icon="@drawable/ic_place"
-            android:iconTint="@color/black"
+            android:iconTint="@drawable/menu_selector"
             android:title="@string/stadiums_menu" />
 
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings"
-            android:iconTint="@color/black"
+            android:iconTint="@drawable/menu_selector"
             android:title="@string/settings_menu" />
     </group>
 
