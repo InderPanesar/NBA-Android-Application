@@ -11,9 +11,11 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/top_teams_bar"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_width="fill_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +28,10 @@
             android:textAllCaps="false"
             android:fontFamily="@font/asap_bold"
             android:textSize="14sp"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:text="@string/east_team_button" />
 
@@ -38,7 +43,10 @@
             android:textSize="14sp"
             app:shapeAppearanceOverlay="@style/PillShapeAppearance"
             android:textAllCaps="false"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:text="@string/west_team_button" />
     </LinearLayout>
@@ -52,7 +60,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_gravity="center_horizontal|center_vertical"
             android:id="@+id/teams_recycler_view"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="0dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:visibility="visible"
