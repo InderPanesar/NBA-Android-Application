@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
         gyroscope.setGyroscopeListener(new Gyroscope.GyroscopeListener() {
             @Override
             public void onRotation(float dx, float dy, float dz) {
-                System.out.println(" (" + dx + ", " + dy + ", " + dz + " )");
-
                 if(dz > 0.5f) {
                     if(enabledDrawerMenu) {
                         drawerLayout.open();
@@ -156,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutContr
             }
         }
         else {
-            view.setText("Basketball Bonaza");
+            view.setText(getBaseContext().getString(R.string.basic_title));
             Picasso.get().load("https://logoeps.com/wp-content/uploads/2011/05/nba-logo-vector-01.png").fit().into(imageView);
 
         }

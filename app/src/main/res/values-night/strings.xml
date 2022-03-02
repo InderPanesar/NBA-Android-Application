@@ -81,4 +81,5 @@
     <string name="QuarterStringValueScheduleCard">\"Quarter: \"</string>
     <string name="standings_text">Standings</string>
     <string name="favourite_team">Favourite Team</string>
+    <string name="basic_title">Basketball Bonaza</string>
 </resources>
