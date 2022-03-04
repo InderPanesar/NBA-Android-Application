@@ -155,7 +155,7 @@ public class StadiumRepo {
 
         info.add(new StadiumInformation(
                 "clippers",
-                "STAPLES Center",
+                "Crypto.com Arena",
                 "20,000",
                 "https://www.nba.com/clippers/tickets",
                 "https://upload.wikimedia.org/wikipedia/commons/2/24/Staples_Center_2012.jpg",
@@ -166,7 +166,7 @@ public class StadiumRepo {
 
         info.add(new StadiumInformation(
                 "lakers",
-                "STAPLES Center",
+                "Crypto.com Arena",
                 "20,000",
                 "https://www.nba.com/lakers/tickets",
                 "https://upload.wikimedia.org/wikipedia/commons/2/24/Staples_Center_2012.jpg",

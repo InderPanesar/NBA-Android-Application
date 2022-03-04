@@ -25,29 +25,23 @@
         android:id="@+id/user_favourite_team_card"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:elevation="0dp"
         android:clickable="true"
         android:padding="20dp"
         android:layout_gravity="center"
         app:cardCornerRadius="60dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/black">
-
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:layout_margin="10dp"
+            android:id="@+id/player_team_logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="100dp"
-            android:layout_margin="5dp"
-            android:elevation="10dp">
-            <ImageView
-                android:id="@+id/player_team_logo"
-                android:src="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/favourite_team_icon_content_description" />
-        </androidx.cardview.widget.CardView>
+            android:background="@color/white"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/favourite_team_icon_content_description" />
+
 
     </com.google.android.material.card.MaterialCardView>
 

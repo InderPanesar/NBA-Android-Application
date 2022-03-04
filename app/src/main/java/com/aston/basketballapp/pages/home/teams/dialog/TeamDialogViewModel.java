@@ -9,6 +9,8 @@ import com.aston.basketballapp.engine.repository.players.PlayersRepository;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -54,6 +56,11 @@ public class TeamDialogViewModel extends ViewModel {
                                 }
                             }
                         }
+
+                        filteredPlayers.sort(Comparator.comparing(IndividualPlayerModel::getLastname));
+
+
+
                         data.postValueSuccess(filteredPlayers);
                     }
 
