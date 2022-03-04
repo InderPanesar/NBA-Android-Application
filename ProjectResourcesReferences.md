@@ -1,13 +1,9 @@
-=======================================================================================================================================================================================
-Project Packages Used
-=======================================================================================================================================================================================
+# Project Packages Used
 1. [RETROFIT] - https://square.github.io/retrofit/
 2. [MATERIAL] - https://mvnrepository.com/artifact/com.google.android.material/material?repo=google
 3. [HILT] - https://dagger.dev/hilt/
 4. [MockWebServer] - https://github.com/square/okhttp/tree/master/mockwebserver
-=======================================================================================================================================================================================
-Image Links
-=======================================================================================================================================================================================
+# Image Links
 1.	https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Washington_Wizards_logo.svg/1200px-Washington_Wizards_logo.svg.png 
 2.	https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png
 3.	https://upload.wikimedia.org/wikipedia/fr/thumb/6/65/Celtics_de_Boston_logo.svg/1024px-Celtics_de_Boston_logo.svg.png
@@ -107,14 +103,10 @@ Image Links
 97.	https://mediaim.expedia.com/destination/1/2f76b65ec13a0e93e33e2749e3e3223e.jpg?impolicy=fcrop&w=536&h=384&q=high
 98.	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7t03uWtUI6i10FS_1cRNe8gNT95rDW8QOFgHMsHWJ9dh_ksiV4dzoRnEi9PAnqaWr_mM&usqp=CAU
 99.	https://monumentalsports.com/wp-content/uploads/2019/09/COA-Exterior-SM.jpg
-=======================================================================================================================================================================================
-Font Links
-=======================================================================================================================================================================================
+# Font Links
 1.	https://fonts.google.com/specimen/Asap
 2.	https://fonts.google.com/specimen/Asap+Condensed
-=======================================================================================================================================================================================
-Website links used in App
-=======================================================================================================================================================================================
+# Website links used in App
 1.	https://www.nba.com/hawks/tickets
 2.	https://www.nba.com/celtics/tickets
 3.	https://www.nba.com/nets/tickets
@@ -145,4 +137,3 @@ Website links used in App
 28.	https://www.nba.com/blazers/tickets
 29.	https://www.nba.com/jazz/tickets
 30.	https://www.nba.com/wizards/tickets
-=======================================================================================================================================================================================
