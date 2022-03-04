@@ -167,6 +167,8 @@ public class MainBaseFragment extends Fragment {
             favouriteTeamWidgetPage.setVisibility(View.GONE);
         }
 
+        mainFragmentViewModel.conference = "east";
+
         return v;
     }
 

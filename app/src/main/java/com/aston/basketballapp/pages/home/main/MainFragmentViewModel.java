@@ -27,7 +27,7 @@ public class MainFragmentViewModel extends ViewModel {
     //Headers to the table
     List<String> headers = Arrays.asList("Seed", "Logo", "Team", "Record");
     //State of the scheduleFragment
-    String conference = "east";
+    String conference;
 
 
 
@@ -36,6 +36,7 @@ public class MainFragmentViewModel extends ViewModel {
     @Inject
     public MainFragmentViewModel(@Named("StandingsRepository") StandingsRepository standingsRepository) {
         repository = standingsRepository;
+        conference = "east";
     }
 
     //Get Favourite Team information.

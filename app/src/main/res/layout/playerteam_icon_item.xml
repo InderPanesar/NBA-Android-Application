@@ -24,23 +24,15 @@
             app:cardCornerRadius="60dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/black">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/player_team_image"
+            <ImageView
+                android:layout_margin="10dp"
+                android:id="@+id/player_team_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@color/black"
-                app:cardCornerRadius="100dp"
-                android:layout_margin="5dp"
-                android:elevation="10dp">
-                <ImageView
-                    android:id="@+id/player_team_image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="@string/logo" />
-            </androidx.cardview.widget.CardView>
+                android:background="@color/white"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/logo" />
+
 
         </com.google.android.material.card.MaterialCardView>
 

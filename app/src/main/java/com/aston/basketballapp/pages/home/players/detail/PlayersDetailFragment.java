@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,6 +103,7 @@ public class PlayersDetailFragment extends Fragment {
         textView = v.findViewById(R.id.player_team_position);
         textView.setText(playerAttributes[9]);
         textView = v.findViewById(R.id.player_team_status_title);
+        System.out.println(playerAttributes[10]);
         if(playerAttributes[10].equals("true")) {
             textView.setText(R.string.PlayerIsActive);
         }
@@ -162,8 +165,12 @@ public class PlayersDetailFragment extends Fragment {
             playerStatsTable.removeView(row);
         }
 
-
         if(stats == null) {
+            TextView header = v.findViewById(R.id.recent_game_header);
+            header.setVisibility(View.INVISIBLE);
+            playerStatsTable.setVisibility(View.INVISIBLE);
+        }
+        else if(stats.get(0).attributes.size() == 0){
             TextView header = v.findViewById(R.id.recent_game_header);
             header.setVisibility(View.INVISIBLE);
             playerStatsTable.setVisibility(View.INVISIBLE);
@@ -185,8 +192,10 @@ public class PlayersDetailFragment extends Fragment {
             for (SinglePlayerStatsAdapter _stats : stats) {
                 TableRow tbrow = new TableRow(getContext());
                 for(String value : _stats.attributes) {
+
                     TextView tv = new TextView(getContext());
-                    if(value.equals("")) { tv.setText("n/a"); }
+                    if(TextUtils.isEmpty(value)) { tv.setText("n/a"); }
+                    else if(value.equals("")) { tv.setText("n/a"); }
                     else { tv.setText(value); }
                     tv.setTextColor(Color.BLACK);
                     tv.setGravity(Gravity.CENTER);
@@ -194,7 +203,6 @@ public class PlayersDetailFragment extends Fragment {
                     AppConsts.verifyContext(getContext());
                     tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
                     tbrow.addView(tv);
-                    removeRows.add(tbrow);
                 }
                 playerStatsTable.addView(tbrow);
 

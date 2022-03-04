@@ -11,6 +11,10 @@ public class StatisticsModel {
         return team.id + "";
     }
 
+    public String getTeamCode() {
+        return team.code + "";
+    }
+
     public String getFastBreakPoints() {
         return statistics.get(0).fastBreakPoints + "";
     }

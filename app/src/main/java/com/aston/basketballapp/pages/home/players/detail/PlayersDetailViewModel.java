@@ -1,21 +1,32 @@
 package com.aston.basketballapp.pages.home.players.detail;
 
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.StrictMode;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.aston.basketballapp.engine.model.player.stats.PlayerStatistics;
 import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModelApi;
+import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticModelAPI;
+import com.aston.basketballapp.engine.model.schedule.gameStatistics.StatisticsModel;
+import com.aston.basketballapp.engine.model.schedule.schedule.ScheduleModelApi;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
+import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.StateMutableLiveData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,9 +47,12 @@ public class PlayersDetailViewModel extends ViewModel {
     Map<Integer, String> teams;
 
     PlayersRepository repository;
+    ScheduleRepository scheduleRepository;
+
     @Inject
-    public PlayersDetailViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository) {
+    public PlayersDetailViewModel(@Named("PlayersRepository") PlayersRepository exampleRepository, @Named("ScheduleRepository") ScheduleRepository _scheduleRepository) {
         repository = exampleRepository;
+        scheduleRepository = _scheduleRepository;
         addTeamsToHashMap();
     }
 
@@ -49,6 +63,7 @@ public class PlayersDetailViewModel extends ViewModel {
         List<String> categories = new ArrayList<>();
         Integer integer = -1;
         integers.removeAll(Collections.singleton(integer));
+        categories.add("Opponent");
         for(Integer i : integers) {
             if(i != -1) {
                 String value = returnStatisticTopic(i);
@@ -64,6 +79,7 @@ public class PlayersDetailViewModel extends ViewModel {
             return data;
         }
 
+
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModelApi>() {
             @Override
             public void onResponse(@NonNull Call<PlayerStatsModelApi> call, @NonNull Response<PlayerStatsModelApi> response) {
@@ -75,19 +91,65 @@ public class PlayersDetailViewModel extends ViewModel {
                     Collections.reverse(_statistics);
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
+                        final String[] againstTeam = {""};
+                        int finalI = i;
+
+                        //Make the call to get Opponent Team from different API
+                        if(i < _statistics.size()-1) {
+                            Handler handler = new Handler(Looper.getMainLooper());
+
+                            Thread one = new Thread(() -> {
+
+                                Response<GameStatisticModelAPI> teamIDResponse = null;
+                                String id = _statistics.get(finalI).getGameId();
+                                String code = _statistics.get(finalI).getTeamCode();
+
+                                try {
+                                    teamIDResponse = scheduleRepository.getGameStatisticDetails(id).execute();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                if(teamIDResponse != null) {
+                                    List<StatisticsModel> models = teamIDResponse.body().getStatistics();
+                                    if(!code.equals(models.get(0).getTeamCode())) {
+                                        againstTeam[0] = "vs " + models.get(0).getTeamCode();
+                                    }
+                                    else {
+                                        againstTeam[0] = "vs " + models.get(1).getTeamCode();
+                                    }
+                                }
+                                handler.post(() -> {
+                                    //UI Thread work here
+                                });
+                            });
+
+                            one.start();
+                            try {
+                                one.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+
                         if(integers.size() == 1 && _statistics.size() > 0) {
+                            _values.add(againstTeam[0]);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                         }
                         else if(integers.size() == 2 && _statistics.size() > 1) {
+                            _values.add(againstTeam[0]);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                         }
                         else if(integers.size() == 3 && _statistics.size() > 2) {
+                            _values.add(againstTeam[0]);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(2), _statistics.get(i)));
                         }
                         else if(integers.size() == 4 && _statistics.size() > 3) {
+                            _values.add(againstTeam[0]);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(2), _statistics.get(i)));
