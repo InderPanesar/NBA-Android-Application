@@ -28,6 +28,7 @@ public class PlayerStatistics {
 
     public String getGameId()  { return game.id + ""; }
     public String getTeamId() { return team.id + ""; }
+    public String getTeamCode() { return team.code + ""; }
     public String getPoints() { return points + ""; }
     public String getPos() { return pos; }
     public String getMin() { return min; }
