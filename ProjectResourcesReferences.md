@@ -1,0 +1,148 @@
+=======================================================================================================================================================================================
+Project Packages Used
+=======================================================================================================================================================================================
+1. [RETROFIT] - https://square.github.io/retrofit/
+2. [MATERIAL] - https://mvnrepository.com/artifact/com.google.android.material/material?repo=google
+3. [HILT] - https://dagger.dev/hilt/
+4. [MockWebServer] - https://github.com/square/okhttp/tree/master/mockwebserver
+=======================================================================================================================================================================================
+Image Links
+=======================================================================================================================================================================================
+1.	https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Washington_Wizards_logo.svg/1200px-Washington_Wizards_logo.svg.png 
+2.	https://upload.wikimedia.org/wikipedia/fr/e/ee/Hawks_2016.png
+3.	https://upload.wikimedia.org/wikipedia/fr/thumb/6/65/Celtics_de_Boston_logo.svg/1024px-Celtics_de_Boston_logo.svg.png
+4.	https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Brooklyn_Nets_newlogo.svg/130px-Brooklyn_Nets_newlogo.svg.png
+5.	https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png
+6.	https://upload.wikimedia.org/wikipedia/fr/thumb/f/f3/Hornets_de_Charlotte_logo.svg/1200px-Hornets_de_Charlotte_logo.svg.png
+7.	https://upload.wikimedia.org/wikipedia/fr/thumb/0/06/Cavs_de_Cleveland_logo_2017.png/150px-Cavs_de_Cleveland_logo_2017.png
+8.	https://upload.wikimedia.org/wikipedia/fr/thumb/b/b8/Mavericks_de_Dallas_logo.svg/150px-Mavericks_de_Dallas_logo.svg.png
+9.	https://upload.wikimedia.org/wikipedia/fr/thumb/3/35/Nuggets_de_Denver_2018.png/180px-Nuggets_de_Denver_2018.png
+10.	https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Detroit_Pistons_primary_logo_2017.png/150px-Detroit_Pistons_primary_logo_2017.png
+11.	https://upload.wikimedia.org/wikipedia/fr/thumb/d/de/Warriors_de_Golden_State_logo.svg/1200px-Warriors_de_Golden_State_logo.svg.png
+12.	https://upload.wikimedia.org/wikipedia/fr/thumb/d/de/Houston_Rockets_logo_2003.png/330px-Houston_Rockets_logo_2003.png
+13.	https://upload.wikimedia.org/wikipedia/fr/thumb/c/cf/Pacers_de_l%27Indiana_logo.svg/1180px-Pacers_de_l%27Indiana_logo.svg.png
+14.	https://upload.wikimedia.org/wikipedia/fr/d/d6/Los_Angeles_Clippers_logo_2010.png
+15.	https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Los_Angeles_Lakers_logo.svg/220px-Los_Angeles_Lakers_logo.svg.png
+16.	https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Melbourne_United_logo.svg/220px-Melbourne_United_logo.svg.png
+17.	https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Memphis_Grizzlies.svg/1200px-Memphis_Grizzlies.svg.png
+18.	https://upload.wikimedia.org/wikipedia/fr/thumb/1/1c/Miami_Heat_-_Logo.svg/1200px-Miami_Heat_-_Logo.svg.png
+19.	https://upload.wikimedia.org/wikipedia/fr/3/34/Bucks2015.png
+20.	https://upload.wikimedia.org/wikipedia/fr/thumb/d/d9/Timberwolves_du_Minnesota_logo_2017.png/200px-Timberwolves_du_Minnesota_logo_2017.png
+21.	https://upload.wikimedia.org/wikipedia/fr/thumb/2/21/New_Orleans_Pelicans.png/200px-New_Orleans_Pelicans.png
+22.	https://upload.wikimedia.org/wikipedia/fr/d/dc/NY_Knicks_Logo_2011.png
+23.	https://upload.wikimedia.org/wikipedia/fr/thumb/4/4f/Thunder_d%27Oklahoma_City_logo.svg/1200px-Thunder_d%27Oklahoma_City_logo.svg.png
+24.	https://upload.wikimedia.org/wikipedia/fr/b/bd/Orlando_Magic_logo_2010.png
+25.	https://upload.wikimedia.org/wikipedia/fr/4/48/76ers_2016.png
+26.	https://upload.wikimedia.org/wikipedia/fr/5/56/Phoenix_Suns_2013.png
+27.	https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Portland_Trail_Blazers_logo.svg/1200px-Portland_Trail_Blazers_logo.svg.png
+28.	https://upload.wikimedia.org/wikipedia/fr/thumb/9/95/Kings_de_Sacramento_logo.svg/1200px-Kings_de_Sacramento_logo.svg.png
+29.	https://upload.wikimedia.org/wikipedia/fr/0/0e/San_Antonio_Spurs_2018.png
+30.	https://upload.wikimedia.org/wikipedia/fr/8/89/Raptors2015.png
+31.	https://upload.wikimedia.org/wikipedia/fr/3/3b/Jazz_de_l%27Utah_logo.png
+32.	https://upload.wikimedia.org/wikipedia/fr/archive/d/d6/20161212034849%21Wizards2015.png
+33.	https://www.pinclipart.com/picdir/middle/179-1793198_art-black-and-white-src-basketball-ball-logo.png
+34.	https://images.ctfassets.net/xsbsj4s4spn6/4uSWbIDAab8TakJigyMS9P/9889a6eef3206fa5a49abef0821417da/Lakers-Huddle-SC-Hallway-1328x784-GettyImages-1235813431.jpg?q=80&fm=jpg&fl=progressive&w=664&fit=fill
+35.	https://loodibee.com/nba/nba-atlanta-hawks-logo/
+36.	https://loodibee.com/nba/nba-boston-celtics-logo/
+37.	https://loodibee.com/nba/nba-brooklyn-nets-logo/
+38.	https://loodibee.com/nba/nba-charlotte-hornets-logo/
+39.	https://loodibee.com/nba/nba-chicago-bulls-logo/
+40.	https://loodibee.com/nba/nba-cleveland-cavaliers-logo/
+41.	https://loodibee.com/nba/nba-dallas-mavericks-logo/
+42.	https://loodibee.com/nba/nba-denver-nuggets-logo-2018/
+43.	https://loodibee.com/nba/nba-detroit-pistons-logo/
+44.	https://loodibee.com/nba/nba-golden-state-warriors-logo/
+45.	https://loodibee.com/nba/nba-houston-rockets-logo/
+46.	https://loodibee.com/nba/nba-indiana-pacers-logo/
+47.	https://loodibee.com/nba/nba-la-clippers-logo/
+48.	https://loodibee.com/nba/nba-los-angeles-lakers-logo/
+49.	https://loodibee.com/nba/nba-memphis-grizzles-logo/
+50.	https://loodibee.com/nba/nba-miami-heat-logo/
+51.	https://loodibee.com/nba/nba-milwaukee-bucks-logo/
+52.	https://loodibee.com/nba/nba-minnesota-timberwolves-logo/
+53.	https://loodibee.com/nba/nba-new-orleans-pelicans-logo/
+54.	https://loodibee.com/nba/nba-new-york-knicks-logo/
+55.	https://loodibee.com/nba/nba-oklahoma-city-thunder-logo/
+56.	https://loodibee.com/nba/nba-orlando-magic-logo/
+57.	https://loodibee.com/nba/nba-philadelphia-76ers-logo/
+58.	https://loodibee.com/nba/nba-phoenix-suns-logo/
+59.	https://loodibee.com/nba/nba-portland-trail-blazers-logo/
+60.	https://loodibee.com/nba/nba-sacramento-kings-logo/
+61.	https://loodibee.com/nba/nba-san-antonio-spurs-logo/
+62.	https://loodibee.com/nba/nba-toronto-raptors-logo/
+63.	https://loodibee.com/nba/nba-utah-jazz-logo/
+64.	https://loodibee.com/nba/nba-washington-wizards-logo/
+65.	https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Ahome%3A
+66.	https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Agroups%3A
+67.	https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Acalendar_today%3A
+68.	https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aplace%3A
+69.	https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Asettings%3A
+70.	https://fonts.google.com/icons?selected=Material%20Icons%20Round%3Aclose%3A
+71.	https://cdn.wegow.com/media/venues/state-farm-arena/state-farm-arena-1634221655.8113344.jpg
+72.	https://upload.wikimedia.org/wikipedia/commons/6/6a/TD_Garden_%28crop%29.JPG
+73.	https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/BarclayCenter-2_%2848034233762%29.jpg/1200px-BarclayCenter-2_%2848034233762%29.jpg
+74.	https://www.spectrumcentercharlotte.com/assets/img/Spectrum_Center_TradeSt_Slide-b25a4c749a.jp
+75.	https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/United_Center_1.jpg/330px-United_Center_1.jpg
+76.	https://upload.wikimedia.org/wikipedia/commons/f/fd/Rocket_Mortgage_FieldHouse_%282%29.jpg
+77.	https://upload.wikimedia.org/wikipedia/commons/3/3d/American_Airlines_Center_%286246886325%29_cropped.jpg
+78.	https://upload.wikimedia.org/wikipedia/commons/9/98/Pepsi_Center_2013.jpg
+79.	https://cms.nhl.bamgrid.com/images/photos/290630558/1024x576/cut.jpg
+80.	https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Chase_Center.jpg/330px-Chase_Center.jpg
+81.	https://populous.com/wp-content/uploads/2018/01/POP_00_0653_00_N56_medium.jpg
+82.	https://www.gannett-cdn.com/presto/2021/09/28/PIND/dd91186f-cb8a-42e3-953d-2763c5304019-2021_0922_Penn_GAINBRIDGE.jpeg?crop=3823,2151,x0,y0&width=3200&height=1801&format=pjpg&auto=webp
+83.	https://upload.wikimedia.org/wikipedia/commons/2/24/Staples_Center_2012.jpg
+84.	https://upload.wikimedia.org/wikipedia/commons/3/37/FedExForum.jpg
+85.	https://upload.wikimedia.org/wikipedia/commons/4/44/American_Airlines_Arena%2C_Miami%2C_FL%2C_jjron_29.03.2012.jpg
+86.	https://www.nba.com/bucks/sites/bucks/files/ff-ext-0526-4.jpg?w=756&h=425
+87.	https://cdn.saffire.com/images.ashx?t=ig&rid=ASMGlobal&i=target-center-arena-minneapolis-mn-usa-asm-global.jpg
+88.	https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Smoothie_King_Center.jpg/280px-Smoothie_King_Center.jpg
+89.	https://img.msg.com/wp-content/uploads/2021/02/MSG_Welcome-Fans_VLP.jpg?w=500
+90.	https://3gz8cg829c.execute-api.us-west-2.amazonaws.com/prod/image-renderer/16x9/full/1015/center/80/53e25380-dfc0-4f2e-9c61-252abe29fa7b-large16x9_9.jpg
+91.	https://populous.com/wp-content/uploads/2018/01/ORLANDOAR_0209_Tanner.jpg
+92.	https://upload.wikimedia.org/wikipedia/commons/6/61/Wells_Fargo_Center.jpg
+93.	https://basketballforever.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2021/10/19113004/FPC.jpeg
+94.	https://aecom.com/uk/wp-content/uploads/2015/10/golden_1_center_6.jpg
+95.	https://static.wikia.nocookie.net/nba/images/d/d9/AT%26T_Center.jpg/revision/latest?cb=20160214194951
+96.	https://mediaim.expedia.com/destination/2/0eac53acf36796a89cc6b7e43b9994a1.jpg?impolicy=fcrop&w=536&h=384&q=high
+97.	https://mediaim.expedia.com/destination/1/2f76b65ec13a0e93e33e2749e3e3223e.jpg?impolicy=fcrop&w=536&h=384&q=high
+98.	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7t03uWtUI6i10FS_1cRNe8gNT95rDW8QOFgHMsHWJ9dh_ksiV4dzoRnEi9PAnqaWr_mM&usqp=CAU
+99.	https://monumentalsports.com/wp-content/uploads/2019/09/COA-Exterior-SM.jpg
+=======================================================================================================================================================================================
+Font Links
+=======================================================================================================================================================================================
+1.	https://fonts.google.com/specimen/Asap
+2.	https://fonts.google.com/specimen/Asap+Condensed
+=======================================================================================================================================================================================
+Website links used in App
+=======================================================================================================================================================================================
+1.	https://www.nba.com/hawks/tickets
+2.	https://www.nba.com/celtics/tickets
+3.	https://www.nba.com/nets/tickets
+4.	https://www.nba.com/hornets/tickets
+5.	https://www.nba.com/bulls/tickets
+6.	https://www.nba.com/cavaliers/tickets
+7.	https://www.nba.com/mavericks/tickets
+8.	https://www.nba.com/nuggets/tickets
+9.	https://www.nba.com/pistons/tickets
+10.	https://www.nba.com/warriors/tickets
+11.	https://www.nba.com/rockets/tickets
+12.	https://www.nba.com/pacers/tickets
+13.	https://www.nba.com/clippers/tickets
+14.	https://www.nba.com/lakers/tickets
+15.	https://www.nba.com/grizzlies/tickets
+16.	https://www.nba.com/heat/tickets
+17.	https://www.nba.com/bucks/tickets
+18.	https://www.nba.com/timberwolves/tickets
+19.	https://www.nba.com/pelicans/tickets
+20.	https://www.nba.com/knicks/tickets
+21.	https://www.nba.com/thunder/tickets
+22.	https://www.nba.com/magic/tickets
+23.	https://www.nba.com/sixers/tickets
+24.	https://www.nba.com/suns/tickets
+25.	https://www.nba.com/kings/tickets
+26.	https://www.nba.com/spurs/tickets
+27.	https://www.nba.com/raptors/tickets
+28.	https://www.nba.com/blazers/tickets
+29.	https://www.nba.com/jazz/tickets
+30.	https://www.nba.com/wizards/tickets
+=======================================================================================================================================================================================
