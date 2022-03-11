@@ -23,7 +23,7 @@
 
 
     <color name="east_blue_selected">#0C59CF</color>
-    <color name="east_blue_unselected">#75A9F9</color>
+    <color name="east_blue_unselected">#9EBDEC</color>
 
     <color name="west_red_selected">#FF3823</color>
     <color name="west_red_unselected">#FFB4B0</color>
