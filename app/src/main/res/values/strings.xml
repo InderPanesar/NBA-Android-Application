@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Basketball Bonanza</string>
     <string name="international">International</string>
-    <string name="error_with_api_call">Error with API call!</string>
+    <string name="error_with_api_call">Oops something went wrong!</string>
     <string name="logo">Logo</string>
     <string name="east_team_button">East</string>
     <string name="west_team_button">West</string>
