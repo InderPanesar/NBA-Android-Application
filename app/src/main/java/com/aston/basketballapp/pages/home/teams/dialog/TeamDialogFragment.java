@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.aston.basketballapp.R;
 import com.aston.basketballapp.engine.model.player.IndividualPlayerModel;
+import com.aston.basketballapp.pages.home.teams.players.PlayersBaseAdapter;
+import com.aston.basketballapp.pages.home.teams.players.PlayersCardClicked;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.DrawerLayoutControl;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;

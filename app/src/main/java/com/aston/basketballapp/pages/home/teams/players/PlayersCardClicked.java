@@ -1,4 +1,4 @@
-package com.aston.basketballapp.pages.home.teams.dialog;
+package com.aston.basketballapp.pages.home.teams.players;
 
 import android.view.View;
 
