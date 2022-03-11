@@ -139,7 +139,6 @@ public class PlayersDetailFragment extends Fragment {
             Picasso.get().load(viewModel.nbaLogoURL).fit().into(view, new Callback() {
                 @Override
                 public void onSuccess() {
-                    //Make API Call after image loaded to avoid dropped frames.
                     AppConsts.verifyActivity(getActivity());
                     AppConsts.verifyArguments(getArguments());
                     viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
@@ -158,7 +157,6 @@ public class PlayersDetailFragment extends Fragment {
                     Picasso.get().load(team.getLogoURL()).fit().centerCrop().fit().into(view, new Callback() {
                         @Override
                         public void onSuccess() {
-                            //Make API Call after image loaded to avoid dropped frames.
                             AppConsts.verifyActivity(getActivity());
                             AppConsts.verifyArguments(getArguments());
                             viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
