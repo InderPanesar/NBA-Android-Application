@@ -5,7 +5,7 @@ import com.aston.basketballapp.R;
 
 
 //Locally Store the Stadium information as the information is not provided by the API.
-public class StadiumRepo {
+public class StadiumBaseFragmentViewModel {
 
     public static ArrayList<StadiumInformation> getStadiumsInfo() {
         ArrayList<StadiumInformation> info = new ArrayList<>();

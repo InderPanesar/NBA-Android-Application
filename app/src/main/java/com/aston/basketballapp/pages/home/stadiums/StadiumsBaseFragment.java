@@ -103,7 +103,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Get all information for the stadiums.
-        ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
+        ArrayList<StadiumInformation> bob = StadiumBaseFragmentViewModel.getStadiumsInfo();
         //Add all markers to map using Google Map API.
         for(int i = 0; i < bob.size(); i++) {
             Marker marker = map.addMarker(new MarkerOptions()
@@ -121,7 +121,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map.setOnMarkerClickListener(marker -> {
             if(marker.getTag() != null) {
                 int position = (int)(marker.getTag());
-                StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
+                StadiumInformation stadiumInformation = StadiumBaseFragmentViewModel.getStadiumsInfo().get(position);
                 stadiumTextView.setText(getStadiumInformation(stadiumInformation));
                 capacityTextView.setText(getStadiumCapacity(stadiumInformation));
                 Picasso.get()
