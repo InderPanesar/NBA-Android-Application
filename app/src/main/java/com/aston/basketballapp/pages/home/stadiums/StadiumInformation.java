@@ -24,7 +24,6 @@ public class StadiumInformation {
             float _latitude,
             float _longitude,
             int _vectorPointer) {
-
         this.teamName = _teamName;
         this.stadiumName = _stadiumName;
         this.capacity = _capacity;

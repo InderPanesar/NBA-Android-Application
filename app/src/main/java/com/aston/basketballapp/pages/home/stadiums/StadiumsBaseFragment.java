@@ -87,6 +87,8 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         ticketButton =  v.findViewById(R.id.stadium_ticket_button);
 
         ticketButton.setEnabled(false);
+        ticketButton.setAlpha(.3f);
+        ticketButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.alto));
 
         //Open Ticket Page in webpage for browser
         ticketButton.setOnClickListener(v1 -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentURL))));
@@ -96,6 +98,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+
         map = googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
 
@@ -131,6 +134,10 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
                 currentURL = stadiumInformation.ticketsURL;
                 ticketButton.setEnabled(true);
+                ticketButton.setAlpha(1f);
+                ticketButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.sunglow));
+
+
             }
             return false;
         });
