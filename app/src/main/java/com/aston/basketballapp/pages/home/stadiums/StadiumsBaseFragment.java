@@ -87,6 +87,8 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         ticketButton =  v.findViewById(R.id.stadium_ticket_button);
 
         ticketButton.setEnabled(false);
+        ticketButton.setAlpha(.3f);
+        ticketButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.alto));
 
         //Open Ticket Page in webpage for browser
         ticketButton.setOnClickListener(v1 -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentURL))));
@@ -96,11 +98,12 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+
         map = googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Get all information for the stadiums.
-        ArrayList<StadiumInformation> bob = StadiumRepo.getStadiumsInfo();
+        ArrayList<StadiumInformation> bob = StadiumBaseFragmentViewModel.getStadiumsInfo();
         //Add all markers to map using Google Map API.
         for(int i = 0; i < bob.size(); i++) {
             Marker marker = map.addMarker(new MarkerOptions()
@@ -118,7 +121,7 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
         map.setOnMarkerClickListener(marker -> {
             if(marker.getTag() != null) {
                 int position = (int)(marker.getTag());
-                StadiumInformation stadiumInformation = StadiumRepo.getStadiumsInfo().get(position);
+                StadiumInformation stadiumInformation = StadiumBaseFragmentViewModel.getStadiumsInfo().get(position);
                 stadiumTextView.setText(getStadiumInformation(stadiumInformation));
                 capacityTextView.setText(getStadiumCapacity(stadiumInformation));
                 Picasso.get()
@@ -131,6 +134,10 @@ public class StadiumsBaseFragment extends Fragment implements OnMapReadyCallback
 
                 currentURL = stadiumInformation.ticketsURL;
                 ticketButton.setEnabled(true);
+                ticketButton.setAlpha(1f);
+                ticketButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.sunglow));
+
+
             }
             return false;
         });
