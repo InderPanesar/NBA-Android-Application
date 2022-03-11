@@ -1,4 +1,4 @@
-package com.aston.basketballapp.pages.home.players.detail;
+package com.aston.basketballapp.pages.home.teams.detail;
 
 import android.content.Context;
 import android.graphics.Color;
