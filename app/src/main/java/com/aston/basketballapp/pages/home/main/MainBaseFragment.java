@@ -175,6 +175,7 @@ public class MainBaseFragment extends Fragment {
     //Set Table for the Schedule.
     public void setTable ( ArrayList<TeamStandingModel> teams) {
 
+
         if(teams.size() == 0) {
             scheduleLayout.setVisibility(View.INVISIBLE);
         }
@@ -212,8 +213,8 @@ public class MainBaseFragment extends Fragment {
                         .load(mainFragmentViewModel.getTeamLogo(team.getTeam().getId() + ""))
                         .into(view);
                 view.setLayoutParams(new TableRow.LayoutParams(
-                        111,
-                        111
+                        returnImageSize(),
+                        returnImageSize()
                 ));
                 tbrow.addView(view);
 
@@ -241,6 +242,30 @@ public class MainBaseFragment extends Fragment {
 
 
         }
+
+    }
+
+    public int returnImageSize() {
+        float size = 0;
+
+        System.out.println(getResources().getConfiguration().fontScale);
+        float value = getResources().getConfiguration().fontScale;
+        float decimalValue = (getResources().getConfiguration().fontScale % 1) * 10;
+        int baseValue = (int) (getResources().getConfiguration().fontScale);
+
+        size += 111;
+        if(baseValue >= 1) {
+            size += decimalValue * 4.5;
+        } else {
+            size -= decimalValue * 0.9;
+
+        }
+
+        System.out.println("VALUE: " + size);
+
+
+        return (int) size;
+
 
     }
 
