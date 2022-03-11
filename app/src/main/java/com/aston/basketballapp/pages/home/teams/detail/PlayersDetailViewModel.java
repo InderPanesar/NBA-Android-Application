@@ -1,9 +1,8 @@
-package com.aston.basketballapp.pages.home.players.detail;
+package com.aston.basketballapp.pages.home.teams.detail;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.StrictMode;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -12,7 +11,6 @@ import com.aston.basketballapp.engine.model.player.stats.PlayerStatistics;
 import com.aston.basketballapp.engine.model.player.stats.PlayerStatsModelApi;
 import com.aston.basketballapp.engine.model.schedule.gameStatistics.GameStatisticModelAPI;
 import com.aston.basketballapp.engine.model.schedule.gameStatistics.StatisticsModel;
-import com.aston.basketballapp.engine.model.schedule.schedule.ScheduleModelApi;
 import com.aston.basketballapp.engine.repository.players.PlayersRepository;
 import com.aston.basketballapp.engine.repository.schedule.ScheduleRepository;
 import com.aston.basketballapp.utils.AppConsts;
@@ -24,9 +22,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/playersDetailFragment"
-        android:name="com.aston.basketballapp.pages.home.players.detail.PlayersDetailFragment"
+        android:name="com.aston.basketballapp.pages.home.teams.detail.PlayersDetailFragment"
         android:label="fragment_players_detail"
         tools:layout="@layout/fragment_players_detail" />
     <fragment
