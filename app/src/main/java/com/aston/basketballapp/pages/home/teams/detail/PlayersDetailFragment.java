@@ -165,6 +165,8 @@ public class PlayersDetailFragment extends Fragment {
             playerStatsTable.removeView(row);
         }
 
+        playerStatsTable.removeAllViews();
+
         if(stats == null) {
             TextView header = v.findViewById(R.id.recent_game_header);
             header.setVisibility(View.INVISIBLE);

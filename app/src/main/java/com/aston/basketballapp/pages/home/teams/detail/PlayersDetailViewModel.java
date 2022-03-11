@@ -75,6 +75,8 @@ public class PlayersDetailViewModel extends ViewModel {
         }
 
 
+        data.postValueLoading();
+
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModelApi>() {
             @Override
             public void onResponse(@NonNull Call<PlayerStatsModelApi> call, @NonNull Response<PlayerStatsModelApi> response) {
@@ -84,6 +86,7 @@ public class PlayersDetailViewModel extends ViewModel {
                     PlayerStatsModelApi model = response.body();
                     ArrayList<PlayerStatistics> _statistics = model.getStatistics();
                     Collections.reverse(_statistics);
+                    statistics = new ArrayList<>();
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
                         final String[] againstTeam = {""};
