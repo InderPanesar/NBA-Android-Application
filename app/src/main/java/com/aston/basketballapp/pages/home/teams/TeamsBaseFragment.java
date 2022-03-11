@@ -1,5 +1,6 @@
 package com.aston.basketballapp.pages.home.teams;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
@@ -98,7 +99,9 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
 
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
+            easternConferenceButton.setTextColor(Color.WHITE);
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
+            westernConferenceButton.setTextColor(Color.BLACK);
 
             easternConferenceButton.setTypeface(fontSelected);
             westernConferenceButton.setTypeface(fontUnSelected);
@@ -112,7 +115,9 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
             teamsBaseViewModel.getTeams().observe(getViewLifecycleOwner(), individualTeamObserver);
             AppConsts.verifyContext(getContext());
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
+            easternConferenceButton.setTextColor(Color.BLACK);
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
+            westernConferenceButton.setTextColor(Color.WHITE);
 
             easternConferenceButton.setTypeface(fontUnSelected);
             westernConferenceButton.setTypeface(fontSelected);
@@ -124,12 +129,15 @@ public class TeamsBaseFragment extends Fragment implements TeamsCardClicked {
         if(teamsBaseViewModel.currentConference.equals("east")) {
             AppConsts.verifyContext(getContext());
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_selected));
+            easternConferenceButton.setTextColor(Color.WHITE);
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_unselected));
-        }
-        else {
+            westernConferenceButton.setTextColor(Color.BLACK);
+        } else {
             AppConsts.verifyContext(getContext());
             easternConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.east_blue_unselected));
+            easternConferenceButton.setTextColor(Color.BLACK);
             westernConferenceButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
+            westernConferenceButton.setTextColor(Color.WHITE);
         }
 
         return v;
