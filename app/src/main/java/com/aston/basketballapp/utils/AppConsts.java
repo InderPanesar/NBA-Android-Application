@@ -14,7 +14,6 @@ public class AppConsts {
     public static String RECENT_GAMES_TWO = "recentGamesPlayerProfileTwo";
     public static String RECENT_GAMES_THREE = "recentGamesPlayerProfileThree";
     public static String RECENT_GAMES_FOUR = "recentGamesPlayerProfileFour";
-    //ToDo: Add this to MainActivity.java
     public static String VALUES_SET = "valuesSet";
 
 

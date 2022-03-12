@@ -8,7 +8,6 @@
     android:paddingRight="6dp"
     android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/top_teams_bar"
         android:paddingLeft="20dp"

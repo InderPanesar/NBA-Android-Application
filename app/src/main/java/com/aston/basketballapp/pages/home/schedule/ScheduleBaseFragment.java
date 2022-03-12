@@ -67,7 +67,6 @@ public class ScheduleBaseFragment extends Fragment implements DatePickerDialog.O
         scheduleButton.setOnClickListener(v1 -> datePickerDialog.show());
 
         scheduleRecyclerView = v.findViewById(R.id.schedule_recycler_view);
-        //TODO: Implement Loading State
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getActivity() );
         linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
         scheduleRecyclerView.setLayoutManager(linearLayoutManager);
