@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.telecom.Call;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,7 +27,11 @@ import com.aston.basketballapp.pages.home.settings.favouriteTeam.TeamsRepo;
 import com.aston.basketballapp.utils.AppConsts;
 import com.aston.basketballapp.utils.livedata.LiveDataStateData;
 import com.aston.basketballapp.utils.livedata.UniversalErrorStateHandler;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 
 public class PlayersDetailFragment extends Fragment {
@@ -103,7 +108,6 @@ public class PlayersDetailFragment extends Fragment {
         textView = v.findViewById(R.id.player_team_position);
         textView.setText(playerAttributes[9]);
         textView = v.findViewById(R.id.player_team_status_title);
-        System.out.println(playerAttributes[10]);
         if(playerAttributes[10].equals("true")) {
             textView.setText(R.string.PlayerIsActive);
         }
@@ -112,23 +116,6 @@ public class PlayersDetailFragment extends Fragment {
             AppConsts.verifyContext(getContext());
             textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.west_red_selected));
         }
-
-        ImageView view = v.findViewById(R.id.player_team_image_view);
-        TeamsRepo repo = new TeamsRepo();
-        if(playerAttributes[7] == null) {
-            Picasso.get().load(viewModel.nbaLogoURL).fit().into(view);
-        }
-        else {
-            int teamID = Integer.parseInt(playerAttributes[7]);
-            for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
-                if(teamID == team.getId()) {
-                    Picasso.get().load(team.getLogoURL()).fit().centerCrop().fit().into(view);
-                }
-            }
-        }
-
-
-
 
         Observer<LiveDataStateData<ArrayList<SinglePlayerStatsAdapter>>> recentGamesAdapterObserver = stats -> {
             switch (stats.getStatus()) {
@@ -145,9 +132,50 @@ public class PlayersDetailFragment extends Fragment {
             }
         };
 
-        AppConsts.verifyActivity(getActivity());
-        AppConsts.verifyArguments(getArguments());
-        viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
+        ImageView view = v.findViewById(R.id.player_team_image_view);
+        TeamsRepo repo = new TeamsRepo();
+        if(playerAttributes[7] == null) {
+            Picasso.get().load(viewModel.nbaLogoURL).fit().into(view, new Callback() {
+                @Override
+                public void onSuccess() {
+                    AppConsts.verifyActivity(getActivity());
+                    AppConsts.verifyArguments(getArguments());
+                    viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
+        }
+        else {
+            int teamID = Integer.parseInt(playerAttributes[7]);
+            for(TeamsRepo.LocalTeam team : repo.getTeamList()) {
+                if(teamID == team.getId()) {
+                    Picasso.get().load(team.getLogoURL()).fit().centerCrop().fit().into(view, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            AppConsts.verifyActivity(getActivity());
+                            AppConsts.verifyArguments(getArguments());
+                            viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
+                }
+            }
+        }
+
+
+
+
+
+
+
 
         UniversalErrorStateHandler.getRetryButton(v).setOnClickListener(view1 ->
                 viewModel.getPlayerGameStats(getArguments().getString("playerId"), getActivity().getPreferences(Context.MODE_PRIVATE)).observe(getViewLifecycleOwner(), recentGamesAdapterObserver)

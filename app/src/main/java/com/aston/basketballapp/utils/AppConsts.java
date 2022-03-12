@@ -1,6 +1,7 @@
 package com.aston.basketballapp.utils;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -49,6 +50,7 @@ public class AppConsts {
             throw new IllegalStateException("Arguments doesn't exist.");
         }
     }
+
 
 
 
