@@ -193,47 +193,23 @@ public class MainBaseFragment extends Fragment {
             }
             scheduleLayout.addView(topRow);
             for (TeamStandingModel team : teams) {
-                TableRow tbrow = new TableRow(getContext());
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                tbrow.setLayoutParams(params);
+                TableRow tbrow = (TableRow) getLayoutInflater().inflate(R.layout.standings_table_image_view, null);
 
-                TextView tv = new TextView(getContext());
-                tv.setText(team.getConference().getRank());
-                tv.setPadding(10, 30, 10, 30);
 
-                tv.setTextColor(Color.BLACK);
-                tv.setGravity(Gravity.CENTER);
-                AppConsts.verifyContext(getContext());
-                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
-                tbrow.addView(tv);
-
-                ImageView view = new ImageView(getContext());
-                view.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
+                ImageView iv = tbrow.findViewById(R.id.standings_table_icon);
                 Picasso.get()
                         .load(mainFragmentViewModel.getTeamLogo(team.getTeam().getId() + ""))
-                        .into(view);
-                view.setLayoutParams(new TableRow.LayoutParams(
-                        returnImageSize(),
-                        returnImageSize()
-                ));
-                tbrow.addView(view);
+                        .into(iv);
 
-                tv = new TextView(getContext());
+                TextView tv = tbrow.findViewById(R.id.standings_seed_number);
+                tv.setText(team.getConference().getRank());
+
+                tv = tbrow.findViewById(R.id.standings_team_name);
                 tv.setText(mainFragmentViewModel.getTeamName(team.getTeam().getId() + ""));
-                tv.setTextColor(Color.BLACK);
-                tv.setGravity(Gravity.CENTER);
-                tv.setPadding(10, 30, 10, 30);
-                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
-                tbrow.addView(tv);
 
-                tv = new TextView(getContext());
+                tv = tbrow.findViewById(R.id.standings_team_record);
                 tv.setText(mainFragmentViewModel.getRecordStringForTeam(team));
-                tv.setTextColor(Color.BLACK);
-                tv.setGravity(Gravity.CENTER);
-                tv.setPadding(10, 30, 10, 30);
-                tv.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border));
-                tbrow.addView(tv);
-
+                
 
                 scheduleLayout.addView(tbrow);
 
@@ -245,25 +221,7 @@ public class MainBaseFragment extends Fragment {
 
     }
 
-    public int returnImageSize() {
-        float size = 0;
 
-        float decimalValue = (getResources().getConfiguration().fontScale % 1) * 10;
-        int baseValue = (int) (getResources().getConfiguration().fontScale);
-
-        size += 111;
-        if(baseValue >= 1) {
-            size += decimalValue * 4.5;
-        } else {
-            size -= decimalValue * 0.9;
-
-        }
-
-
-        return (int) size;
-
-
-    }
 
 
 }

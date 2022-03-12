@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    android:id="@+id/standings_table_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_margin="0dp">
+    <TextView
+        android:id="@+id/standings_seed_number"
+        android:background="@drawable/table_border"
+        android:textAlignment="center"
+        android:padding = "10dp"
+        android:layout_height="wrap_content">
+    </TextView>
+    <ImageView
+        android:background="@drawable/table_border"
+        android:id="@+id/standings_table_icon"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/standings_table_icon">
+    </ImageView>
+    <TextView
+        android:id="@+id/standings_team_name"
+        android:padding = "10dp"
+        android:textAlignment="center"
+        android:background="@drawable/table_border"
+        android:layout_height="wrap_content">
+    </TextView>
+    <TextView
+        android:id="@+id/standings_team_record"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:background="@drawable/table_border"
+        android:layout_height="wrap_content">
+    </TextView>
+
+</TableRow>

@@ -93,10 +93,14 @@ public class PlayersDetailViewModel extends ViewModel {
                     statistics = new ArrayList<>();
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
-                        int finalI = i;
+                        String id = "";
+                        String code = "";
+                        if(i < _statistics.size()-1) {
 
-                        String id = _statistics.get(finalI).getGameId();
-                        String code = _statistics.get(finalI).getTeamCode();
+                            id = _statistics.get(i).getGameId();
+                            code = _statistics.get(i).getTeamCode();
+                        }
+
 
                         if(integers.size() == 1 && _statistics.size() > 0) {
                             _values.add(id+","+code);
@@ -122,32 +126,46 @@ public class PlayersDetailViewModel extends ViewModel {
                         }
                         statistics.add(new SinglePlayerStatsAdapter(categories, _values));
 
+
+
                     }
 
-                    for (SinglePlayerStatsAdapter statistic : statistics) {
-                        String[] values = statistic.attributes.get(0).split(",");
-                        String id = values[0];
-                        String code = values[1];
-                        scheduleRepository.getGameStatisticDetails(id).enqueue(new Callback<GameStatisticModelAPI>() {
-                            @Override
-                            public void onResponse(Call<GameStatisticModelAPI> call, Response<GameStatisticModelAPI> response) {
-                                List<StatisticsModel> models = response.body().getStatistics();
-                                if (!code.equals(models.get(0).getTeamCode())) {
-                                    statistic.attributes.set(0, "vs " + models.get(0).getTeamCode());
-                                } else {
-                                    statistic.attributes.set(0, "vs " + models.get(1).getTeamCode());
-                                }
-                                teamsAdded[0]++;
-                                if (teamsAdded[0] == (statistics.size())) {
-                                    data.postValueSuccess(statistics);
-                                }
-                            }
+                    if(statistics.isEmpty()) {
+                        data.postValueSuccess(statistics);
+                    }
+                    System.out.println(statistics.size());
 
-                            @Override
-                            public void onFailure(Call<GameStatisticModelAPI> call, Throwable t) {
-                                data.postValueError(null);
-                            }
-                        });
+                    for (SinglePlayerStatsAdapter statistic : statistics) {
+                        if(statistic.attributes.size() != 0) {
+                            String[] values = statistic.attributes.get(0).split(",");
+                            String id = values[0];
+                            String code = values[1];
+                            scheduleRepository.getGameStatisticDetails(id).enqueue(new Callback<GameStatisticModelAPI>() {
+                                @Override
+                                public void onResponse(Call<GameStatisticModelAPI> call, Response<GameStatisticModelAPI> response) {
+                                    List<StatisticsModel> models = response.body().getStatistics();
+                                    if (!code.equals(models.get(0).getTeamCode())) {
+                                        statistic.attributes.set(0, "vs " + models.get(0).getTeamCode());
+                                    } else {
+                                        statistic.attributes.set(0, "vs " + models.get(1).getTeamCode());
+                                    }
+                                    teamsAdded[0]++;
+                                    if (teamsAdded[0] == (statistics.size())) {
+                                        data.postValueSuccess(statistics);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<GameStatisticModelAPI> call, Throwable t) {
+                                    data.postValueError(null);
+                                }
+                            });
+                        }
+                        else {
+                            data.postValueSuccess(statistics);
+                            return;
+                        }
+
                     }
 
                 }
