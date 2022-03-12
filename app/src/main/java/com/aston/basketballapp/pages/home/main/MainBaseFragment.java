@@ -248,8 +248,6 @@ public class MainBaseFragment extends Fragment {
     public int returnImageSize() {
         float size = 0;
 
-        System.out.println(getResources().getConfiguration().fontScale);
-        float value = getResources().getConfiguration().fontScale;
         float decimalValue = (getResources().getConfiguration().fontScale % 1) * 10;
         int baseValue = (int) (getResources().getConfiguration().fontScale);
 
@@ -260,8 +258,6 @@ public class MainBaseFragment extends Fragment {
             size -= decimalValue * 0.9;
 
         }
-
-        System.out.println("VALUE: " + size);
 
 
         return (int) size;

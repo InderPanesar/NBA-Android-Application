@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +67,8 @@ public class PlayersDetailViewModel extends ViewModel {
             }
         }
 
+        final int[] teamsAdded = {0};
+
 
         StateMutableLiveData<ArrayList<SinglePlayerStatsAdapter>> data = new StateMutableLiveData<>();
 
@@ -76,6 +79,7 @@ public class PlayersDetailViewModel extends ViewModel {
 
 
         data.postValueLoading();
+
 
         repository.getPlayerStats(playerId).enqueue(new Callback<PlayerStatsModelApi>() {
             @Override
@@ -89,74 +93,63 @@ public class PlayersDetailViewModel extends ViewModel {
                     statistics = new ArrayList<>();
                     for(int i = 0; i < 5; i++) {
                         List<String> _values = new ArrayList<>();
-                        final String[] againstTeam = {""};
                         int finalI = i;
 
-                        //Make the call to get Opponent Team from different API
-                        if(i < _statistics.size()-1) {
-                            Handler handler = new Handler(Looper.getMainLooper());
-
-                            Thread one = new Thread(() -> {
-
-                                Response<GameStatisticModelAPI> teamIDResponse = null;
-                                String id = _statistics.get(finalI).getGameId();
-                                String code = _statistics.get(finalI).getTeamCode();
-
-                                try {
-                                    teamIDResponse = scheduleRepository.getGameStatisticDetails(id).execute();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                if(teamIDResponse != null) {
-                                    List<StatisticsModel> models = teamIDResponse.body().getStatistics();
-                                    if(!code.equals(models.get(0).getTeamCode())) {
-                                        againstTeam[0] = "vs " + models.get(0).getTeamCode();
-                                    }
-                                    else {
-                                        againstTeam[0] = "vs " + models.get(1).getTeamCode();
-                                    }
-                                }
-                                handler.post(() -> {
-                                    //UI Thread work here
-                                });
-                            });
-
-                            one.start();
-                            try {
-                                one.join();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
+                        String id = _statistics.get(finalI).getGameId();
+                        String code = _statistics.get(finalI).getTeamCode();
 
                         if(integers.size() == 1 && _statistics.size() > 0) {
-                            _values.add(againstTeam[0]);
+                            _values.add(id+","+code);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                         }
                         else if(integers.size() == 2 && _statistics.size() > 1) {
-                            _values.add(againstTeam[0]);
+                            _values.add(id+","+code);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                         }
                         else if(integers.size() == 3 && _statistics.size() > 2) {
-                            _values.add(againstTeam[0]);
+                            _values.add(id+","+code);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(2), _statistics.get(i)));
                         }
                         else if(integers.size() == 4 && _statistics.size() > 3) {
-                            _values.add(againstTeam[0]);
+                            _values.add(id+","+code);
                             _values.add(returnStatistic(integers.get(0), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(1), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(2), _statistics.get(i)));
                             _values.add(returnStatistic(integers.get(3), _statistics.get(i)));
                         }
-
                         statistics.add(new SinglePlayerStatsAdapter(categories, _values));
+
                     }
-                    data.postValueSuccess(statistics);
+
+                    for (SinglePlayerStatsAdapter statistic : statistics) {
+                        String[] values = statistic.attributes.get(0).split(",");
+                        String id = values[0];
+                        String code = values[1];
+                        scheduleRepository.getGameStatisticDetails(id).enqueue(new Callback<GameStatisticModelAPI>() {
+                            @Override
+                            public void onResponse(Call<GameStatisticModelAPI> call, Response<GameStatisticModelAPI> response) {
+                                List<StatisticsModel> models = response.body().getStatistics();
+                                if (!code.equals(models.get(0).getTeamCode())) {
+                                    statistic.attributes.set(0, "vs " + models.get(0).getTeamCode());
+                                } else {
+                                    statistic.attributes.set(0, "vs " + models.get(1).getTeamCode());
+                                }
+                                teamsAdded[0]++;
+                                if (teamsAdded[0] == (statistics.size())) {
+                                    data.postValueSuccess(statistics);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<GameStatisticModelAPI> call, Throwable t) {
+                                data.postValueError(null);
+                            }
+                        });
+                    }
+
                 }
 
             }
@@ -169,6 +162,8 @@ public class PlayersDetailViewModel extends ViewModel {
         });
         return data;
     }
+
+
 
     //Get Each of the values in shared preferences
     public List<Integer> getSharedPreferences(SharedPreferences pref) {
