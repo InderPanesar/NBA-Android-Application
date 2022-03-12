@@ -7,7 +7,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
@@ -29,13 +28,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class GoogleMapsPageTest {
+public class StadiumsPageTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void googleMapsPageTest() {
+    public void stadiumsPageTest() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         childAtPosition(
@@ -54,7 +53,7 @@ public class GoogleMapsPageTest {
                                         childAtPosition(
                                                 withId(R.id.nav_view),
                                                 0)),
-                                5),
+                                4),
                         isDisplayed()));
         navigationMenuItemView.perform(click());
 
@@ -79,12 +78,12 @@ public class GoogleMapsPageTest {
         imageView2.perform(click());
 
         ViewInteraction imageView3 = onView(
-                allOf(withContentDescription("Zoom out"),
+                allOf(withContentDescription("Zoom in"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.RelativeLayout")),
                                         2),
-                                1),
+                                0),
                         isDisplayed()));
         imageView3.perform(click());
 
@@ -97,96 +96,6 @@ public class GoogleMapsPageTest {
                                 1),
                         isDisplayed()));
         imageView4.perform(click());
-
-        ViewInteraction imageView5 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView5.perform(click());
-
-        ViewInteraction imageView6 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView6.perform(click());
-
-        ViewInteraction imageView7 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView7.perform(click());
-
-        ViewInteraction imageView8 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView8.perform(click());
-
-        ViewInteraction imageView9 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView9.perform(click());
-
-        ViewInteraction imageView10 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView10.perform(click());
-
-        ViewInteraction imageView11 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView11.perform(click());
-
-        ViewInteraction imageView12 = onView(
-                allOf(withContentDescription("Zoom out"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.RelativeLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        imageView12.perform(click());
-
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.stadium_ticket_button), withText("Tickets"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        1),
-                                1),
-                        isDisplayed()));
-        materialButton.perform(click());
     }
 
     private static Matcher<View> childAtPosition(

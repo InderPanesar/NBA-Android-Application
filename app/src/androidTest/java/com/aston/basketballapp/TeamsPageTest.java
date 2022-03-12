@@ -3,7 +3,6 @@ package com.aston.basketballapp;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -30,13 +29,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class TeamsCategoryFlowTest {
+public class TeamsPageTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void teamsCategoryFlowTest() {
+    public void teamsPageTest() {
         ViewInteraction appCompatImageButton = onView(
                 allOf(withContentDescription("Open navigation drawer"),
                         childAtPosition(
@@ -81,23 +80,27 @@ public class TeamsCategoryFlowTest {
                         isDisplayed()));
         materialButton2.perform(click());
 
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.teams_recycler_view),
+        ViewInteraction materialButton3 = onView(
+                allOf(withId(R.id.west_conference_button), withText("West"),
                         childAtPosition(
-                                withClassName(is("android.widget.FrameLayout")),
-                                0)));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
-
-        ViewInteraction appCompatImageButton2 = onView(
-                allOf(withContentDescription("Navigate up"),
-                        childAtPosition(
-                                allOf(withId(R.id.toolbar),
+                                allOf(withId(R.id.top_teams_bar),
                                         childAtPosition(
-                                                withId(R.id.main_app_bar_layout),
+                                                withClassName(is("android.widget.LinearLayout")),
                                                 0)),
                                 1),
                         isDisplayed()));
-        appCompatImageButton2.perform(click());
+        materialButton3.perform(click());
+
+        ViewInteraction materialButton4 = onView(
+                allOf(withId(R.id.east_conference_button), withText("East"),
+                        childAtPosition(
+                                allOf(withId(R.id.top_teams_bar),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        materialButton4.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
