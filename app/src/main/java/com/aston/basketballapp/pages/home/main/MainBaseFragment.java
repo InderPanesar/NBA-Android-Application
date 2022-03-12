@@ -2,6 +2,7 @@ package com.aston.basketballapp.pages.home.main;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -181,11 +182,13 @@ public class MainBaseFragment extends Fragment {
         }
         else {
             TableRow topRow = new TableRow(getContext());
+            Typeface headerFontFace = getResources().getFont(R.font.asap_bold);
             for( String header : mainFragmentViewModel.headers) {
                 TextView tv0 = new TextView(getContext());
                 tv0.setText(header);
                 tv0.setPadding(10, 30, 10, 30);
                 tv0.setTextColor(Color.BLACK);
+                tv0.setTypeface(headerFontFace);
                 tv0.setGravity(Gravity.CENTER);
                 AppConsts.verifyContext(getContext());
                 tv0.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.table_border_header));
@@ -209,7 +212,7 @@ public class MainBaseFragment extends Fragment {
 
                 tv = tbrow.findViewById(R.id.standings_team_record);
                 tv.setText(mainFragmentViewModel.getRecordStringForTeam(team));
-                
+
 
                 scheduleLayout.addView(tbrow);
 
